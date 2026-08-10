@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AustinGolf.com — Project Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green-deep:#1A3A1A; --green-mid:#2D6A2D; --green-light:#EAF2EA;
+  --gold:#C8922A; --gold-light:#F0C060;
+  --cream:#F7F3EB; --cream-dark:#EDE8DC;
+  --text:#1E1A14; --text-muted:#7A6B58; --white:#FFFFFF;
+  --font-display:'Playfair Display',Georgia,serif;
+  --font-body:'DM Sans',system-ui,sans-serif;
+  --radius:10px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font-body);background:#f0ede6;color:var(--text);min-height:100vh;}
+.dash-header{background:var(--green-deep);padding:32px 32px 28px;position:relative;overflow:hidden;}
+.dash-header::before{content:'⛳';position:absolute;font-size:260px;opacity:.04;right:-30px;top:-40px;pointer-events:none;}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;max-width:1200px;margin:0 auto;flex-wrap:wrap;}
+.header-brand{font-family:var(--font-display);font-size:1.7rem;font-weight:900;color:var(--white);}
+.header-brand span{color:var(--gold-light);}
+.header-sub{font-size:.82rem;color:rgba(255,255,255,.55);margin-top:3px;}
+.header-meta{text-align:right;font-size:.8rem;color:rgba(255,255,255,.5);}
+.header-meta strong{color:var(--gold-light);font-size:.9rem;display:block;}
+.progress-strip{max-width:1200px;margin:22px auto 0;display:grid;grid-template-columns:repeat(4,1fr);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;overflow:hidden;}
+.prog-cell{padding:14px 18px;border-right:1px solid rgba(255,255,255,.1);text-align:center;}
+.prog-cell:last-child{border-right:none;}
+.prog-num{font-family:var(--font-display);font-size:2rem;font-weight:900;color:var(--gold-light);line-height:1;}
+.prog-label{font-size:.7rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em;margin-top:3px;display:block;}
+.master-progress{max-width:1200px;margin:16px auto 0;display:flex;align-items:center;gap:14px;}
+.progress-label-text{font-size:.72rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;}
+.progress-track{flex:1;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--gold-light);border-radius:3px;}
+.progress-pct{font-size:.72rem;color:var(--gold-light);font-weight:700;white-space:nowrap;}
+.main{max-width:1200px;margin:28px auto;padding:0 24px;display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start;}
+.left-col{display:flex;flex-direction:column;gap:20px;}
+.sidebar{display:flex;flex-direction:column;gap:16px;}
+.section{background:var(--white);border-radius:var(--radius);overflow:hidden;border:1px solid var(--cream-dark);}
+.section-header{background:var(--green-deep);padding:12px 20px;display:flex;align-items:center;gap:10px;}
+.section-icon{font-size:1rem;}
+.section-title{font-family:var(--font-display);font-size:.95rem;font-weight:700;color:var(--white);}
+.section-count{margin-left:auto;font-size:.72rem;color:rgba(255,255,255,.5);}
+.content-item{display:flex;align-items:center;gap:14px;padding:12px 20px;border-bottom:1px solid var(--cream-dark);}
+.content-item:last-child{border-bottom:none;}
+.item-status{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;flex-shrink:0;}
+.status-done{background:var(--green-light);color:var(--green-mid);}
+.status-planned{background:var(--cream-dark);color:var(--text-muted);}
+.status-next{background:#FEF3C7;color:#92400E;}
+.item-body{flex:1;min-width:0;}
+.item-title{font-size:.84rem;font-weight:600;color:var(--text);}
+.done-title{color:var(--green-mid);}
+.item-meta{font-size:.72rem;color:var(--text-muted);margin-top:2px;}
+.item-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.pill{font-size:.65rem;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap;}
+.pill-done{background:var(--green-light);color:var(--green-mid);}
+.pill-planned{background:var(--cream-dark);color:var(--text-muted);}
+.pill-next{background:#FEF3C7;color:#92400E;}
+.item-btn{font-size:.72rem;font-weight:600;padding:4px 12px;border-radius:6px;cursor:pointer;text-decoration:none;border:1.5px solid;white-space:nowrap;}
+.btn-open{color:var(--green-mid);border-color:rgba(45,106,45,.3);background:var(--green-light);}
+.btn-ghost{color:var(--text-muted);border-color:var(--cream-dark);background:var(--cream);cursor:default;}
+.sidebar-card{background:var(--white);border-radius:var(--radius);overflow:hidden;border:1px solid var(--cream-dark);}
+.sidebar-card-header{background:var(--green-deep);padding:10px 16px;font-size:.82rem;font-weight:700;color:var(--white);}
+.sidebar-card-body{padding:14px 16px;}
+.next-up-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--cream-dark);}
+.next-up-item:last-child{border-bottom:none;}
+.next-num{width:20px;height:20px;border-radius:50%;background:var(--green-deep);color:var(--gold-light);font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.next-text{font-size:.8rem;font-weight:600;color:var(--text);}
+.next-sub{font-size:.7rem;color:var(--text-muted);margin-top:1px;}
+.decision-item{padding:8px 0;border-bottom:1px solid var(--cream-dark);}
+.decision-item:last-child{border-bottom:none;}
+.d-q{font-size:.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;}
+.d-a{font-size:.8rem;color:var(--text);}
+.strategy-item{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--cream-dark);}
+.strategy-item:last-child{border-bottom:none;}
+.s-icon{font-size:.9rem;flex-shrink:0;}
+.s-text{font-size:.79rem;color:var(--text);line-height:1.5;}
+.notes-box{background:var(--white);border-radius:var(--radius);overflow:hidden;border:1px solid var(--cream-dark);}
+.notes-header{background:var(--green-deep);padding:12px 20px;display:flex;align-items:center;gap:10px;}
+.notes-title{font-family:var(--font-display);font-size:.95rem;font-weight:700;color:var(--white);}
+.notes-body{padding:4px 0;}
+.note-entry{padding:12px 20px;border-bottom:1px solid var(--cream-dark);}
+.note-entry:last-child{border-bottom:none;}
+.note-date{font-size:.7rem;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.note-text{font-size:.8rem;color:var(--text);line-height:1.55;}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:12px 16px;background:var(--cream);border-radius:8px;margin-bottom:20px;font-size:.75rem;align-items:center;color:var(--text-muted);}
+.legend strong{color:var(--text);margin-right:6px;}
+.legend-item{display:flex;align-items:center;gap:5px;}
+.full-width{grid-column:1/-1;}
+.dash-footer{background:var(--green-deep);color:rgba(255,255,255,.45);text-align:center;padding:18px;font-size:.76rem;margin-top:10px;}
+.dash-footer strong{color:var(--gold-light);}
+@media(max-width:900px){.main{grid-template-columns:1fr;}.sidebar{grid-column:1;}.progress-strip{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<div class="dash-header">
+  <div class="header-top">
+    <div>
+      <div class="header-brand">Austin<span>Golf</span>.com</div>
+      <div class="header-sub">Project Dashboard · Content Tracker · Working Files Hub</div>
+    </div>
+    <div class="header-meta">
+      <strong>Last Updated: August 2026</strong>
+      Built with Jake Mercer / Austin Golf Insider brand voice
+    </div>
+  </div>
+  <div class="progress-strip">
+    <div class="prog-cell"><span class="prog-num">5</span><span class="prog-label">Files Created</span></div>
+    <div class="prog-cell"><span class="prog-num">1/7</span><span class="prog-label">Articles Done</span></div>
+    <div class="prog-cell"><span class="prog-num">44</span><span class="prog-label">Courses in Directory</span></div>
+    <div class="prog-cell"><span class="prog-num">~25%</span><span class="prog-label">Phase 1 Complete</span></div>
+  </div>
+  <div class="master-progress">
+    <span class="progress-label-text">Overall Progress</span>
+    <div class="progress-track"><div class="progress-fill" style="width:25%"></div></div>
+    <span class="progress-pct">25%</span>
+  </div>
+</div>
+<div class="main">
+  <div class="left-col">
+    <div class="legend">
+      <strong>Status Key:</strong>
+      <div class="legend-item"><span class="pill pill-done">✓ Done</span> — Complete</div>
+      <div class="legend-item"><span class="pill pill-next">▶ Up Next</span> — Next to build</div>
+      <div class="legend-item"><span class="pill pill-planned">○ Planned</span> — Queued</div>
+    </div>
+    <div class="section">
+      <div class="section-header"><div class="section-icon">📁</div><div class="section-title">Foundation Documents</div><div class="section-count">3 of 3 complete</div></div>
+      <div class="content-item"><div class="item-status status-done">✓</div><div class="item-body"><div class="item-title done-title">AustinGolf.com Strategy Overview</div><div class="item-meta">Revenue model · affiliate stack · tech stack · startup costs · 12-month roadmap</div></div><div class="item-actions"><span class="pill pill-done">✓ Done</span></div></div>
+      <div class="content-item"><div class="item-status status-done">✓</div><div class="item-body"><div class="item-title done-title">Tactical Playbook (7-Phase)</div><div class="item-meta">Foundation → Affiliate → Content → Newsletter → Sponsors → Growth · Master checklist</div></div><div class="item-actions"><span class="pill pill-done">✓ Done</span></div></div>
+      <div class="content-item"><div class="item-status status-done">✓</div><div class="item-body"><div class="item-title done-title">Course Directory (Word Doc)</div><div class="item-meta">44 verified courses · all addresses, fees, designers, ratings, slopes · research-backed</div></div><div class="item-actions"><span class="pill pill-done">✓ Done</span></div></div>
+    </div>
+    <div class="section">
+      <div class="section-header"><div class="section-icon">🌐</div><div class="section-title">Core Web Pages</div><div class="section-count">2 of 6 complete</div></div>
+      <div class="content-item"><div class="item-status status-done">✓</div><div class="item-body"><div class="item-title done-title">Interactive Course Directory</div><div class="item-meta">44 courses · filters · search · Trip Planner · GolfNow affiliate links</div></div><div class="item-actions"><span class="pill pill-done">✓ Done</span><a class="item-btn btn-open" href="austin-golf-directory.html" target="_blank">Open</a></div></div>
+      <div class="content-item"><div class="item-status status-done">✓</div><div class="item-body"><div class="item-title done-title">Homepage (austingolf.com)</div><div class="item-meta">Hub page · links to directory, articles, newsletter CTA · brand intro</div></div><div class="item-actions"><span class="pill pill-done">✓ Done</span><a class="item-btn btn-open" href="index.html" target="_blank">Open</a></div></div>
+      <div class="content-item"><div class="item-status status-planned">○</div><div class="item-body"><div class="item-title">Austin Golf Map (Interactive)</div><div class="item-meta">All 44 courses plotted by region · cluster view · trip planning tool</div></div><div class="item-actions"><span class="pill pill-planned">○ Planned</span><span class="item-btn btn-ghost">Not Built</span></div></div>
+      <div class="content-item"><div class="item-status status-planned">○</div><div class="item-body"><div class="item-title">Green Fee Tracker</div><div class="item-meta">Current estimated rates for every public course, sortable by price or area</div></div><div class="item-actions"><span class="pill pill-planned">○ Planned</span><span class="item-btn btn-ghost">Not Built</span></div></div>
+    </div>
+    <div class="section">
+      <div class="section-header"><div class="section-icon">✍️</div><div class="section-title">Articles & Content</div><div class="section-count">1 of 7 complete</div></div>
+      <div class="content-item"><div class="item-status status-done">✓</div><div class="item-body"><div class="item-title done-title">Best Public Courses in Austin</div><div class="item-meta">Article #1 · Complete · Jake Mercer voice · GolfNow affiliate links throughout</div></div><div class="item-actions"><span class="pill pill-done">✓ Done</span></div></div>
+      <div class="content-item"><div class="item-status status-next">▶</div><div class="item-body"><div class="item-title">Best Courses Under $50</div><div class="item-meta">Article #2 · High search volume · budget golfer audience</div></div><div class="item-actions"><span class="pill pill-next">▶ Up Next</span></div></div>
+      <div class="content-item"><div class="item-status status-planned">○</div><div class="item-body"><div class="item-title">Best Courses for Beginners</div><div class="item-meta">Article #3 · New golfer audience · high conversion potential</div></div><div class="item-actions"><span class="pill pill-planned">○ Planned</span></div></div>
+      <div class="content-item"><div class="item-status status-planned">○</div><div class="item-body"><div class="item-title">Best Bachelor Party Courses</div><div class="item-meta">Article #4 · High search volume · group golf audience</div></div><div class="item-actions"><span class="pill pill-planned">○ Planned</span></div></div>
+      <div class="content-item"><div class="item-status status-planned">○</div><div class="item-body"><div class="item-title">Good Good Championship Guide</div><div class="item-meta">Article #5 · Barton Creek · Nov 9-15, 2026 · major traffic opportunity</div></div><div class="item-actions"><span class="pill pill-planned">○ Planned</span></div></div>
+    </div>
+    <div class="notes-box full-width">
+      <div class="notes-header"><div class="section-icon">🗒️</div><div class="notes-title">Session Notes & Decisions Log</div></div>
+      <div class="notes-body">
+        <div class="note-entry"><div class="note-date">August 2026</div><div class="note-text">Site infrastructure complete. GitHub repo live at jdoumasux-collab/austingolf. Cloudflare Pages connected. Domain austingolf.com pointed to Cloudflare nameservers (nolan + vita). DNS propagating.</div></div>
+        <div class="note-entry"><div class="note-date">August 2026</div><div class="note-text">Good Good Championship confirmed at Barton Creek Fazio Canyons Nov 9-15, 2026. Major content opportunity. Dedicated guide article added to queue as priority #5.</div></div>
+        <div class="note-entry"><div class="note-date">March 2026</div><div class="note-text">Full interactive HTML directory built — 44 courses, filters, search, Trip Planner wizard, GolfNow affiliate links throughout. Design system established (Playfair Display + DM Sans, green/gold/cream palette).</div></div>
+        <div class="note-entry"><div class="note-date">March 2026</div><div class="note-text">Course research completed and verified across Golf Digest, TripAdvisor, GolfPass, AustinTexas.gov, and direct course sites. 44 courses confirmed. Bluebonnet Hill (closed 2019) omitted. Lost Creek CC listed as Westlake CC.</div></div>
+        <div class="note-entry"><div class="note-date">March 2026</div><div class="note-text">Strategy and Tactical Playbook (7-phase) created. Revenue target: $1,200–$4,500/month by Month 12. Primary affiliates: GolfNow (Impact.com), Amazon Associates, GlobalGolf (AvantLink). Newsletter: Beehiiv, free to 2,500 subs.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">▶ Up Next</div>
+      <div class="sidebar-card-body">
+        <div class="next-up-item"><div class="next-num">1</div><div><div class="next-text">Add DNS records in Cloudflare</div><div class="next-sub">CNAME records for www + root domain</div></div></div>
+        <div class="next-up-item"><div class="next-num">2</div><div><div class="next-text">Sign up for GolfNow affiliate</div><div class="next-sub">Impact.com · slug: austingolf.com/go/golfnow</div></div></div>
+        <div class="next-up-item"><div class="next-num">3</div><div><div class="next-text">Set up Beehiiv newsletter</div><div class="next-sub">The Austin Golf Insider · free to 2,500 subs</div></div></div>
+        <div class="next-up-item"><div class="next-num">4</div><div><div class="next-text">Best Courses Under $50 article</div><div class="next-sub">Article #2 · High search volume</div></div></div>
+        <div class="next-up-item"><div class="next-num">5</div><div><div class="next-text">Good Good Championship guide</div><div class="next-sub">Nov 9-15 at Barton Creek · major traffic opportunity</div></div></div>
+      </div>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">🔑 Key Decisions Locked</div>
+      <div class="sidebar-card-body">
+        <div class="decision-item"><div class="d-q">Hosting</div><div class="d-a"><strong>Cloudflare Pages + GitHub</strong> — free, AI-native, auto-deploy</div></div>
+        <div class="decision-item"><div class="d-q">Email Platform</div><div class="d-a"><strong>Beehiiv</strong> — free to 2,500 subs. Newsletter: "The Austin Golf Insider"</div></div>
+        <div class="decision-item"><div class="d-q">Booking Affiliate</div><div class="d-a"><strong>GolfNow via Impact.com</strong> — slug: austingolf.com/go/golfnow</div></div>
+        <div class="decision-item"><div class="d-q">Total Courses</div><div class="d-a"><strong>44 verified courses</strong> across all categories</div></div>
+        <div class="decision-item"><div class="d-q">Author Persona</div><div class="d-a"><strong>Jake Mercer</strong>, Austin Golf Insider</div></div>
+      </div>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">🧭 Strategy North Stars</div>
+      <div class="sidebar-card-body">
+        <div class="strategy-item"><div class="s-icon">⭐</div><div class="s-text"><strong>Local moat first.</strong> AI can write golf content. Only you own the Austin insider angle.</div></div>
+        <div class="strategy-item"><div class="s-icon">🔗</div><div class="s-text"><strong>Every article links to directory.</strong> Directory links to GolfNow. Funnel is everything.</div></div>
+        <div class="strategy-item"><div class="s-icon">📧</div><div class="s-text"><strong>Newsletter is the asset.</strong> The list you own. Optimize every page for email capture.</div></div>
+        <div class="strategy-item"><div class="s-icon">🎯</div><div class="s-text"><strong>SEO before social.</strong> Search traffic compounds. Social traffic rents.</div></div>
+        <div class="strategy-item"><div class="s-icon">🏆</div><div class="s-text"><strong>Good Good Championship</strong> at Barton Creek Nov 9-15 is our launch catalyst. Be live before then.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="dash-footer"><strong>AustinGolf.com</strong> — Internal Project Dashboard · Not for public distribution</div>
+</body>
+</html>
