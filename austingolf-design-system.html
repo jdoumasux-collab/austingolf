@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AustinGolf.com — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Lora:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* ── PALETTE: Hill Country ── */
+  --deep-water:   #1D2221;
+  --white-sand:   #F7F2E9;
+  --limestone:    #E5E0D8;
+  --gravel:       #A0A59C;
+  --bark:         #887A68;
+  --sea-foam:     #9FBEBB;
+  --forest:       #627A50;
+  --blaze:        #DC8351;
+
+  /* ── DERIVED ── */
+  --blaze-dark:   #C4693A;
+  --blaze-bg:     #FBF0E8;
+  --forest-bg:    #EBF0E6;
+  --sea-foam-bg:  #EEF5F4;
+  --border:       var(--limestone);
+  --border-dark:  #CEC8BF;
+  --text:         var(--deep-water);
+  --text-mid:     #3D403E;
+  --text-light:   var(--bark);
+  --bg:           var(--white-sand);
+
+  /* ── TYPE ── */
+  --fd: 'Lora', Georgia, serif;
+  --fb: 'Montserrat', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--fb); background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+
+/* ── NAV ── */
+.nav {
+  background: var(--deep-water);
+  position: sticky; top: 0; z-index: 200;
+}
+.nav-inner {
+  max-width: 1320px; margin: 0 auto;
+  display: flex; align-items: center;
+  height: 60px; padding: 0 36px; gap: 32px;
+}
+.nav-logo {
+  font-family: var(--fb); font-size: .95rem; font-weight: 800;
+  color: #fff; letter-spacing: -.01em; flex-shrink: 0;
+}
+.nav-logo span { color: var(--blaze); }
+.nav-links { display: flex; gap: 2px; flex: 1; }
+.nav-link {
+  font-size: .65rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: rgba(255,255,255,.35);
+  padding: 6px 12px; border-radius: 4px; transition: color .15s;
+}
+.nav-link:hover, .nav-link.active { color: #fff; }
+.nav-search {
+  flex: 1; max-width: 260px;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 100px; padding: 7px 16px;
+  font-family: var(--fb); font-size: .75rem; color: #fff; outline: none;
+}
+.nav-search::placeholder { color: rgba(255,255,255,.28); }
+.nav-cta {
+  background: var(--blaze); color: #fff;
+  border-radius: 100px; padding: 8px 20px;
+  font-size: .65rem; font-weight: 800; letter-spacing: .1em;
+  text-transform: uppercase; flex-shrink: 0; transition: background .15s;
+}
+.nav-cta:hover { background: var(--blaze-dark); }
+
+/* ── HERO ── */
+.hero {
+  background: var(--deep-water);
+  padding: 64px 36px 56px;
+  position: relative; overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 85% 50%, rgba(98,122,80,.2) 0%, transparent 65%),
+              radial-gradient(ellipse at 15% 80%, rgba(220,131,81,.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+.hero-inner { max-width: 1320px; margin: 0 auto; position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; flex-wrap: wrap; }
+.hero-eyebrow { font-size: .6rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--blaze); margin-bottom: 14px; display: block; }
+.hero-title { font-family: var(--fd); font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 700; color: #fff; line-height: .98; letter-spacing: -.02em; margin-bottom: 16px; }
+.hero-title em { color: var(--blaze); font-style: italic; }
+.hero-sub { font-size: .88rem; color: rgba(255,255,255,.42); max-width: 440px; line-height: 1.75; font-weight: 300; }
+.hero-stats { display: flex; gap: 0; padding-top: 8px; }
+.hs { padding: 8px 28px 8px 0; margin-right: 28px; border-right: 1px solid rgba(255,255,255,.1); }
+.hs:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+.hs-n { font-family: var(--fd); font-size: 2rem; font-weight: 700; color: #fff; display: block; line-height: 1; }
+.hs-l { font-size: .54rem; color: rgba(255,255,255,.28); text-transform: uppercase; letter-spacing: .14em; display: block; margin-top: 4px; }
+
+/* ── FILTERS ── */
+.filters {
+  background: #fff; border-bottom: 1px solid var(--limestone);
+  position: sticky; top: 60px; z-index: 100;
+  box-shadow: 0 2px 12px rgba(29,34,33,.06);
+}
+.filters-inner {
+  max-width: 1320px; margin: 0 auto; padding: 0 36px;
+  display: flex; align-items: center; gap: 6px;
+  height: 50px; overflow-x: auto; scrollbar-width: none;
+}
+.filters-inner::-webkit-scrollbar { display: none; }
+.f-label { font-size: .58rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gravel); white-space: nowrap; }
+.f-sep { width: 1px; height: 18px; background: var(--limestone); margin: 0 10px; flex-shrink: 0; }
+.f-btn {
+  border: 1.5px solid var(--limestone); background: transparent;
+  color: var(--gravel); border-radius: 100px; padding: 4px 13px;
+  font-family: var(--fb); font-size: .65rem; font-weight: 700;
+  letter-spacing: .05em; text-transform: uppercase;
+  cursor: pointer; white-space: nowrap; transition: all .15s;
+}
+.f-btn:hover { border-color: var(--bark); color: var(--text); }
+.f-btn.active { background: var(--deep-water); color: #fff; border-color: var(--deep-water); }
+.f-count { margin-left: auto; font-size: .68rem; color: var(--gravel); white-space: nowrap; font-weight: 500; }
+
+/* ── MAIN ── */
+.main { max-width: 1320px; margin: 0 auto; padding: 40px 36px 80px; }
+
+/* ── SECTION HEADER ── */
+.sec-hdr { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; margin-top: 48px; }
+.sec-hdr:first-child { margin-top: 0; }
+.sec-name { font-family: var(--fd); font-size: 1.05rem; font-weight: 700; color: var(--text); white-space: nowrap; }
+.sec-line { flex: 1; height: 1px; background: var(--limestone); }
+.sec-ct { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gravel); }
+
+/* ── GRID ── */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(308px, 1fr)); gap: 16px; }
+
+/* ── CARD BASE ── */
+.card {
+  background: #fff; border: 1px solid var(--limestone);
+  border-radius: 8px; overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: transform .18s, box-shadow .18s;
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(29,34,33,.1); }
+
+/* FEATURED CARD */
+.card.featured {
+  border: 1.5px solid var(--blaze);
+}
+.card.featured:hover { box-shadow: 0 12px 40px rgba(220,131,81,.18); }
+
+/* ── CARD HEAD ── */
+.card-head { padding: 14px 16px 12px; border-bottom: 1px solid var(--limestone); }
+.card-badges { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 9px; min-height: 20px; }
+.bdg {
+  font-size: .52rem; font-weight: 800; letter-spacing: .08em;
+  text-transform: uppercase; padding: 2px 7px; border-radius: 3px;
+}
+.bdg-featured { background: var(--blaze-bg); color: var(--blaze); }
+.bdg-insider { background: var(--blaze-bg); color: var(--blaze-dark); }
+.bdg-type { background: var(--limestone); color: var(--bark); }
+.bdg-forest { background: var(--forest-bg); color: var(--forest); }
+.card-name { font-family: var(--fd); font-size: .93rem; font-weight: 700; color: var(--text); line-height: 1.2; margin-bottom: 4px; }
+.card-hook { font-family: var(--fd); font-size: .75rem; color: var(--bark); line-height: 1.5; font-style: italic; }
+
+/* ── CARD BODY ── */
+.card-body { padding: 12px 16px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+
+.stats-strip {
+  display: flex; background: var(--white-sand);
+  border: 1px solid var(--limestone); border-radius: 5px; overflow: hidden;
+}
+.stat { flex: 1; padding: 7px 4px; text-align: center; border-right: 1px solid var(--limestone); }
+.stat:last-child { border-right: none; }
+.sv { font-size: .78rem; font-weight: 700; color: var(--text); display: block; line-height: 1; }
+.sk { font-size: .5rem; color: var(--gravel); text-transform: uppercase; letter-spacing: .08em; display: block; margin-top: 2px; }
+
+.info-rows { display: flex; flex-direction: column; }
+.ir { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid var(--limestone); font-size: .75rem; }
+.ir:last-child { border-bottom: none; }
+.ik { color: var(--gravel); font-weight: 500; }
+.iv { color: var(--text); font-weight: 700; text-align: right; }
+.iv.fee { color: var(--forest); }
+.iv.private { color: var(--gravel); font-weight: 400; font-style: italic; }
+
+/* Featured extras */
+.extra-box { border-radius: 5px; padding: 9px 11px; font-size: .74rem; line-height: 1.55; }
+.extra-box strong { font-size: .58rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; display: block; margin-bottom: 3px; }
+.extra-bestfor { background: var(--forest-bg); color: var(--forest); }
+.extra-bestfor strong { color: var(--forest); }
+.extra-tip { background: var(--blaze-bg); color: var(--blaze-dark); }
+.extra-tip strong { color: var(--blaze); }
+
+/* Upgrade nudge */
+.nudge {
+  border: 1.5px dashed var(--limestone); border-radius: 5px;
+  padding: 9px 12px; text-align: center;
+  font-size: .7rem; color: var(--gravel); line-height: 1.55;
+}
+.nudge a { color: var(--blaze); font-weight: 700; }
+
+/* ── CARD FOOT ── */
+.card-foot { padding: 10px 16px 14px; border-top: 1px solid var(--limestone); display: flex; gap: 8px; margin-top: auto; }
+.btn-book {
+  flex: 1; background: var(--deep-water); color: #fff;
+  border-radius: 100px; padding: 9px 12px;
+  font-family: var(--fb); font-size: .65rem; font-weight: 800;
+  letter-spacing: .06em; text-transform: uppercase;
+  text-align: center; transition: background .15s;
+}
+.btn-book:hover { background: var(--blaze); }
+.btn-book.na { background: var(--limestone); color: var(--gravel); cursor: default; }
+.btn-book.na:hover { background: var(--limestone); }
+.btn-map {
+  border: 1.5px solid var(--limestone); color: var(--bark);
+  border-radius: 100px; padding: 9px 14px; background: transparent;
+  font-family: var(--fb); font-size: .65rem; font-weight: 700;
+  transition: all .15s; white-space: nowrap;
+}
+.btn-map:hover { border-color: var(--bark); color: var(--text); }
+
+/* ── PARTNER CTA BAND ── */
+.partner-band {
+  background: var(--deep-water);
+  padding: 56px 36px; text-align: center;
+}
+.partner-band .eyebrow { font-size: .6rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: var(--blaze); margin-bottom: 14px; display: block; }
+.partner-band h2 { font-family: var(--fd); font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 700; color: #fff; margin-bottom: 12px; line-height: 1.05; }
+.partner-band h2 em { color: var(--blaze); font-style: italic; }
+.partner-band p { font-size: .86rem; color: rgba(255,255,255,.4); max-width: 420px; margin: 0 auto 28px; line-height: 1.75; font-weight: 300; }
+.partner-band .cta { display: inline-block; background: var(--blaze); color: #fff; border-radius: 100px; padding: 13px 32px; font-family: var(--fb); font-size: .7rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; transition: background .15s; }
+.partner-band .cta:hover { background: var(--blaze-dark); }
+
+/* ── FOOTER ── */
+.footer { background: var(--deep-water); padding: 52px 36px 28px; }
+.footer-inner { max-width: 1320px; margin: 0 auto; }
+.footer-wordmark { font-family: var(--fd); font-size: clamp(3rem, 8vw, 7rem); font-weight: 700; color: rgba(255,255,255,.05); line-height: 1; letter-spacing: -.02em; margin-bottom: 32px; }
+.footer-wordmark em { color: rgba(220,131,81,.2); font-style: italic; }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,.06); padding-top: 18px; flex-wrap: wrap; gap: 10px; }
+.footer-logo { font-family: var(--fb); font-size: .82rem; font-weight: 800; color: rgba(255,255,255,.3); }
+.footer-logo span { color: var(--blaze); }
+.footer-meta { font-size: .64rem; color: rgba(255,255,255,.16); }
+
+/* ── NO RESULTS ── */
+.no-results { display: none; text-align: center; padding: 80px 20px; }
+.no-results.show { display: block; }
+.no-results h3 { font-family: var(--fd); font-size: 1.4rem; color: var(--text); margin-bottom: 8px; }
+.no-results p { color: var(--gravel); font-size: .88rem; }
+
+@media(max-width:720px){
+  .nav-links, .nav-search { display: none; }
+  .nav-inner, .hero, .main, .partner-band, .footer { padding-left: 20px; padding-right: 20px; }
+  .grid { grid-template-columns: 1fr; }
+  .filters-inner { padding: 0 20px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Austin<span>Golf</span></a>
+    <div class="nav-links">
+      <a class="nav-link active" href="#">Directory</a>
+      <a class="nav-link" href="#">Best Courses</a>
+      <a class="nav-link" href="#">Green Fees</a>
+      <a class="nav-link" href="#">Newsletter</a>
+    </div>
+    <input class="nav-search" id="searchInput" type="text" placeholder="Search courses, areas, designers…">
+    <a class="nav-cta" href="#partner">Get Featured</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="hero-eyebrow">Greater Austin Metro · All 44 Courses</span>
+      <h1 class="hero-title">The <em>Complete</em><br>Austin Golf Directory</h1>
+      <p class="hero-sub">Every course in the Austin metro — from $10 city munis to Golf Digest Best-in-State resort tracks. Verified, reviewed, and bookable.</p>
+    </div>
+    <div class="hero-stats">
+      <div class="hs"><span class="hs-n">44</span><span class="hs-l">Courses</span></div>
+      <div class="hs"><span class="hs-n">6</span><span class="hs-l">Munis</span></div>
+      <div class="hs"><span class="hs-n">5</span><span class="hs-l">Resorts</span></div>
+      <div class="hs"><span class="hs-n">Year-Round</span><span class="hs-l">Playability</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="filters">
+  <div class="filters-inner">
+    <span class="f-label">Type</span>
+    <button class="f-btn active" data-f="type" data-v="all">All</button>
+    <button class="f-btn" data-f="type" data-v="muni">Muni</button>
+    <button class="f-btn" data-f="type" data-v="public">Public</button>
+    <button class="f-btn" data-f="type" data-v="semi">Semi-Private</button>
+    <button class="f-btn" data-f="type" data-v="resort">Resort</button>
+    <button class="f-btn" data-f="type" data-v="private">Private</button>
+    <div class="f-sep"></div>
+    <span class="f-label">Budget</span>
+    <button class="f-btn active" data-f="budget" data-v="all">All</button>
+    <button class="f-btn" data-f="budget" data-v="budget">Under $50</button>
+    <button class="f-btn" data-f="budget" data-v="mid">$50–$100</button>
+    <button class="f-btn" data-f="budget" data-v="premium">$100+</button>
+    <div class="f-sep"></div>
+    <span class="f-label">Show</span>
+    <button class="f-btn active" data-f="show" data-v="all">All Courses</button>
+    <button class="f-btn" data-f="show" data-v="featured">Featured Only</button>
+    <span class="f-count" id="fCount"></span>
+  </div>
+</div>
+
+<div class="main" id="main">
+  <div class="no-results" id="noResults">
+    <h3>No courses match</h3>
+    <p>Try adjusting your filters or clearing the search.</p>
+  </div>
+</div>
+
+<div class="partner-band" id="partner">
+  <span class="eyebrow">For Course Managers &amp; Brands</span>
+  <h2>Is your course <em>Featured?</em></h2>
+  <p>Featured partners get an Insider Pick badge, a full course guide, newsletter placement, and a monthly performance report. First 90 days completely free.</p>
+  <a class="cta" href="mailto:partners@austingolf.com">Get Featured — First 90 Days Free</a>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-wordmark">Austin <em>Golf.</em></div>
+    <div class="footer-bottom">
+      <div class="footer-logo">Austin<span>Golf</span>.com</div>
+      <div class="footer-meta">Green fees are estimates · Verify with each course · Some links are affiliate links · © 2026 AustinGolf.com</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const COURSES=[
+  {id:'falconhead',f:true,sec:'Public & Daily Fee',name:'Falconhead Golf Club',type:'semi',bud:'mid',holes:18,par:72,yards:'7,181',rating:'73.7',slope:'133',designer:'PGA Tour Design',year:2003,fee:'$65–$120',dist:'22 min W',hook:'The par-3 8th over limestone falls — most photographed hole in Austin.',bestFor:'All skill levels; PGA Tour-caliber conditions without a membership',tip:'🌿 Book hole 8 around 7:30am in spring — the waterfall runs full and the light is perfect.',gn:'falconhead-golf-club-bee-cave-tx',mq:'Falconhead Golf Club Bee Cave TX',badges:['Insider Pick']},
+  {id:'lions',f:true,sec:'Golf ATX — City Municipals',name:'Lions Municipal Golf Course',type:'muni',bud:'budget',holes:18,par:71,yards:'6,001',rating:'68.2',slope:'113',designer:'Perry Maxwell era',year:1919,fee:'$25–$48',dist:'4 min from downtown',hook:'The first integrated course in the South — Austin golf history in every fairway.',bestFor:'All skill levels; walkers; Austin golf history fans',tip:'🌿 Walking strongly recommended. Best Oct–April. Bermuda greens peak in cool season.',gn:'lions-municipal-golf-course-austin-tx',mq:'Lions Municipal Golf Course Austin TX',badges:['Insider Pick','Est. 1919']},
+  {id:'bcc',f:true,sec:'Resort Courses',name:'Omni Barton Creek — Fazio Canyons',type:'resort',bud:'premium',holes:18,par:72,yards:'6,956',rating:'73.6',slope:'139',designer:'Tom Fazio',year:1999,fee:'$130–$250',dist:'20 min W',hook:'Golf Digest Best in State. Host of the Good Good Championship Nov 2026.',bestFor:'Serious golfers; resort guests; bucket-list rounds',tip:'🌿 The canyon views on holes 12-14 are most dramatic at golden hour. Book the last tee time of the day.',gn:'omni-barton-creek-resort-fazio-canyons-austin-tx',mq:'Barton Creek Resort Fazio Canyons Austin TX',badges:['Insider Pick','Good Good Host 2026']},
+  {id:'star',f:true,sec:'Public & Daily Fee',name:'Star Ranch Golf Club',type:'semi',bud:'mid',holes:18,par:71,yards:'7,017',rating:'72.3',slope:'128',designer:'Bechtol & Morrish',year:2000,fee:'$55–$95',dist:'25 min N',hook:'The best semi-private deal north of Austin — All You Can Golf included.',bestFor:'Groups; value-seekers; golfers who want to play all day',tip:'🌿 All-You-Can-Golf includes cart + range + breakfast + lunch. Worth every dollar.',gn:'star-ranch-golf-club-hutto-tx',mq:'Star Ranch Golf Club Hutto TX',badges:['Insider Pick']},
+  {id:'wolfdancer',f:true,sec:'Resort Courses',name:'Wolfdancer Golf Club',type:'resort',bud:'premium',holes:18,par:72,yards:'7,024',rating:'74.2',slope:'136',designer:'Arthur Hills',year:2006,fee:'$100–$165',dist:'35 min E',hook:'Arthur Hills in the East Texas pines — nothing else in Austin looks like this.',bestFor:'Resort guests at Hyatt Lost Pines; golfers wanting a change of scenery',tip:'🌿 Stay at Hyatt Lost Pines for resort package rates — best value premium round in Austin.',gn:'wolfdancer-golf-club-lost-pines-tx',mq:'Wolfdancer Golf Club Hyatt Lost Pines TX',badges:['Insider Pick']},
+  {id:'grey',f:true,sec:'Golf ATX — City Municipals',name:'Grey Rock Golf Club',type:'muni',bud:'mid',holes:18,par:72,yards:'6,909',rating:'72.2',slope:'127',designer:'Jay Morrish & Roy Bechtol',year:1992,fee:'$45–$75',dist:'20 min SW',hook:"Golf Digest's #4 Most Improved Course in America 2024. And the best 19th hole in Austin.",bestFor:'Foodies and golfers; anyone wanting a challenge with a great post-round scene',tip:'🌿 New TrackMan range makes it a year-round training destination. Biergarten open weekends.',gn:'grey-rock-golf-club-austin-tx',mq:'Grey Rock Golf Club Austin TX',badges:['Insider Pick','Most Improved 2024']},
+  // FREE TIER
+  {id:'hancock',f:false,sec:'Golf ATX — City Municipals',name:'Hancock Golf Course',type:'muni',bud:'budget',holes:9,par:35,yards:'2,600',rating:'n/a',slope:'n/a',designer:'Original layout',year:1899,fee:'$10–$20',dist:'5 min from downtown',gn:'hancock-golf-course-austin-tx',mq:'Hancock Golf Course Austin TX',badges:[]},
+  {id:'jimmyclay',f:false,sec:'Golf ATX — City Municipals',name:'Jimmy Clay Golf Course',type:'muni',bud:'budget',holes:18,par:72,yards:'6,918',rating:'72.1',slope:'121',designer:'Joe Finger',year:1974,fee:'$28–$44',dist:'12 min from downtown',gn:'jimmy-clay-golf-course-austin-tx',mq:'Jimmy Clay Golf Course Austin TX',badges:[]},
+  {id:'roykizer',f:false,sec:'Golf ATX — City Municipals',name:'Roy Kizer Golf Course',type:'muni',bud:'budget',holes:18,par:71,yards:'6,749',rating:'71.8',slope:'124',designer:'Links-style',year:1994,fee:'$28–$44',dist:'12 min from downtown',gn:'roy-kizer-golf-course-austin-tx',mq:'Roy Kizer Golf Course Austin TX',badges:[]},
+  {id:'mowilly',f:false,sec:'Golf ATX — City Municipals',name:'Morris Williams Golf Course',type:'muni',bud:'budget',holes:18,par:72,yards:'6,637',rating:'70.4',slope:'118',designer:'Leon Howard',year:1964,fee:'$28–$44',dist:'8 min from downtown',gn:'morris-williams-golf-course-austin-tx',mq:'Morris Williams Golf Course Austin TX',badges:[]},
+  {id:'riverside',f:false,sec:'Public & Daily Fee',name:'Riverside Golf Course',type:'public',bud:'budget',holes:18,par:71,yards:'6,562',rating:'69.8',slope:'115',designer:'Perry Maxwell',year:1949,fee:'$20–$38',dist:'7 min from downtown',gn:'riverside-golf-course-austin-tx',mq:'Riverside Golf Course Austin TX',badges:[]},
+  {id:'harvey',f:false,sec:'Public & Daily Fee',name:'Harvey Penick Golf Campus',type:'public',bud:'budget',holes:9,par:30,yards:'2,127',rating:'n/a',slope:'n/a',designer:'PGA Tour Design',year:2005,fee:'$12–$22',dist:'10 min from downtown',gn:'harvey-penick-golf-campus-austin-tx',mq:'Harvey Penick Golf Campus Austin TX',badges:[]},
+  {id:'butler',f:false,sec:'Public & Daily Fee',name:'Butler Park Pitch & Putt',type:'public',bud:'budget',holes:9,par:27,yards:'n/a',rating:'n/a',slope:'n/a',fee:'$10–$16',dist:'2 min from downtown',gn:null,mq:'Butler Park Pitch Putt Austin TX',badges:[]},
+  {id:'avery',f:false,sec:'Public & Daily Fee',name:'Avery Ranch Golf Club',type:'semi',bud:'mid',holes:18,par:72,yards:'7,100',rating:'73.4',slope:'130',designer:'Andy Raugust',year:2002,fee:'$55–$95',dist:'25 min NW',gn:'avery-ranch-golf-club-austin-tx',mq:'Avery Ranch Golf Club Austin TX',badges:[]},
+  {id:'shadow',f:false,sec:'Public & Daily Fee',name:'ShadowGlen Golf Club',type:'semi',bud:'mid',holes:18,par:72,yards:'7,174',rating:'74.1',slope:'132',designer:'Randolph & Boyd',year:2006,fee:'$45–$80',dist:'20 min E',gn:'shadowglen-golf-club-manor-tx',mq:'ShadowGlen Golf Club Manor TX',badges:[]},
+  {id:'teravista',f:false,sec:'Public & Daily Fee',name:'Teravista Golf Club',type:'semi',bud:'mid',holes:18,par:72,yards:'7,200',rating:'73.5',slope:'129',designer:'Roy Bechtol',year:2004,fee:'$55–$90',dist:'30 min N',gn:'teravista-golf-club-round-rock-tx',mq:'Teravista Golf Club Round Rock TX',badges:[]},
+  {id:'forestcreek',f:false,sec:'Public & Daily Fee',name:'Forest Creek Golf Club',type:'semi',bud:'mid',holes:18,par:72,yards:'6,981',rating:'73.0',slope:'126',designer:'Dick Nugent & Jeff Brauer',year:1991,fee:'$40–$75',dist:'25 min N',gn:'forest-creek-golf-club-round-rock-tx',mq:'Forest Creek Golf Club Round Rock TX',badges:[]},
+  {id:'crystal',f:false,sec:'Public & Daily Fee',name:'Crystal Falls Golf Club',type:'semi',bud:'mid',holes:18,par:72,yards:'6,854',rating:'72.1',slope:'125',designer:'Jack Miller',year:1991,fee:'$45–$80',dist:'28 min NW',gn:'crystal-falls-golf-club-leander-tx',mq:'Crystal Falls Golf Club Leander TX',badges:[]},
+  {id:'blackhawk',f:false,sec:'Public & Daily Fee',name:'Blackhawk Golf Club',type:'semi',bud:'budget',holes:18,par:72,yards:'6,854',rating:'72.0',slope:'126',designer:'Holmes & Rossini',year:2000,fee:'$35–$65',dist:'20 min NE',gn:'blackhawk-golf-club-pflugerville-tx',mq:'Blackhawk Golf Club Pflugerville TX',badges:[]},
+  {id:'plum',f:false,sec:'Public & Daily Fee',name:'Plum Creek Golf Course',type:'public',bud:'budget',holes:18,par:71,yards:'6,404',rating:'69.8',slope:'117',designer:'Roy Bechtol',year:1997,fee:'$30–$55',dist:'25 min S',gn:'plum-creek-golf-course-kyle-tx',mq:'Plum Creek Golf Course Kyle TX',badges:[]},
+  {id:'kissing',f:false,sec:'Public & Daily Fee',name:'Kissing Tree Golf Club',type:'semi',bud:'mid',holes:18,par:71,yards:'6,815',rating:'72.4',slope:'132',designer:'Roy Bechtol',year:2019,fee:'$60–$110',dist:'40 min S',gn:'kissing-tree-golf-club-san-marcos-tx',mq:'Kissing Tree Golf Club San Marcos TX',badges:[]},
+  {id:'pointv',f:false,sec:'Public & Daily Fee',name:'Point Venture Golf Club',type:'public',bud:'budget',holes:9,par:36,yards:'3,200',rating:'n/a',slope:'n/a',designer:'Jimmy Demaret',year:1972,fee:'$35–$55',dist:'40 min NW',gn:'point-venture-golf-club-tx',mq:'Point Venture Golf Club Lake Travis TX',badges:[]},
+  {id:'willie',f:false,sec:'Public & Daily Fee',name:"Pedernales Cut-N-Putt",type:'public',bud:'budget',holes:9,par:35,yards:'n/a',rating:'n/a',slope:'n/a',fee:'$20–$30',dist:'35 min W',gn:null,mq:'Pedernales Cut-N-Putt Spicewood TX',badges:[]},
+  {id:'bcf',f:false,sec:'Resort Courses',name:'Omni Barton Creek — Fazio Foothills',type:'resort',bud:'premium',holes:18,par:72,yards:'6,956',rating:'73.3',slope:'136',designer:'Tom Fazio',year:1986,fee:'$130–$250',dist:'20 min W',gn:'omni-barton-creek-resort-fazio-foothills-austin-tx',mq:'Barton Creek Fazio Foothills Austin TX',badges:[]},
+  {id:'bcc2',f:false,sec:'Resort Courses',name:'Omni Barton Creek — Crenshaw Cliffside',type:'resort',bud:'premium',holes:18,par:72,yards:'6,478',rating:'70.2',slope:'128',designer:'Ben Crenshaw & Bill Coore',year:1991,fee:'$100–$175',dist:'20 min W',gn:'omni-barton-creek-resort-crenshaw-cliffside-austin-tx',mq:'Barton Creek Crenshaw Cliffside Austin TX',badges:[]},
+  {id:'palmer',f:false,sec:'Resort Courses',name:'Omni Barton Creek — Palmer Lakeside',type:'resort',bud:'premium',holes:18,par:72,yards:'6,537',rating:'70.4',slope:'128',designer:'Arnold Palmer',year:1986,fee:'$100–$175',dist:'30 min W',gn:'omni-barton-creek-palmer-lakeside-spicewood-tx',mq:'Palmer Lakeside Golf Spicewood TX',badges:[]},
+  {id:'acc',f:false,sec:'Private Clubs',name:'Austin Country Club',type:'private',bud:'private',holes:18,par:72,yards:'7,100',rating:'75.1',slope:'143',designer:'Pete Dye',year:1950,fee:'Members Only',dist:'15 min W',gn:null,mq:'Austin Country Club Austin TX',badges:[]},
+  {id:'agc',f:false,sec:'Private Clubs',name:'Austin Golf Club',type:'private',bud:'private',holes:18,par:70,yards:'6,892',rating:'73.4',slope:'140',designer:'Bill Coore & Ben Crenshaw',year:2001,fee:'Members Only',dist:'35 min W',gn:null,mq:'Austin Golf Club Spicewood TX',badges:[]},
+  {id:'spanish',f:false,sec:'Private Clubs',name:'Spanish Oaks Golf Club',type:'private',bud:'private',holes:18,par:71,yards:'6,930',rating:'73.4',slope:'139',designer:'Bobby Weed',year:2002,fee:'Members Only',dist:'25 min W',gn:null,mq:'Spanish Oaks Golf Club Bee Cave TX',badges:[]},
+  {id:'driftwood',f:false,sec:'Private Clubs',name:'Driftwood Golf and Ranch Club',type:'private',bud:'private',holes:18,par:72,yards:'7,200',rating:'74.5',slope:'142',designer:'Tom Fazio',year:2022,fee:'Members Only',dist:'30 min SW',gn:null,mq:'Driftwood Golf Ranch Club TX',badges:[]},
+  {id:'ut',f:false,sec:'Private Clubs',name:'University of Texas Golf Club',type:'private',bud:'private',holes:18,par:71,yards:'7,412',rating:'76.7',slope:'144',designer:'Bechtol & Russell',year:2003,fee:'Members Only',dist:'25 min NW',gn:null,mq:'University of Texas Golf Club Austin TX',badges:[]},
+  {id:'westlake',f:false,sec:'Private Clubs',name:'Westlake Country Club',type:'private',bud:'private',holes:18,par:72,yards:'6,461',rating:'70.5',slope:'123',designer:'Terry Dill',year:1970,fee:'Members Only',dist:'18 min W',gn:null,mq:'Westlake Country Club Austin TX',badges:[]},
+  {id:'balcones',f:false,sec:'Private Clubs',name:'Balcones Country Club',type:'private',bud:'private',holes:36,par:72,yards:'6,800',rating:'72.0',slope:'130',designer:'Leon Howard',year:1959,fee:'Members Only',dist:'15 min NW',gn:null,mq:'Balcones Country Club Austin TX',badges:[]},
+  {id:'onion',f:false,sec:'Private Clubs',name:'Onion Creek Club',type:'private',bud:'private',holes:18,par:72,yards:'6,800',rating:'72.0',slope:'128',designer:'Jimmy Demaret',year:1974,fee:'Members Only',dist:'18 min S',gn:null,mq:'Onion Creek Club Austin TX',badges:[]},
+  {id:'hills',f:false,sec:'Private Clubs',name:'The Hills CC — The Hills Course',type:'private',bud:'private',holes:18,par:72,yards:'6,900',rating:'73.5',slope:'139',designer:'Jack Nicklaus Signature',year:1981,fee:'Members Only',dist:'25 min W',gn:null,mq:'The Hills Country Club Lakeway TX',badges:[]},
+  {id:'flintrock',f:false,sec:'Private Clubs',name:'The Hills CC — Flintrock Falls',type:'private',bud:'private',holes:18,par:72,yards:'7,100',rating:'74.8',slope:'145',designer:'Jack Nicklaus & Son',year:2002,fee:'Members Only',dist:'25 min W',gn:null,mq:'Flintrock Falls Golf Lakeway TX',badges:[]},
+  {id:'legacy',f:false,sec:'Georgetown & Sun City',name:'Legacy Hills Golf Club',type:'semi',bud:'mid',holes:18,par:72,yards:'7,088',rating:'73.6',slope:'131',designer:'Bob Cupp',year:2004,fee:'$45–$80',dist:'35 min N',gn:'legacy-hills-golf-club-georgetown-tx',mq:'Legacy Hills Golf Club Georgetown TX',badges:[]},
+  {id:'cowan',f:false,sec:'Georgetown & Sun City',name:'Cowan Creek Golf Course',type:'semi',bud:'mid',holes:18,par:72,yards:'6,900',rating:'72.4',slope:'126',designer:'Finger / Dye / Spann',year:2007,fee:'$40–$70',dist:'35 min N',gn:'cowan-creek-golf-course-georgetown-tx',mq:'Cowan Creek Golf Course Georgetown TX',badges:[]},
+  {id:'cimarron',f:false,sec:'Georgetown & Sun City',name:'Cimarron Hills Golf & Country Club',type:'private',bud:'private',holes:18,par:72,yards:'7,003',rating:'73.5',slope:'135',designer:'Jack Nicklaus Signature',year:2005,fee:'Members Only',dist:'35 min N',gn:null,mq:'Cimarron Hills Golf Georgetown TX',badges:[]},
+];
+
+const TYPES={muni:'Municipal',public:'Public',semi:'Semi-Private',resort:'Resort',private:'Private'};
+const SECS=['Golf ATX — City Municipals','Public & Daily Fee','Resort Courses','Private Clubs','Georgetown & Sun City'];
+const st={type:'all',budget:'all',show:'all',q:''};
+
+function passes(c){
+  if(st.type!=='all'&&c.type!==st.type)return false;
+  if(st.budget!=='all'&&c.bud!==st.budget)return false;
+  if(st.show==='featured'&&!c.f)return false;
+  if(st.q){const t=[c.name,c.sec,c.designer||'',c.hook||''].join(' ').toLowerCase();if(!t.includes(st.q))return false;}
+  return true;
+}
+
+function card(c){
+  const priv=c.type==='private';
+  const el=document.createElement('div');
+  el.className='card'+(c.f?' featured':'');
+  const badges=(c.f?'<span class="bdg bdg-featured">Featured Partner</span>':'')
+    +(c.badges.includes('Insider Pick')?'<span class="bdg bdg-insider">⭐ Insider Pick</span>':'')
+    +c.badges.filter(b=>b!=='Insider Pick').map(b=>`<span class="bdg bdg-forest">${b}</span>`).join('')
+    +`<span class="bdg bdg-type">${TYPES[c.type]||c.type}</span>`;
+  const book=priv
+    ?'<span class="btn-book na">🔒 Members Only</span>'
+    :c.gn
+      ?`<a class="btn-book" href="https://www.golfnow.com/tee-times#sortby=Date&view=list&q=${encodeURIComponent(c.name+' Austin TX')}" target="_blank" rel="noopener sponsored">Book on GolfNow</a>`
+      :'<span class="btn-book na">Contact Course</span>';
+  const extras=c.f
+    ?`${c.bestFor?`<div class="extra-box extra-bestfor"><strong>Best For</strong>${c.bestFor}</div>`:''}${c.tip?`<div class="extra-box extra-tip"><strong>Insider Tip</strong>${c.tip}</div>`:''}`
+    :`<div class="nudge">Want the Insider Tip, Best For, and full course guide? <a href="#partner">Get Featured →</a></div>`;
+  el.innerHTML=`
+    <div class="card-head">
+      <div class="card-badges">${badges}</div>
+      <div class="card-name">${c.name}</div>
+      ${c.f&&c.hook?`<div class="card-hook">${c.hook}</div>`:''}
+    </div>
+    <div class="card-body">
+      <div class="stats-strip">
+        <div class="stat"><span class="sv">${c.holes}</span><span class="sk">Holes</span></div>
+        <div class="stat"><span class="sv">${c.par?'Par '+c.par:'—'}</span><span class="sk">Par</span></div>
+        <div class="stat"><span class="sv">${c.yards||'—'}</span><span class="sk">Yards</span></div>
+        <div class="stat"><span class="sv">${c.rating&&c.rating!=='n/a'?c.rating:'N/A'}</span><span class="sk">Rating</span></div>
+      </div>
+      <div class="info-rows">
+        <div class="ir"><span class="ik">Location</span><span class="iv">${c.dist}</span></div>
+        <div class="ir"><span class="ik">Type</span><span class="iv">${TYPES[c.type]||c.type}</span></div>
+        ${c.designer?`<div class="ir"><span class="ik">Designer</span><span class="iv">${c.designer}${c.year?' ('+c.year+')':''}</span></div>`:''}
+        <div class="ir"><span class="ik">Green Fees</span><span class="iv ${priv?'private':'fee'}">${c.fee}</span></div>
+      </div>
+      ${extras}
+    </div>
+    <div class="card-foot">${book}<a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.mq)}" target="_blank" rel="noopener">Map</a></div>`;
+  return el;
+}
+
+function render(){
+  const main=document.getElementById('main');
+  main.querySelectorAll('.sec-block').forEach(e=>e.remove());
+  const secs={};let n=0;
+  [...COURSES].sort((a,b)=>(b.f?1:0)-(a.f?1:0)).forEach(c=>{
+    if(!passes(c))return;
+    if(!secs[c.sec])secs[c.sec]=[];
+    secs[c.sec].push(c);n++;
+  });
+  document.getElementById('noResults').classList.toggle('show',n===0);
+  document.getElementById('fCount').textContent=n===COURSES.length?`${COURSES.length} courses`:`${n} of ${COURSES.length} courses`;
+  SECS.forEach(s=>{
+    const cs=secs[s];if(!cs||!cs.length)return;
+    const b=document.createElement('div');b.className='sec-block';
+    const h=document.createElement('div');h.className='sec-hdr';
+    h.innerHTML=`<h2 class="sec-name">${s}</h2><div class="sec-line"></div><span class="sec-ct">${cs.length} course${cs.length>1?'s':''}</span>`;
+    b.appendChild(h);
+    const g=document.createElement('div');g.className='grid';
+    cs.forEach(c=>g.appendChild(card(c)));
+    b.appendChild(g);main.appendChild(b);
+  });
+}
+
+document.querySelectorAll('.f-btn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const f=b.dataset.f,v=b.dataset.v;
+    document.querySelectorAll(`.f-btn[data-f="${f}"]`).forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');st[f]=v;render();
+  });
+});
+document.getElementById('searchInput').addEventListener('input',e=>{st.q=e.target.value.toLowerCase();render();});
+render();
+</script>
+</body>
+</html>

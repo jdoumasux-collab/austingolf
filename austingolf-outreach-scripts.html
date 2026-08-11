@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AustinGolf.com — Outreach Scripts & Email Templates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:#111210; --ink-mid:#3A3A38; --ink-light:#6B6B68;
+  --bg:#FAFAF8; --bg-warm:#F3F0E8; --border:#E2DDD4;
+  --terra:#C4541A; --terra-light:#F5EDE8;
+  --green:#2D5A1B; --green-light:#EBF2E6;
+  --white:#FFFFFF;
+  --f-display:'Lora',Georgia,serif;
+  --f-body:'Inter',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--f-body);background:var(--bg);color:var(--ink);line-height:1.6;font-size:15px;}
+
+.page-header{background:var(--ink);padding:52px 60px 48px;}
+.ph-inner{max-width:900px;margin:0 auto;}
+.ph-logo{font-size:1rem;font-weight:800;color:rgba(255,255,255,.35);margin-bottom:20px;}
+.ph-logo span{color:var(--terra);}
+.ph-title{font-family:var(--f-display);font-size:clamp(2rem,4vw,3rem);font-weight:700;color:#fff;line-height:1;margin-bottom:12px;}
+.ph-title em{color:var(--terra);font-style:italic;}
+.ph-sub{font-size:.92rem;color:rgba(255,255,255,.45);max-width:520px;font-weight:300;line-height:1.7;}
+
+.container{max-width:900px;margin:0 auto;padding:60px 40px 80px;}
+
+.tab-nav{display:flex;gap:4px;background:var(--bg-warm);border-radius:10px;padding:6px;margin-bottom:48px;}
+.tab-btn{flex:1;padding:10px 16px;border-radius:7px;border:none;background:transparent;font-family:var(--f-body);font-size:.82rem;font-weight:600;color:var(--ink-light);cursor:pointer;transition:all .15s;}
+.tab-btn.active{background:var(--white);color:var(--terra);box-shadow:0 1px 4px rgba(0,0,0,.08);}
+
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+.script-section{margin-bottom:56px;}
+.script-label{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--terra);margin-bottom:8px;display:block;}
+.script-title{font-family:var(--f-display);font-size:1.4rem;font-weight:700;color:var(--ink);margin-bottom:6px;}
+.script-desc{font-size:.88rem;color:var(--ink-light);margin-bottom:24px;font-weight:300;line-height:1.65;}
+
+.context-box{background:var(--bg-warm);border-left:3px solid var(--terra);border-radius:0 8px 8px 0;padding:16px 20px;margin-bottom:20px;}
+.context-box h4{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--terra);margin-bottom:8px;}
+.context-box p{font-size:.82rem;color:var(--ink-mid);line-height:1.65;font-weight:300;}
+.context-box ul{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:8px;}
+.context-box ul li{font-size:.82rem;color:var(--ink-mid);display:flex;gap:8px;font-weight:300;}
+.context-box ul li::before{content:'·';color:var(--terra);font-weight:700;flex-shrink:0;}
+
+.script-box{background:var(--white);border:1.5px solid var(--border);border-radius:10px;overflow:hidden;}
+.script-box-header{background:var(--ink);padding:12px 20px;display:flex;justify-content:space-between;align-items:center;}
+.script-box-label{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);}
+.copy-btn{font-size:.7rem;font-weight:600;color:rgba(255,255,255,.4);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:4px;padding:4px 10px;cursor:pointer;transition:all .15s;}
+.copy-btn:hover{background:rgba(255,255,255,.15);color:#fff;}
+.script-body{padding:28px 28px;font-size:.88rem;color:var(--ink-mid);line-height:1.9;font-weight:300;white-space:pre-wrap;}
+.script-body strong{color:var(--ink);font-weight:600;}
+.script-body em{color:var(--terra);font-style:normal;font-weight:500;}
+
+.fill-tag{background:var(--terra-light);color:var(--terra);border-radius:4px;padding:1px 6px;font-size:.78rem;font-weight:600;font-style:normal;}
+
+.tip-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;}
+.tip-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:18px 20px;}
+.tip-card h4{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
+.tip-card p, .tip-card li{font-size:.82rem;color:var(--ink-mid);line-height:1.6;font-weight:300;}
+.tip-card ul{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.tip-card ul li{display:flex;gap:8px;}
+.tip-card ul li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;}
+
+.objection-item{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:12px;}
+.objection-q{font-size:.85rem;font-weight:700;color:var(--ink);margin-bottom:8px;display:flex;gap:8px;align-items:flex-start;}
+.objection-q::before{content:'"';color:var(--terra);font-size:1.2rem;line-height:1;flex-shrink:0;}
+.objection-a{font-size:.82rem;color:var(--ink-mid);line-height:1.65;font-weight:300;padding-left:20px;border-left:2px solid var(--green-light);}
+
+.divider{height:1px;background:var(--border);margin:40px 0;}
+
+.email-meta{display:flex;flex-direction:column;gap:0;border-bottom:1px solid var(--border);}
+.email-row{display:flex;gap:0;padding:10px 20px;border-bottom:1px solid var(--border);}
+.email-row:last-child{border-bottom:none;}
+.email-field{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-light);min-width:70px;padding-top:2px;}
+.email-val{font-size:.85rem;color:var(--ink);font-weight:400;}
+
+@media(max-width:700px){
+  .page-header{padding:36px 24px;}
+  .container{padding:36px 20px 60px;}
+  .tip-grid{grid-template-columns:1fr;}
+  .tab-nav{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="ph-inner">
+    <div class="ph-logo">Austin<span>Golf</span>.com</div>
+    <h1 class="ph-title">Outreach Scripts<br>&amp; <em>Email Templates</em></h1>
+    <p class="ph-sub">Two approaches. Multiple scenarios. Use the words that feel natural — these are starting points, not scripts to read verbatim.</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('approach1')">Approach 1: Free Trial First</button>
+    <button class="tab-btn" onclick="showTab('approach2')">Approach 2: Go Straight to Paid</button>
+    <button class="tab-btn" onclick="showTab('emails')">Email Templates</button>
+    <button class="tab-btn" onclick="showTab('objections')">Handling Objections</button>
+  </div>
+
+  <!-- APPROACH 1: FREE TRIAL -->
+  <div id="approach1" class="tab-content active">
+
+    <div class="script-section">
+      <span class="script-label">Approach 1 — Recommended for first outreach</span>
+      <div class="script-title">The Free Trial First Approach</div>
+      <p class="script-desc">Lower barrier, faster yes. Lead with value before you ever mention price. This is the right call for the first 10 conversations — get partners in the door, prove the value, then convert.</p>
+
+      <div class="context-box">
+        <h4>Before you call — know these things</h4>
+        <ul>
+          <li>The course name and what makes it distinctive (you already know this from our directory)</li>
+          <li>Whether they're already on GolfNow (most are — it signals they understand online booking)</li>
+          <li>Ask for the general manager, head pro, or owner — not the starter or front desk</li>
+          <li>Best time to call: Tuesday–Thursday, 10am–2pm. Avoid Friday afternoons and Monday mornings</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="script-section">
+      <span class="script-label">Phone Script — Your Version (Making the Call)</span>
+      <div class="script-box">
+        <div class="script-box-header">
+          <span class="script-box-label">Cold Call · Free Trial Approach · ~4 minutes</span>
+        </div>
+        <div class="script-body">
+<strong>When they answer:</strong>
+
+"Hi, is this <em class="fill-tag">[Name]</em>? Great. This is <em class="fill-tag">[Your Name]</em> — I own AustinGolf.com. Is now an okay time for about two minutes?"
+
+<strong>If yes, continue:</strong>
+
+"I'll keep it quick. I own AustinGolf.com — we're building the go-to online resource for Austin golf. We cover every course in the metro, with green fees, course guides, and booking links. GOLF Magazine actually named Austin the best golf city in America, and we're building the site that proves it.
+
+We're doing something a little different for our launch — I'd like to put <em class="fill-tag">[Course Name]</em> in our directory with a full featured listing. No cost for the first 90 days. You get a professionally written course page, a booking link through GolfNow, and you show up every time someone searches for golf in your area.
+
+I'm not asking you for anything today except ten minutes of your time to get the details right. Can I send you our partner overview and schedule a quick call this week?"
+
+<strong>If they ask about cost after the trial:</strong>
+
+"After 90 days, featured placement runs $349 a month. But honestly — let's get through the trial first and I'll show you exactly what the traffic and clicks look like before we talk about that."
+
+<strong>If they say yes:</strong>
+
+"Perfect. What's the best email for you? I'll send the overview today and we can get your listing live this week."
+
+<strong>If they need to think about it:</strong>
+
+"Totally fair. How about I send you our partner overview and you take a look? No pressure either way — if it makes sense for <em class="fill-tag">[Course Name]</em>, great. If not, I appreciate you taking the call."
+
+<strong>Close every call with:</strong>
+
+"Thanks for your time. You'll hear from me by end of day."
+        </div>
+      </div>
+    </div>
+
+    <div class="script-section">
+      <span class="script-label">Phone Script — Hired Rep Version</span>
+      <div class="script-box">
+        <div class="script-box-header">
+          <span class="script-box-label">For a Sales Rep or VA Making Calls on Your Behalf</span>
+        </div>
+        <div class="script-body">
+<strong>Opening:</strong>
+
+"Hi, I'm looking for the general manager or owner — I'm calling from AustinGolf.com about a partnership opportunity."
+
+<strong>When connected:</strong>
+
+"Hi <em class="fill-tag">[Name]</em>, my name is <em class="fill-tag">[Rep Name]</em> and I'm calling on behalf of AustinGolf.com. We're the definitive Austin golf resource — 44 courses, green fees, booking links, the whole metro. We're reaching out to a select group of courses about our featured partner program.
+
+Here's the quick version: we'd like to feature <em class="fill-tag">[Course Name]</em> on the site with a full course page, insider write-up, and direct booking link. The first 90 days are completely free — no strings attached. Our founder John Doumas has put together a partner overview I'd love to send to you.
+
+Is there an email address I can send that to, and would you be open to a 10-minute call with John this week to go over it?"
+
+<strong>Key things to convey:</strong>
+- We're not a national directory — we're Austin-specific
+- No payment for 90 days
+- The goal is a 10-minute follow-up call with the owner
+- This is a limited partnership program — not open to everyone
+
+<strong>If asked what it costs after the trial:</strong>
+
+"Featured placement runs $349 a month after the free trial — but John will walk you through all of that in the follow-up call. The first step is just seeing the partner overview."
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-grid">
+      <div class="tip-card">
+        <h4>What works on this call</h4>
+        <ul>
+          <li>Lead with the domain name — austingolf.com is the credibility</li>
+          <li>Keep it under 4 minutes</li>
+          <li>The only goal is the next step, not the close</li>
+          <li>Mention GOLF Magazine's "Best Golf City" quote</li>
+          <li>Always follow up same day with the email</li>
+        </ul>
+      </div>
+      <div class="tip-card">
+        <h4>What to avoid</h4>
+        <ul>
+          <li>Don't pitch the full pricing on the first call</li>
+          <li>Don't read this verbatim — make it yours</li>
+          <li>Don't call Friday afternoon or Monday morning</li>
+          <li>Don't leave a voicemail longer than 30 seconds</li>
+          <li>Don't follow up more than twice without a response</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- APPROACH 2: STRAIGHT TO PAID -->
+  <div id="approach2" class="tab-content">
+
+    <div class="script-section">
+      <span class="script-label">Approach 2 — For warmer relationships</span>
+      <div class="script-title">The Direct Partnership Approach</div>
+      <p class="script-desc">Use this when you have a connection, a referral, or when a course has already expressed interest. Skips the free trial and positions it as a business partnership from the start. More appropriate for resorts, instructor programs, and non-endemic advertisers like auto dealers or luxury brands.</p>
+    </div>
+
+    <div class="script-section">
+      <span class="script-label">Phone Script — Your Version</span>
+      <div class="script-box">
+        <div class="script-box-header">
+          <span class="script-box-label">Warm/Direct Call · Paid Approach · ~5 minutes</span>
+        </div>
+        <div class="script-body">
+<strong>Opening:</strong>
+
+"Hi <em class="fill-tag">[Name]</em>, this is <em class="fill-tag">[Your Name]</em> — I own AustinGolf.com. <em class="fill-tag">[Mutual connection]</em> suggested I reach out. Do you have a few minutes?"
+
+<strong>The pitch:</strong>
+
+"We're building the definitive Austin golf platform — every course in the metro, covered in depth, with booking links and editorial content. We just launched and we're being selective about our Featured Partners.
+
+I wanted to reach out about <em class="fill-tag">[Course Name]</em> specifically because <em class="fill-tag">[specific reason — best par-3 in Austin, best value for the Bee Cave corridor, etc.]</em>. We've written about your course in our directory already and the response has been strong.
+
+Our Featured Partner program puts your course at the top of every relevant search on our site, includes a full editorial article by our team, and a monthly spot in our newsletter. It runs $349 a month — and honestly, if you book two rounds from it in a month, it's paid for itself many times over.
+
+I'd like to send you our partner overview and schedule 15 minutes to show you exactly what the placement looks like. Does Thursday or Friday work for a quick call?"
+
+<strong>When they engage on price:</strong>
+
+"The $349 covers everything — the editorial, the newsletter placement, the booking link, and a monthly report showing your traffic and clicks. For context, a half-page in AvidGolfer runs $800-1,200 per issue and you get one issue. This is every month, with better targeting, and you can see exactly what's working."
+
+<strong>The close:</strong>
+
+"I'm keeping the initial partner program to about 15 courses — I want to make sure each partner gets real attention, not just a listing. If <em class="fill-tag">[Course Name]</em> is a fit, I'd love to get you in. Can I send you the overview today?"
+        </div>
+      </div>
+    </div>
+
+    <div class="script-section">
+      <span class="script-label">Rep Version — Direct Approach</span>
+      <div class="script-box">
+        <div class="script-box-header">
+          <span class="script-box-label">For Sales Rep or VA · Warm Lead Context</span>
+        </div>
+        <div class="script-body">
+<strong>Opening:</strong>
+
+"Hi <em class="fill-tag">[Name]</em>, I'm calling from AustinGolf.com — John Doumas, our founder, asked me to reach out specifically about <em class="fill-tag">[Course Name]</em>. We've been covering your course in our directory and John thinks you'd be a great Featured Partner. Do you have about three minutes?"
+
+<strong>The pitch:</strong>
+
+"AustinGolf.com is the go-to resource for Austin golf — 44 courses covered, full editorial content, and booking links to GolfNow. We're launching our Featured Partner program and keeping it selective — about 15 courses total.
+
+For <em class="fill-tag">[Course Name]</em>, that means a dedicated course guide article, homepage carousel placement, quarterly newsletter features, and a monthly report showing exactly how many people clicked through to book.
+
+Investment is $349 a month. John would love to walk you through it — can I get the best time to reach you for a 15-minute call with him?"
+
+<strong>Key positioning for the rep:</strong>
+- This is invitation-only, not open to everyone
+- $349/month positions against AvidGolfer print ($800-1,200/issue)
+- The goal is always a 15-minute call with John
+- If they push back on price, mention the free trial option as a fallback
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- EMAIL TEMPLATES -->
+  <div id="emails" class="tab-content">
+
+    <div class="script-section">
+      <span class="script-label">Email 1 — Post First Call Follow-Up</span>
+      <div class="script-title">Same-Day Follow-Up Email</div>
+      <p class="script-desc">Send within 2 hours of the call. Short, warm, and gives them everything they need to say yes.</p>
+      <div class="script-box">
+        <div class="script-box-header">
+          <span class="script-box-label">Subject + Body</span>
+        </div>
+        <div class="email-meta">
+          <div class="email-row"><span class="email-field">To</span><span class="email-val"><em class="fill-tag">[Name]</em> at <em class="fill-tag">[Course Name]</em></span></div>
+          <div class="email-row"><span class="email-field">Subject</span><span class="email-val">AustinGolf.com — Partner Overview for <em class="fill-tag">[Course Name]</em></span></div>
+        </div>
+        <div class="script-body">
+Hi <em class="fill-tag">[Name]</em>,
+
+Thanks for taking my call earlier — I appreciate it.
+
+As promised, I'm attaching our partner overview. The short version: we'd like to feature <em class="fill-tag">[Course Name]</em> on AustinGolf.com with a full course guide, direct booking link, and editorial placement. The first 90 days are free — no commitment, no credit card, no strings.
+
+A few things about the site worth knowing:
+
+· We cover every course in the Austin metro — 44 total — with real editorial depth, not just a listing
+· GOLF Magazine named Austin the Best Golf City in America. We're the platform that makes that real for golfers planning where to play
+· Every page links directly to GolfNow booking, so golfers can act the moment they decide
+
+If it's useful, here's a 15-minute window I'm holding: <em class="fill-tag">[Date/Time]</em>. Or reply here and we'll find something that works.
+
+If you'd rather just look at the overview first and come back to me when you're ready, that works too.
+
+Thanks again,
+
+<em class="fill-tag">[Your Name]</em>
+AustinGolf.com
+<em class="fill-tag">(512) 000-0000</em>
+partners@austingolf.com
+        </div>
+      </div>
+    </div>
+
+    <div class="script-section">
+      <span class="script-label">Email 2 — Cold Outreach (No Prior Call)</span>
+      <div class="script-title">Cold Email for Course Managers</div>
+      <p class="script-desc">When you can't get someone on the phone and email is the only path in. Shorter than you think. The goal is one reply, not a sale.</p>
+      <div class="script-box">
+        <div class="script-box-header">
+          <span class="script-box-label">Subject + Body</span>
+        </div>
+        <div class="email-meta">
+          <div class="email-row"><span class="email-field">To</span><span class="email-val">General Manager / Head Pro at <em class="fill-tag">[Course Name]</em></span></div>
+          <div class="email-row"><span class="email-field">Subject</span><span class="email-val">Quick question — <em class="fill-tag">[Course Name]</em> on AustinGolf.com</span></div>
+        </div>
+        <div class="script-body">
+Hi <em class="fill-tag">[Name]</em>,
+
+I own AustinGolf.com — the definitive resource for Austin golf. We cover 44 courses with real editorial depth, booking links, and a weekly newsletter.
+
+I'd like to feature <em class="fill-tag">[Course Name]</em> as a Featured Partner on the site. The first 90 days are free — I just want to get your course in front of the golfers who are actively looking for where to play.
+
+Two questions:
+
+1. Is this something you'd want to know more about?
+2. Who should I talk to about marketing partnerships?
+
+If you're the right person, I'll send over our one-page partner overview. Takes two minutes to read.
+
+Thanks,
+
+<em class="fill-tag">[Your Name]</em>
+AustinGolf.com | partners@austingolf.com
+        </div>
+      </div>
+    </div>
+
+    <div class="script-section">
+      <span class="script-label">Email 3 — The Follow-Up (No Response After 5 Days)</span>
+      <div class="script-title">The Single Follow-Up</div>
+      <p class="script-desc">One follow-up only. If they don't respond to this, move on and come back in 90 days.</p>
+      <div class="script-box">
+        <div class="script-box-header">
+          <span class="script-box-label">Subject + Body</span>
+        </div>
+        <div class="email-meta">
+          <div class="email-row"><span class="email-field">Subject</span><span class="email-val">Re: AustinGolf.com — <em class="fill-tag">[Course Name]</em></span></div>
+        </div>
+        <div class="script-body">
+Hi <em class="fill-tag">[Name]</em>,
+
+Circling back on the AustinGolf.com partnership — I know these things get buried.
+
+Bottom line: I'd like to put <em class="fill-tag">[Course Name]</em> on the site with a full featured listing, free for 90 days. Zero commitment. Takes about 15 minutes total to set up.
+
+If now isn't the right time, just say the word and I'll check back in after the season. And if you're not the right person to talk to, I'd appreciate a point in the right direction.
+
+Thanks,
+<em class="fill-tag">[Your Name]</em>
+        </div>
+      </div>
+    </div>
+
+    <div class="script-section">
+      <span class="script-label">Email 4 — Non-Endemic Outreach (Luxury Brands, Auto Dealers, Restaurants)</span>
+      <div class="script-title">Non-Course Partner Outreach</div>
+      <p class="script-desc">For businesses that aren't golf courses but want to reach Austin's affluent golf audience. Car dealers, financial advisors, luxury restaurants, real estate. Different pitch — focus on the audience, not the sport.</p>
+      <div class="script-box">
+        <div class="script-box-header">
+          <span class="script-box-label">Subject + Body</span>
+        </div>
+        <div class="email-meta">
+          <div class="email-row"><span class="email-field">To</span><span class="email-val">Marketing Director / Owner at <em class="fill-tag">[Business Name]</em></span></div>
+          <div class="email-row"><span class="email-field">Subject</span><span class="email-val">Reaching Austin's most affluent audience — AustinGolf.com</span></div>
+        </div>
+        <div class="script-body">
+Hi <em class="fill-tag">[Name]</em>,
+
+I own AustinGolf.com — the definitive Austin golf resource. We're launching our partner program and I'd like to bring your business in front of our audience.
+
+Here's why I'm reaching out to <em class="fill-tag">[Business Name]</em> specifically:
+
+Our readers are Austin's golf-playing, high-income households — median income above $95K, playing 2-4 rounds a month, spending $2,500+ per year on golf alone. GOLF Magazine called Austin the best golf city in America. Our site is where that audience comes to decide where to play.
+
+For brands like <em class="fill-tag">[Business Name]</em>, that's the room you want to be in.
+
+We're offering a limited number of category-exclusive Anchor partnerships for non-golf brands at $699/month. You get monthly newsletter placement, homepage visibility, and editorial integration — and nobody else in your category is in front of our audience at the same time.
+
+Worth a 15-minute conversation? I can show you the site and the audience profile.
+
+<em class="fill-tag">[Your Name]</em>
+AustinGolf.com
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- OBJECTIONS -->
+  <div id="objections" class="tab-content">
+
+    <div class="script-section">
+      <span class="script-label">When they push back</span>
+      <div class="script-title">Handling the Hard Questions</div>
+      <p class="script-desc">These are the real objections you'll hear. Read these before you call, not during.</p>
+    </div>
+
+    <div class="objection-item">
+      <div class="objection-q">We already advertise with AvidGolfer."</div>
+      <div class="objection-a">"That's great — they've been doing this for 25 years and they've earned it. We're different in one specific way: we're online-only, Austin-specific, and every visitor is actively searching for where to play right now. AvidGolfer readers get a magazine in their mailbox. Our readers are on their phone deciding where to tee off this weekend. The intent is completely different. And the first 90 days are free, so there's no reason not to try both."</div>
+    </div>
+
+    <div class="objection-item">
+      <div class="objection-q">We already have GolfNow. That's all we need for online booking."</div>
+      <div class="objection-a">"GolfNow is the booking platform — we're the discovery layer. When someone is deciding which Austin course to play, they're not starting on GolfNow. They're Googling 'best golf courses in Austin' or 'golf near downtown Austin.' We're what they find, and then we send them to GolfNow to book. We actually drive traffic to your GolfNow listing, not compete with it."</div>
+    </div>
+
+    <div class="objection-item">
+      <div class="objection-q">How much traffic do you have?"</div>
+      <div class="objection-a">"We just launched, so I'm going to be straight with you — traffic is building. That's exactly why the 90-day trial matters: I want to earn your confidence with real numbers before I ask you to pay for anything. By the end of the trial, I'll show you exactly how many people viewed your page and clicked through to book. If the numbers make sense, we talk about a paid partnership. If they don't, you've lost nothing."</div>
+    </div>
+
+    <div class="objection-item">
+      <div class="objection-q">We don't have a marketing budget right now."</div>
+      <div class="objection-a">"Perfect timing, then — the trial is free. No budget needed. Get your course listed, get the traffic data, and if it's working, the conversation about budget is easy. If it's not, you're out nothing. All I need is 15 minutes to get your details right."</div>
+    </div>
+
+    <div class="objection-item">
+      <div class="objection-q">What makes you different from every other golf directory?"</div>
+      <div class="objection-a">"Two things. First, the domain — austingolf.com is the most valuable Austin golf real estate on the internet. There's no competing with that in search. Second, we write about courses the way a local who's played them would write — not a database entry. Every listing has insider tips, seasonal advice, and honest assessments. That's what people trust, and it's what drives the clicks."</div>
+    </div>
+
+    <div class="objection-item">
+      <div class="objection-q">Can I think about it?"</div>
+      <div class="objection-a">"Absolutely. Can I ask what would make it an easy yes? I want to make sure I'm sending you the right information, not just the full overview. [Listen]. Got it — I'll send you [specific thing they mentioned] and follow up in a week. Does that work?"</div>
+    </div>
+
+    <div class="objection-item">
+      <div class="objection-q">We're a private club — we're not looking for new members."</div>
+      <div class="objection-a">"That makes sense, and honestly that's a different conversation. For private clubs, the value is visibility for your members and their guests — when someone visits Austin for a corporate trip and asks where to play, we want your name coming up. It's reputation and peer recommendation, not open enrollment. Let me show you what private club coverage looks like on the site — it might be different from what you're imagining."</div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

@@ -3,241 +3,821 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AustinGolf.com — The Austin Golf Insider</title>
-<meta name="description" content="The definitive Austin golf resource. 44 courses reviewed and bookable. Insider tips, tee time deals, and the Austin Golf Insider newsletter.">
+<title>AustinGolf.com — The Austin Golf Guide</title>
+<meta name="description" content="The definitive Austin golf resource. 54 courses reviewed, mapped, and bookable. GOLF Magazine's Best Golf City in America.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Lora:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
 <style>
-:root{
-  --ink:#0C0E0A;
-  --o1:#1B2D11; --o2:#2E4A1F; --o3:#4D7233;
-  --terra:#C8602A; --terra-h:#DC7842;
-  --amber:#C4922A;
-  --sand:#EFE1CA; --parch:#F6F0E5; --cream:#FDFAF3;
-  --border:#E0D2B8; --border-l:#EDE2CE;
-  --tx:#1A1510; --mu:#6B5C49;
-  --fd:'Syne',sans-serif;
-  --fb:'Outfit',system-ui,sans-serif;
+:root {
+  --deep-water: #1D2221;
+  --white-sand: #F7F2E9;
+  --limestone:  #E5E0D8;
+  --gravel:     #A0A59C;
+  --bark:       #887A68;
+  --sea-foam:   #9FBEBB;
+  --forest:     #627A50;
+  --blaze:      #DC8351;
+  --blaze-dark: #C4693A;
+  --forest-bg:  #EBF0E6;
+  --blaze-bg:   #FBF0E8;
+  --border:     #E5E0D8;
+  --fd: 'Lora', Georgia, serif;
+  --fb: 'Montserrat', system-ui, sans-serif;
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{font-family:var(--fb);background:var(--parch);color:var(--tx);line-height:1.7;}
-a{text-decoration:none;color:inherit;}
-.topbar{background:#F6F4EE;border-bottom:1px solid rgba(0,0,0,.06);padding:0 28px;text-align:center;font-size:.72rem;color:var(--mu);line-height:1;height:36px;display:flex;align-items:center;justify-content:center;}
-.topbar a{color:var(--terra);font-weight:600;}
-nav{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1px solid rgba(0,0,0,.08);padding:0 28px;}
-.nav-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;height:62px;gap:0;}
-.logo{font-family:var(--fd);font-size:1.18rem;font-weight:800;color:var(--ink);letter-spacing:-.02em;margin-right:40px;white-space:nowrap;flex-shrink:0;}
-.logo span{color:var(--terra);}
-.nav-links{display:flex;gap:2px;flex:1;}
-.nl{color:rgba(0,0,0,.48);font-size:.8rem;font-weight:500;padding:6px 11px;border-radius:5px;transition:color .15s,background .15s;white-space:nowrap;}
-.nl:hover{color:var(--ink);}
-.nav-right{margin-left:auto;display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.nav-cta{background:var(--terra);color:#fff;border-radius:100px;padding:8px 20px;font-family:var(--fb);font-size:.78rem;font-weight:600;transition:background .15s;white-space:nowrap;}
-.nav-cta:hover{background:var(--terra-h);}
-.hero{position:relative;height:100svh;min-height:580px;max-height:1000px;overflow:hidden;display:flex;align-items:flex-end;}
-.hero-img{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=2000&q=85');background-size:cover;background-position:center 40%;transform:scale(1.03);transition:transform 8s ease-out;}
-.hero-img.loaded{transform:scale(1);}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,14,8,.82) 0%,rgba(8,14,8,.48) 32%,rgba(8,14,8,.12) 62%,transparent 100%);}
-.hero-overlay-top{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,14,8,.32) 0%,transparent 18%);}
-.hero-content{position:relative;z-index:10;width:100%;max-width:1280px;margin:0 auto;padding:0 40px 56px;}
-.hero-eyebrow{display:inline-block;font-size:.62rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:14px;}
-.hero h1{font-family:var(--fd);font-size:clamp(3rem,6.5vw,5.6rem);font-weight:800;color:#fff;line-height:.96;letter-spacing:-.03em;margin-bottom:18px;max-width:720px;}
-.hero h1 em{color:var(--terra-h);font-style:normal;}
-.hero-sub{font-size:clamp(.86rem,1.3vw,.97rem);color:rgba(255,255,255,.54);max-width:460px;margin-bottom:32px;line-height:1.72;font-weight:400;}
-.hero-ctas{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:40px;}
-.cta-p{background:var(--terra);color:#fff;border-radius:100px;padding:13px 28px;font-family:var(--fb);font-size:.86rem;font-weight:600;transition:background .15s,transform .1s;}
-.cta-p:hover{background:var(--terra-h);transform:translateY(-1px);}
-.cta-g{background:rgba(255,255,255,.12);color:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.22);border-radius:100px;padding:13px 28px;font-family:var(--fb);font-size:.86rem;font-weight:500;transition:all .15s;}
-.cta-g:hover{background:rgba(255,255,255,.2);color:#fff;}
-.hero-stats{display:flex;gap:0;border-left:1px solid rgba(255,255,255,.12);flex-wrap:wrap;}
-.hs-cell{padding:6px 24px;border-right:1px solid rgba(255,255,255,.12);}
-.hs-n{font-family:var(--fd);font-size:1.4rem;font-weight:800;color:#fff;display:block;line-height:1;}
-.hs-l{font-size:.55rem;color:rgba(255,255,255,.32);text-transform:uppercase;letter-spacing:.1em;margin-top:2px;display:block;}
-.trust{background:var(--sand);border-bottom:1px solid var(--border);}
-.trust-scroll{max-width:1280px;margin:0 auto;padding:10px 28px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;}
-.ti{font-size:.72rem;color:var(--mu);font-weight:500;white-space:nowrap;}
-.td{width:1px;height:13px;background:var(--border);flex-shrink:0;}
-.sec{padding:72px 0;}
-.sec-inner{max-width:1280px;margin:0 auto;padding:0 40px;}
-.sw{background:var(--cream);}
-.sl{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin-bottom:9px;}
-.st{font-family:var(--fd);font-size:clamp(1.65rem,3vw,2.3rem);font-weight:800;color:var(--tx);line-height:1.06;letter-spacing:-.025em;margin-bottom:10px;}
-.st em{color:var(--terra);font-style:normal;}
-.ss{font-size:.86rem;color:var(--mu);max-width:480px;margin-bottom:0;line-height:1.7;}
-.sec-head{margin-bottom:32px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;}
-.tool-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
-.tool-cell{background:var(--cream);padding:26px 24px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);display:block;transition:background .15s;}
-.tool-cell:nth-child(3n){border-right:none;}
-.tool-cell:nth-last-child(-n+3){border-bottom:none;}
-.tool-cell:hover{background:var(--sand);}
-.tc-eye{font-size:.56rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--terra);margin-bottom:6px;}
-.tc-title{font-family:var(--fd);font-size:.98rem;font-weight:800;color:var(--tx);margin-bottom:6px;letter-spacing:-.01em;line-height:1.2;}
-.tc-desc{font-size:.78rem;color:var(--mu);line-height:1.6;margin-bottom:12px;}
-.tc-link{font-size:.72rem;font-weight:600;color:var(--o3);}
-.nl-sec{background:linear-gradient(145deg,#050909 0%,#0C1A0E 55%,#070E0A 100%);padding:92px 40px;text-align:center;}
-.nl-inner{max-width:520px;margin:0 auto;}
-.nl-eye{font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin-bottom:14px;display:block;}
-.nl-title{font-family:var(--fd);font-size:clamp(1.9rem,4vw,3rem);font-weight:800;color:#fff;line-height:.98;letter-spacing:-.03em;margin-bottom:12px;}
-.nl-title em{color:var(--terra-h);font-style:normal;}
-.nl-desc{font-size:.84rem;color:rgba(255,255,255,.36);max-width:380px;margin:0 auto 26px;line-height:1.72;}
-.nl-form{display:flex;gap:8px;max-width:360px;margin:0 auto;}
-.nl-input{flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:11px 18px;color:#fff;font-family:var(--fb);font-size:.84rem;outline:none;}
-.nl-btn{background:var(--terra);color:#fff;border:none;border-radius:100px;padding:11px 22px;font-family:var(--fb);font-size:.84rem;font-weight:600;cursor:pointer;white-space:nowrap;}
-.nl-fine{font-size:.62rem;color:rgba(255,255,255,.16);margin-top:10px;}
-footer{background:var(--o1);padding:52px 40px 24px;}
-.fi{max-width:1280px;margin:0 auto;}
-.f-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;margin-bottom:32px;}
-.f-brand{font-family:var(--fd);font-size:1.1rem;font-weight:800;color:#fff;}
-.f-brand span{color:var(--terra);}
-.f-tag{font-size:.74rem;color:rgba(255,255,255,.28);margin-top:7px;line-height:1.6;max-width:220px;}
-.f-col h4{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--terra-h);margin-bottom:11px;}
-.f-col ul{list-style:none;display:flex;flex-direction:column;gap:6px;}
-.f-col ul li a{color:rgba(255,255,255,.38);font-size:.76rem;transition:color .15s;}
-.f-col ul li a:hover{color:#fff;}
-.f-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
-.f-copy{font-size:.66rem;color:rgba(255,255,255,.2);}
-.f-disc{font-size:.62rem;color:rgba(255,255,255,.14);max-width:480px;text-align:right;line-height:1.5;}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--fb); background: var(--white-sand); color: var(--deep-water); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+
+/* ── NAV ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  padding: 0 40px;
+  transition: background .3s, backdrop-filter .3s;
+}
+.nav.scrolled {
+  background: rgba(29,34,33,.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.nav-inner {
+  max-width: 1320px; margin: 0 auto;
+  display: flex; align-items: center;
+  height: 68px; gap: 32px;
+}
+.nav-logo {
+  font-family: var(--fb); font-size: 1rem; font-weight: 800;
+  color: #fff; letter-spacing: -.01em; flex-shrink: 0;
+  text-shadow: 0 1px 8px rgba(0,0,0,.4);
+}
+.nav-logo span { color: var(--blaze); }
+.nav-links { display: flex; gap: 2px; flex: 1; }
+.nav-link {
+  font-size: .65rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: rgba(255,255,255,.55);
+  padding: 6px 12px; border-radius: 4px; transition: color .15s;
+}
+.nav-link:hover { color: #fff; }
+.nav-cta {
+  background: var(--blaze); color: #fff;
+  border-radius: 100px; padding: 9px 22px;
+  font-size: .65rem; font-weight: 800; letter-spacing: .1em;
+  text-transform: uppercase; flex-shrink: 0;
+  transition: background .15s;
+}
+.nav-cta:hover { background: var(--blaze-dark); }
+
+/* ── HERO — FULL SCREEN ── */
+.hero {
+  position: relative;
+  width: 100%; height: 100svh;
+  min-height: 620px;
+  overflow: hidden;
+  display: flex; align-items: flex-end;
+}
+
+/* Background image via Unsplash — golf course at golden hour */
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=2400&q=90');
+  background-size: cover;
+  background-position: center 35%;
+  transform: scale(1.04);
+  transition: transform 12s ease-out;
+  will-change: transform;
+}
+.hero-bg.loaded { transform: scale(1); }
+
+/* Rich gradient — dark at bottom for text legibility, subtle at top */
+.hero-overlay {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(to top,
+      rgba(18,22,18,.88) 0%,
+      rgba(18,22,18,.55) 28%,
+      rgba(18,22,18,.18) 55%,
+      rgba(18,22,18,.04) 78%,
+      transparent 100%),
+    linear-gradient(to bottom,
+      rgba(18,22,18,.45) 0%,
+      transparent 18%);
+}
+
+/* Subtle texture grain — adds premium feel */
+.hero-grain {
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: .6;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative; z-index: 10;
+  width: 100%; max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 40px 64px;
+}
+
+.hero-eyebrow {
+  font-size: .6rem; font-weight: 700;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--blaze);
+  margin-bottom: 18px; display: block;
+}
+
+.hero-title {
+  font-family: var(--fd);
+  font-size: clamp(3.2rem, 7vw, 6.4rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: .94;
+  letter-spacing: -.025em;
+  margin-bottom: 22px;
+  max-width: 760px;
+}
+.hero-title em {
+  color: var(--blaze);
+  font-style: italic;
+}
+
+.hero-sub {
+  font-size: clamp(.84rem, 1.2vw, .96rem);
+  color: rgba(255,255,255,.5);
+  max-width: 440px;
+  line-height: 1.75;
+  font-weight: 300;
+  margin-bottom: 36px;
+}
+
+.hero-actions {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  margin-bottom: 52px;
+}
+
+.btn-primary {
+  background: var(--blaze); color: #fff;
+  border-radius: 100px; padding: 14px 32px;
+  font-family: var(--fb); font-size: .72rem;
+  font-weight: 800; letter-spacing: .08em;
+  text-transform: uppercase;
+  transition: background .15s, transform .1s;
+  display: inline-block;
+}
+.btn-primary:hover { background: var(--blaze-dark); transform: translateY(-1px); }
+
+.btn-ghost {
+  background: rgba(255,255,255,.1);
+  color: rgba(255,255,255,.8);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 100px; padding: 14px 32px;
+  font-family: var(--fb); font-size: .72rem;
+  font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase;
+  transition: all .15s;
+  display: inline-block;
+  backdrop-filter: blur(4px);
+}
+.btn-ghost:hover { background: rgba(255,255,255,.18); color: #fff; }
+
+/* Trust strip */
+.hero-trust {
+  display: flex; gap: 0;
+  border-left: 1px solid rgba(255,255,255,.1);
+  flex-wrap: wrap;
+}
+.ht {
+  padding: 6px 28px 6px 0;
+  margin-right: 28px;
+  border-right: 1px solid rgba(255,255,255,.1);
+}
+.ht:last-child { border-right: none; }
+.ht-n {
+  font-family: var(--fd);
+  font-size: 1.6rem; font-weight: 700;
+  color: #fff; display: block; line-height: 1;
+}
+.ht-l {
+  font-size: .52rem; color: rgba(255,255,255,.28);
+  text-transform: uppercase; letter-spacing: .14em;
+  display: block; margin-top: 3px;
+}
+
+/* Scroll indicator */
+.scroll-hint {
+  position: absolute;
+  bottom: 32px; left: 50%; transform: translateX(-50%);
+  z-index: 10;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 8px;
+  opacity: 0; animation: fadeIn 1s 2s forwards;
+}
+.scroll-hint span {
+  font-size: .55rem; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: rgba(255,255,255,.3);
+}
+.scroll-line {
+  width: 1px; height: 36px;
+  background: linear-gradient(to bottom, rgba(255,255,255,.3), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes fadeIn { to { opacity: 1; } }
+@keyframes scrollPulse {
+  0%, 100% { opacity: .3; transform: scaleY(1); }
+  50% { opacity: .8; transform: scaleY(1.1); }
+}
+
+/* ── TRUST BAR ── */
+.trust-bar {
+  background: var(--deep-water);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.trust-inner {
+  max-width: 1320px; margin: 0 auto; padding: 0 40px;
+  display: flex; align-items: center; justify-content: center;
+  gap: 32px; height: 48px; flex-wrap: wrap;
+  overflow: hidden;
+}
+.ti {
+  font-size: .62rem; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.3); white-space: nowrap;
+}
+.td { width: 1px; height: 14px; background: rgba(255,255,255,.1); }
+
+/* ── SECTION BASE ── */
+.section { padding: 80px 40px; }
+.sec-inner { max-width: 1320px; margin: 0 auto; }
+.eyebrow {
+  font-size: .6rem; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--blaze);
+  display: block; margin-bottom: 12px;
+}
+.sec-title {
+  font-family: var(--fd);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 700; color: var(--deep-water);
+  line-height: 1.05; letter-spacing: -.02em;
+  margin-bottom: 10px;
+}
+.sec-title em { color: var(--blaze); font-style: italic; }
+.sec-sub {
+  font-size: .9rem; color: var(--bark);
+  max-width: 480px; line-height: 1.75; font-weight: 300;
+}
+.sec-head {
+  display: flex; justify-content: space-between;
+  align-items: flex-end; margin-bottom: 40px; flex-wrap: wrap; gap: 20px;
+}
+.sec-link {
+  font-size: .68rem; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--blaze);
+  border-bottom: 1.5px solid var(--blaze);
+  padding-bottom: 2px; white-space: nowrap;
+  transition: color .15s;
+}
+.sec-link:hover { color: var(--blaze-dark); }
+
+/* ── CATEGORY TILES ── */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.cat-tile {
+  aspect-ratio: 3/4;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+.cat-tile-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  transition: transform .5s ease;
+}
+.cat-tile:hover .cat-tile-bg { transform: scale(1.04); }
+.cat-tile-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(18,22,18,.82) 0%, rgba(18,22,18,.2) 55%, transparent 100%);
+}
+.cat-tile-body {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 20px 18px;
+}
+.cat-tile-label {
+  font-size: .58rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--blaze);
+  display: block; margin-bottom: 5px;
+}
+.cat-tile-name {
+  font-family: var(--fd); font-size: 1.1rem; font-weight: 700;
+  color: #fff; line-height: 1.15; display: block;
+}
+.cat-tile-ct {
+  font-size: .65rem; color: rgba(255,255,255,.45);
+  margin-top: 4px; display: block;
+}
+
+/* ── FEATURED COURSES STRIP ── */
+.course-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.course-card {
+  background: #fff; border: 1px solid var(--limestone);
+  border-radius: 8px; overflow: hidden;
+  transition: transform .18s, box-shadow .18s;
+}
+.course-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(29,34,33,.1); }
+.cc-img {
+  height: 180px; background: var(--limestone);
+  background-size: cover; background-position: center;
+}
+.cc-body { padding: 16px 18px 20px; }
+.cc-type {
+  font-size: .55rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--blaze);
+  margin-bottom: 6px; display: block;
+}
+.cc-name {
+  font-family: var(--fd); font-size: .96rem; font-weight: 700;
+  color: var(--deep-water); margin-bottom: 5px; line-height: 1.2;
+}
+.cc-hook {
+  font-size: .76rem; color: var(--bark); line-height: 1.5;
+  font-style: italic; font-family: var(--fd); margin-bottom: 14px;
+}
+.cc-meta {
+  display: flex; justify-content: space-between;
+  align-items: center; padding-top: 12px;
+  border-top: 1px solid var(--limestone); font-size: .74rem;
+}
+.cc-fee { font-weight: 700; color: var(--forest); }
+.cc-dist { color: var(--gravel); }
+.cc-btn {
+  display: block; background: var(--deep-water); color: #fff;
+  border-radius: 100px; padding: 8px 16px;
+  font-size: .62rem; font-weight: 800; letter-spacing: .06em;
+  text-transform: uppercase; margin-top: 12px;
+  text-align: center; transition: background .15s;
+}
+.cc-btn:hover { background: var(--blaze); }
+
+/* ── EDITORIAL SECTION (dark) ── */
+.editorial {
+  background: var(--deep-water);
+  padding: 80px 40px;
+}
+.ed-inner {
+  max-width: 1320px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 64px; align-items: center;
+}
+.ed-img {
+  border-radius: 8px; overflow: hidden;
+  aspect-ratio: 4/3;
+  background: #2a3530;
+  background-image: url('https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&w=1200&q=85');
+  background-size: cover; background-position: center;
+}
+.ed-eyebrow {
+  font-size: .6rem; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--blaze);
+  display: block; margin-bottom: 14px;
+}
+.ed-title {
+  font-family: var(--fd); font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 700; color: #fff; line-height: 1.05;
+  letter-spacing: -.02em; margin-bottom: 14px;
+}
+.ed-title em { color: var(--blaze); font-style: italic; }
+.ed-body {
+  font-size: .88rem; color: rgba(255,255,255,.42);
+  line-height: 1.8; font-weight: 300; margin-bottom: 28px;
+}
+.ed-body strong { color: rgba(255,255,255,.7); font-weight: 600; }
+.ed-btn {
+  display: inline-block; border: 1.5px solid rgba(255,255,255,.2);
+  color: rgba(255,255,255,.7); border-radius: 100px; padding: 11px 28px;
+  font-size: .65rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; transition: all .15s;
+}
+.ed-btn:hover { border-color: var(--blaze); color: var(--blaze); }
+
+/* ── NEWSLETTER (dark) ── */
+.newsletter {
+  background: var(--deep-water);
+  padding: 96px 40px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.newsletter::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 100%, rgba(98,122,80,.15) 0%, transparent 65%);
+  pointer-events: none;
+}
+.nl-inner { max-width: 480px; margin: 0 auto; position: relative; z-index: 2; }
+.nl-eyebrow {
+  font-size: .6rem; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--blaze);
+  display: block; margin-bottom: 16px;
+}
+.nl-title {
+  font-family: var(--fd);
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 700; color: #fff; line-height: .96;
+  letter-spacing: -.025em; margin-bottom: 14px;
+}
+.nl-title em { color: var(--blaze); font-style: italic; }
+.nl-sub {
+  font-size: .86rem; color: rgba(255,255,255,.36);
+  line-height: 1.75; font-weight: 300; margin-bottom: 32px;
+  max-width: 380px; margin-left: auto; margin-right: auto;
+}
+.nl-form {
+  display: flex; gap: 8px; max-width: 380px; margin: 0 auto 14px;
+}
+.nl-input {
+  flex: 1; background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 100px; padding: 13px 20px;
+  font-family: var(--fb); font-size: .82rem;
+  color: #fff; outline: none; transition: border .15s;
+}
+.nl-input::placeholder { color: rgba(255,255,255,.28); }
+.nl-input:focus { border-color: rgba(255,255,255,.3); }
+.nl-btn {
+  background: var(--blaze); color: #fff;
+  border: none; border-radius: 100px; padding: 13px 24px;
+  font-family: var(--fb); font-size: .72rem; font-weight: 800;
+  letter-spacing: .06em; text-transform: uppercase;
+  cursor: pointer; transition: background .15s; white-space: nowrap;
+}
+.nl-btn:hover { background: var(--blaze-dark); }
+.nl-fine {
+  font-size: .6rem; color: rgba(255,255,255,.18); margin-bottom: 28px;
+}
+
+/* ── PARTNER BAND ── */
+.partner-band {
+  background: var(--forest-bg);
+  border-top: 1px solid #D4DFC8;
+  border-bottom: 1px solid #D4DFC8;
+  padding: 52px 40px; text-align: center;
+}
+.pb-inner { max-width: 540px; margin: 0 auto; }
+.pb-eyebrow {
+  font-size: .6rem; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--forest);
+  display: block; margin-bottom: 12px;
+}
+.pb-title {
+  font-family: var(--fd); font-size: 1.7rem; font-weight: 700;
+  color: var(--deep-water); margin-bottom: 10px; line-height: 1.1;
+}
+.pb-title em { color: var(--forest); font-style: italic; }
+.pb-sub {
+  font-size: .84rem; color: var(--bark); line-height: 1.7;
+  font-weight: 300; margin-bottom: 22px;
+}
+.pb-btn {
+  display: inline-block; background: var(--forest); color: #fff;
+  border-radius: 100px; padding: 12px 28px;
+  font-size: .65rem; font-weight: 800; letter-spacing: .1em;
+  text-transform: uppercase; transition: background .15s;
+}
+.pb-btn:hover { background: #527040; }
+
+/* ── FOOTER ── */
+.footer { background: var(--deep-water); padding: 56px 40px 28px; }
+.footer-inner { max-width: 1320px; margin: 0 auto; }
+.footer-wordmark {
+  font-family: var(--fd); font-size: clamp(3.5rem, 10vw, 8rem);
+  font-weight: 700; color: rgba(255,255,255,.05);
+  line-height: .92; letter-spacing: -.02em; margin-bottom: 36px;
+}
+.footer-wordmark em { color: rgba(220,131,81,.18); font-style: italic; }
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 32px; margin-bottom: 36px;
+}
+.f-logo { font-family: var(--fb); font-size: .92rem; font-weight: 800; color: rgba(255,255,255,.3); }
+.f-logo span { color: var(--blaze); }
+.f-tag { font-size: .74rem; color: rgba(255,255,255,.18); margin-top: 8px; line-height: 1.6; max-width: 200px; font-weight: 300; }
+.f-col h4 { font-size: .58rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.25); margin-bottom: 12px; }
+.f-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.f-col ul li a { font-size: .76rem; color: rgba(255,255,255,.25); transition: color .15s; font-weight: 400; }
+.f-col ul li a:hover { color: rgba(255,255,255,.6); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding-top: 18px; display: flex;
+  justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 10px;
+}
+.f-copy { font-size: .66rem; color: rgba(255,255,255,.18); }
+.f-disc { font-size: .62rem; color: rgba(255,255,255,.12); max-width: 480px; text-align: right; line-height: 1.5; }
+
+@media(max-width:900px){
+  .cat-grid { grid-template-columns: repeat(2,1fr); }
+  .course-strip { grid-template-columns: 1fr; }
+  .ed-inner { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
 @media(max-width:600px){
-  nav .nav-links{display:none;}
-  .hero-content{padding:0 24px 48px;}
-  .hero h1{font-size:2.7rem;}
-  .tool-grid{grid-template-columns:1fr;}
-  .nl-form{flex-direction:column;}
-  .f-grid{grid-template-columns:1fr;}
+  .nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .hero-content { padding: 0 24px 52px; }
+  .section, .editorial, .newsletter, .partner-band, .footer { padding-left: 24px; padding-right: 24px; }
+  .nl-form { flex-direction: column; }
+  .cat-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .hero-trust { flex-wrap: wrap; gap: 16px; }
+  .ht { border-right: none; margin-right: 0; padding-right: 0; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-wordmark { font-size: 3rem; }
 }
 </style>
 </head>
 <body>
-<div class="topbar">GOLF Magazine named Austin the Best Golf City in America — <a href="austin-golf-directory.html">&nbsp;44 courses reviewed →</a></div>
-<nav>
+
+<!-- NAV — transparent over hero, fills on scroll -->
+<nav class="nav" id="mainNav">
   <div class="nav-inner">
-    <a href="index.html" class="logo">Austin<span>Golf</span></a>
+    <a href="#" class="nav-logo">Austin<span>Golf</span></a>
     <div class="nav-links">
-      <a href="austin-golf-directory.html" class="nl">Directory</a>
-      <a href="austin-golf-directory.html" class="nl">Best Courses</a>
-      <a href="austin-golf-directory.html" class="nl">Green Fees</a>
-      <a href="#newsletter" class="nl">Newsletter</a>
+      <a class="nav-link" href="austingolf-directory-58.html">Directory</a>
+      <a class="nav-link" href="#">Best Courses</a>
+      <a class="nav-link" href="#">Green Fees</a>
+      <a class="nav-link" href="#newsletter">Newsletter</a>
     </div>
-    <div class="nav-right">
-      <a href="austin-golf-directory.html" class="nav-cta">Browse All 44 Courses</a>
-    </div>
+    <a class="nav-cta" href="#partner">Get Featured</a>
   </div>
 </nav>
+
+<!-- HERO — FULL SCREEN -->
 <section class="hero">
-  <div class="hero-img" id="heroImg"></div>
+  <div class="hero-bg" id="heroBg"></div>
   <div class="hero-overlay"></div>
-  <div class="hero-overlay-top"></div>
+  <div class="hero-grain"></div>
+
   <div class="hero-content">
-    <span class="hero-eyebrow">Austin, Texas · 44 Courses · Year-Round Golf</span>
-    <h1>Play <em>Austin</em><br>Golf Better</h1>
-    <p class="hero-sub">Every course in the greater Austin metro reviewed, mapped, and bookable — from $10 munis to Golf Digest Best in State resort tracks.</p>
-    <div class="hero-ctas">
-      <a href="austin-golf-directory.html" class="cta-p">Browse All 44 Courses</a>
-      <a href="#newsletter" class="cta-g">Free Newsletter →</a>
+    <span class="hero-eyebrow">GOLF Magazine's Best Golf City in America</span>
+    <h1 class="hero-title">
+      Hill Country<br>Golf Starts <em>Here.</em>
+    </h1>
+    <p class="hero-sub">54 courses reviewed, mapped, and bookable — from $10 city munis to Golf Digest Best-in-State resort tracks.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="austingolf-directory-58.html">Browse All 54 Courses</a>
+      <a class="btn-ghost" href="#newsletter">Free Newsletter</a>
     </div>
-    <div class="hero-stats">
-      <div class="hs-cell"><span class="hs-n">44</span><span class="hs-l">Courses</span></div>
-      <div class="hs-cell"><span class="hs-n">$10</span><span class="hs-l">From</span></div>
-      <div class="hs-cell"><span class="hs-n">Free</span><span class="hs-l">Newsletter</span></div>
-      <div class="hs-cell"><span class="hs-n">#1</span><span class="hs-l">Golf City</span></div>
+    <div class="hero-trust">
+      <div class="ht"><span class="ht-n">54</span><span class="ht-l">Courses</span></div>
+      <div class="ht"><span class="ht-n">$10</span><span class="ht-l">From</span></div>
+      <div class="ht"><span class="ht-n">Year-Round</span><span class="ht-l">Playability</span></div>
+      <div class="ht"><span class="ht-n">Free</span><span class="ht-l">Newsletter</span></div>
     </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
   </div>
 </section>
-<div class="trust">
-  <div class="trust-scroll">
-    <span class="ti">44 Verified Courses</span><div class="td"></div>
-    <span class="ti">Book via GolfNow</span><div class="td"></div>
-    <span class="ti">All Austin Metro Areas</span><div class="td"></div>
-    <span class="ti">Free Weekly Newsletter</span><div class="td"></div>
-    <span class="ti">GOLF Magazine's Best Golf City in America</span>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <span class="ti">54 Verified Courses</span>
+    <div class="td"></div>
+    <span class="ti">Book via GolfNow</span>
+    <div class="td"></div>
+    <span class="ti">All Austin Metro Areas</span>
+    <div class="td"></div>
+    <span class="ti">Free Weekly Newsletter</span>
+    <div class="td"></div>
+    <span class="ti">The Austin Golf Insider</span>
   </div>
 </div>
-<section class="sec sw">
+
+<!-- CATEGORY TILES -->
+<section class="section" style="background:#fff;">
   <div class="sec-inner">
     <div class="sec-head">
       <div>
-        <div class="sl">Find What You Need</div>
-        <h2 class="st">Your Austin Golf <em>Starting Points</em></h2>
-        <p class="ss">44 courses reviewed and bookable. Filter by budget, area, type, and more.</p>
+        <span class="eyebrow">Find Your Round</span>
+        <h2 class="sec-title">Every Kind of <em>Austin Golf</em></h2>
+        <p class="sec-sub">From city munis under $30 to world-ranked resort tracks. Filter by type, budget, and area.</p>
       </div>
+      <a class="sec-link" href="austingolf-directory-58.html">Browse All 54 Courses</a>
     </div>
-    <div class="tool-grid">
-      <a href="austin-golf-directory.html" class="tool-cell">
-        <div class="tc-eye">Full Directory</div>
-        <div class="tc-title">Browse All 44 Courses</div>
-        <div class="tc-desc">Filter by type, area, budget, and holes. GolfNow booking, maps, and videos for every course.</div>
-        <span class="tc-link">Browse the Directory →</span>
+    <div class="cat-grid">
+      <a class="cat-tile" href="austingolf-directory-58.html">
+        <div class="cat-tile-bg" style="background-image:url('https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&w=800&q=80');"></div>
+        <div class="cat-tile-overlay"></div>
+        <div class="cat-tile-body">
+          <span class="cat-tile-label">Best Value</span>
+          <span class="cat-tile-name">City Munis</span>
+          <span class="cat-tile-ct">6 courses from $10</span>
+        </div>
       </a>
-      <a href="austin-golf-directory.html" class="tool-cell">
-        <div class="tc-eye">Best Public Courses</div>
-        <div class="tc-title">Top Public Courses in Austin</div>
-        <div class="tc-desc">Jake Mercer's definitive ranking of Austin's best public and daily-fee courses.</div>
-        <span class="tc-link">See the Rankings →</span>
+      <a class="cat-tile" href="austingolf-directory-58.html">
+        <div class="cat-tile-bg" style="background-image:url('https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?auto=format&fit=crop&w=800&q=80');"></div>
+        <div class="cat-tile-overlay"></div>
+        <div class="cat-tile-body">
+          <span class="cat-tile-label">Most Popular</span>
+          <span class="cat-tile-name">Public Courses</span>
+          <span class="cat-tile-ct">20+ courses, all budgets</span>
+        </div>
       </a>
-      <a href="austin-golf-directory.html" class="tool-cell">
-        <div class="tc-eye">Budget Golf</div>
-        <div class="tc-title">Best Courses Under $50</div>
-        <div class="tc-desc">Great Austin golf doesn't require big spending. The city's best value rounds, reviewed.</div>
-        <span class="tc-link">See Budget Picks →</span>
+      <a class="cat-tile" href="austingolf-directory-58.html">
+        <div class="cat-tile-bg" style="background-image:url('https://images.unsplash.com/photo-1535132011086-b8818f016104?auto=format&fit=crop&w=800&q=80');"></div>
+        <div class="cat-tile-overlay"></div>
+        <div class="cat-tile-body">
+          <span class="cat-tile-label">Bucket List</span>
+          <span class="cat-tile-name">Resort Courses</span>
+          <span class="cat-tile-ct">Barton Creek, Wolfdancer & more</span>
+        </div>
       </a>
-      <a href="austin-golf-directory.html" class="tool-cell">
-        <div class="tc-eye">Resort Golf</div>
-        <div class="tc-title">Austin Resort Courses</div>
-        <div class="tc-desc">Barton Creek, Wolfdancer, Horseshoe Bay — Austin's top resort tracks reviewed and bookable.</div>
-        <span class="tc-link">See Resort Courses →</span>
-      </a>
-      <a href="austin-golf-directory.html" class="tool-cell">
-        <div class="tc-eye">Group Golf</div>
-        <div class="tc-title">Bachelor Party Golf Guide</div>
-        <div class="tc-desc">The right course makes a bachelor party. Our picks for groups in Austin.</div>
-        <span class="tc-link">Plan the Trip →</span>
-      </a>
-      <a href="#newsletter" class="tool-cell">
-        <div class="tc-eye">Free Newsletter</div>
-        <div class="tc-title">The Austin Golf Insider</div>
-        <div class="tc-desc">Weekly tee time deals, course conditions, and local intel. Free forever.</div>
-        <span class="tc-link">Subscribe Free →</span>
+      <a class="cat-tile" href="austingolf-directory-58.html">
+        <div class="cat-tile-bg" style="background-image:url('https://images.unsplash.com/photo-1561132952-ae3a76ac4f39?auto=format&fit=crop&w=800&q=80');"></div>
+        <div class="cat-tile-overlay"></div>
+        <div class="cat-tile-body">
+          <span class="cat-tile-label">Elite Access</span>
+          <span class="cat-tile-name">Private Clubs</span>
+          <span class="cat-tile-ct">Austin CC, Spanish Oaks & more</span>
+        </div>
       </a>
     </div>
   </div>
 </section>
-<section class="nl-sec" id="newsletter">
+
+<!-- FEATURED COURSES -->
+<section class="section" style="background:var(--white-sand);">
+  <div class="sec-inner">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">Insider Picks</span>
+        <h2 class="sec-title">Must-Play <em>Austin Courses</em></h2>
+        <p class="sec-sub">Handpicked by the Austin Golf Insider team — the courses worth building your round around.</p>
+      </div>
+      <a class="sec-link" href="austingolf-directory-58.html">See All Featured Courses</a>
+    </div>
+    <div class="course-strip">
+      <div class="course-card">
+        <div class="cc-img" style="background-image:url('https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&w=800&q=80');"></div>
+        <div class="cc-body">
+          <span class="cc-type">Resort · Tom Fazio</span>
+          <div class="cc-name">Omni Barton Creek — Fazio Canyons</div>
+          <div class="cc-hook">Golf Digest Best in State. Host of the Good Good Championship Nov 2026.</div>
+          <div class="cc-meta">
+            <span class="cc-fee">$130–$250</span>
+            <span class="cc-dist">20 min W of downtown</span>
+          </div>
+          <a class="cc-btn" href="austingolf-directory-58.html">View Course</a>
+        </div>
+      </div>
+      <div class="course-card">
+        <div class="cc-img" style="background-image:url('https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=800&q=80');"></div>
+        <div class="cc-body">
+          <span class="cc-type">Semi-Private · PGA Tour Design</span>
+          <div class="cc-name">Falconhead Golf Club</div>
+          <div class="cc-hook">The par-3 8th over limestone falls — most photographed hole in Austin.</div>
+          <div class="cc-meta">
+            <span class="cc-fee">$65–$120</span>
+            <span class="cc-dist">22 min W of downtown</span>
+          </div>
+          <a class="cc-btn" href="austingolf-directory-58.html">View Course</a>
+        </div>
+      </div>
+      <div class="course-card">
+        <div class="cc-img" style="background-image:url('https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?auto=format&fit=crop&w=800&q=80');"></div>
+        <div class="cc-body">
+          <span class="cc-type">Municipal · Est. 1919</span>
+          <div class="cc-name">Lions Municipal Golf Course</div>
+          <div class="cc-hook">The first integrated golf course in the South — Austin golf history in every fairway.</div>
+          <div class="cc-meta">
+            <span class="cc-fee">$25–$48</span>
+            <span class="cc-dist">4 min from downtown</span>
+          </div>
+          <a class="cc-btn" href="austingolf-directory-58.html">View Course</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDITORIAL / ABOUT SECTION -->
+<div class="editorial">
+  <div class="ed-inner">
+    <div class="ed-img"></div>
+    <div>
+      <span class="ed-eyebrow">The Austin Golf Insider</span>
+      <h2 class="ed-title">Written by People Who <em>Play These Courses</em></h2>
+      <p class="ed-body">
+        AustinGolf.com is the only resource built exclusively for Austin golf — not a national platform with a city page, not a government directory with 6 courses. <strong>Every listing is researched, verified, and written by people who know these fairways.</strong>
+      </p>
+      <p class="ed-body" style="margin-bottom:28px;">
+        From Harvey Penick's legacy at Lions Municipal to Tom Fazio's limestone canyon masterwork at Barton Creek — this is Austin golf, told honestly and completely.
+      </p>
+      <a class="ed-btn" href="austingolf-directory-58.html">Browse the Full Directory</a>
+    </div>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="newsletter" id="newsletter">
   <div class="nl-inner">
-    <span class="nl-eye">Free Weekly Newsletter</span>
-    <h2 class="nl-title">The <em>Austin Golf Insider</em></h2>
-    <p class="nl-desc">Every week: tee time deals, course conditions, and local intel — the only Austin golf newsletter written by people who actually play these courses.</p>
+    <span class="nl-eyebrow">Free Weekly Newsletter</span>
+    <h2 class="nl-title">The Austin<br><em>Golf Insider</em></h2>
+    <p class="nl-sub">Tee time deals, course conditions, and local intel — delivered every week to people who actually play Austin golf.</p>
     <div class="nl-form">
       <input class="nl-input" type="email" placeholder="your@email.com">
       <button class="nl-btn">Subscribe Free</button>
     </div>
-    <p class="nl-fine">Free forever · No spam · Unsubscribe anytime · Powered by Beehiiv</p>
+    <p class="nl-fine">Free forever · No spam · Unsubscribe anytime</p>
   </div>
-</section>
-<footer>
-  <div class="fi">
-    <div class="f-grid">
+</div>
+
+<!-- PARTNER BAND -->
+<div class="partner-band" id="partner">
+  <div class="pb-inner">
+    <span class="pb-eyebrow">For Course Managers</span>
+    <h2 class="pb-title">Is your course <em>Featured?</em></h2>
+    <p class="pb-sub">Featured partners get an Insider Pick badge, a full course guide, newsletter placement, and a monthly performance report. First 90 days completely free.</p>
+    <a class="pb-btn" href="mailto:partners@austingolf.com">Get Featured — First 90 Days Free</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-wordmark">Austin<br><em>Golf.</em></div>
+    <div class="footer-grid">
       <div>
-        <div class="f-brand">Austin<span>Golf</span>.com</div>
-        <p class="f-tag">The definitive Austin golf resource — 44 courses reviewed, ranked, and bookable.</p>
+        <div class="f-logo">Austin<span>Golf</span>.com</div>
+        <p class="f-tag">The definitive Austin golf resource — 54 courses reviewed, ranked, and bookable.</p>
       </div>
-      <div class="f-col"><h4>Courses</h4><ul><li><a href="austin-golf-directory.html">Full Directory</a></li><li><a href="austin-golf-directory.html">Best Public Courses</a></li><li><a href="austin-golf-directory.html">Under $50</a></li><li><a href="austin-golf-directory.html">Resort Courses</a></li></ul></div>
-      <div class="f-col"><h4>Guides</h4><ul><li><a href="austin-golf-directory.html">Beginners Guide</a></li><li><a href="austin-golf-directory.html">Bachelor Party</a></li><li><a href="austin-golf-directory.html">Near Downtown</a></li><li><a href="austin-golf-directory.html">Weekend Trip</a></li></ul></div>
-      <div class="f-col"><h4>Newsletter</h4><ul><li><a href="#newsletter">Subscribe Free</a></li><li><a href="austin-golf-directory.html">Course Directory</a></li><li><a href="austin-golf-directory.html">Green Fee Tracker</a></li></ul></div>
+      <div class="f-col">
+        <h4>Courses</h4>
+        <ul>
+          <li><a href="austingolf-directory-58.html">Full Directory</a></li>
+          <li><a href="#">Best Public Courses</a></li>
+          <li><a href="#">Under $50</a></li>
+          <li><a href="#">Resort Courses</a></li>
+          <li><a href="#">Near Downtown</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Guides</h4>
+        <ul>
+          <li><a href="#">Beginners Guide</a></li>
+          <li><a href="#">Bachelor Party</a></li>
+          <li><a href="#">Weekend Trip</a></li>
+          <li><a href="#">Hill Country Golf</a></li>
+          <li><a href="#">Corporate Outings</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>The Insider</h4>
+        <ul>
+          <li><a href="#newsletter">Free Newsletter</a></li>
+          <li><a href="#">Green Fee Tracker</a></li>
+          <li><a href="#">Course Map</a></li>
+          <li><a href="#partner">Partner With Us</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="f-bottom">
+    <div class="footer-bottom">
       <div class="f-copy">© 2026 AustinGolf.com</div>
-      <div class="f-disc">Green fees are estimates — verify directly with each course before booking. Some links are affiliate links; we earn a small commission at no cost to you.</div>
+      <div class="f-disc">Green fees are estimates — verify with each course before booking. Some links are affiliate links; we earn a small commission at no cost to you.</div>
     </div>
   </div>
 </footer>
+
 <script>
-const img = document.getElementById('heroImg');
-setTimeout(() => img.classList.add('loaded'), 100);
-const nav = document.querySelector('nav');
+// Nav: transparent over hero, fills on scroll
+const nav = document.getElementById('mainNav');
 window.addEventListener('scroll', () => {
-  nav.style.boxShadow = window.scrollY > 10 ? '0 2px 16px rgba(0,0,0,.09)' : 'none';
+  nav.classList.toggle('scrolled', window.scrollY > 60);
 }, { passive: true });
+
+// Hero: subtle Ken Burns zoom out on load
+const heroBg = document.getElementById('heroBg');
+setTimeout(() => heroBg.classList.add('loaded'), 100);
+
+// Newsletter form — placeholder interaction
+document.querySelector('.nl-btn').addEventListener('click', () => {
+  const input = document.querySelector('.nl-input');
+  if (input.value && input.value.includes('@')) {
+    input.value = '';
+    input.placeholder = 'You\'re in. Welcome to the Insider.';
+    document.querySelector('.nl-btn').textContent = 'Subscribed';
+    document.querySelector('.nl-btn').style.background = 'var(--forest)';
+  }
+});
 </script>
 </body>
 </html>

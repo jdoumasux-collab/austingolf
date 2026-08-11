@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Austin Golf Tee Times — Book Any Course | AustinGolf.com</title>
+<meta name="description" content="Book tee times at every Austin golf course. Find and compare tee times by date, area, and budget. GolfNow, Supreme Golf, and TeeOff all in one place.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Lora:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --deep-water: #1D2221;
+  --white-sand: #F7F2E9;
+  --limestone:  #E5E0D8;
+  --gravel:     #A0A59C;
+  --bark:       #887A68;
+  --sea-foam:   #9FBEBB;
+  --forest:     #627A50;
+  --blaze:      #DC8351;
+  --blaze-dark: #C4693A;
+  --blaze-bg:   #FBF0E8;
+  --forest-bg:  #EBF0E6;
+  --border:     #E5E0D8;
+  --fd: 'Lora', Georgia, serif;
+  --fb: 'Montserrat', system-ui, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--fb); background: var(--white-sand); color: var(--deep-water); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+
+/* ── NAV ── */
+.nav { background: var(--deep-water); position: sticky; top: 0; z-index: 200; }
+.nav-inner { max-width: 1320px; margin: 0 auto; display: flex; align-items: center; height: 60px; padding: 0 36px; gap: 28px; }
+.nav-logo { font-family: var(--fb); font-size: .95rem; font-weight: 800; color: #fff; letter-spacing: -.01em; flex-shrink: 0; }
+.nav-logo span { color: var(--blaze); }
+.nav-links { display: flex; gap: 2px; flex: 1; }
+.nav-link { font-size: .62rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.35); padding: 6px 11px; border-radius: 4px; transition: color .15s; }
+.nav-link:hover { color: rgba(255,255,255,.8); }
+.nav-link.active { color: #fff; }
+.nav-cta { background: var(--blaze); color: #fff; border-radius: 100px; padding: 8px 20px; font-size: .62rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; flex-shrink: 0; transition: background .15s; }
+.nav-cta:hover { background: var(--blaze-dark); }
+
+/* ── PAGE HEADER ── */
+.page-header { background: var(--deep-water); padding: 48px 36px 44px; border-bottom: 1px solid rgba(255,255,255,.06); }
+.ph-inner { max-width: 1320px; margin: 0 auto; }
+.ph-eyebrow { font-size: .6rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--blaze); display: block; margin-bottom: 12px; }
+.ph-title { font-family: var(--fd); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700; color: #fff; line-height: .98; letter-spacing: -.025em; margin-bottom: 10px; }
+.ph-title em { color: var(--blaze); font-style: italic; }
+.ph-sub { font-size: .86rem; color: rgba(255,255,255,.38); max-width: 480px; font-weight: 300; line-height: 1.7; }
+
+/* ── SEARCH BAR ── */
+.search-bar { background: var(--deep-water); padding: 0 36px 32px; }
+.search-inner { max-width: 1320px; margin: 0 auto; }
+.search-form {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 10px;
+  padding: 20px 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr auto;
+  gap: 12px;
+  align-items: end;
+}
+.sf-group { display: flex; flex-direction: column; gap: 6px; }
+.sf-label { font-size: .58rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.35); }
+.sf-input, .sf-select {
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-family: var(--fb);
+  font-size: .8rem;
+  color: #fff;
+  outline: none;
+  transition: border .15s;
+  width: 100%;
+}
+.sf-input::placeholder { color: rgba(255,255,255,.28); }
+.sf-input:focus, .sf-select:focus { border-color: rgba(255,255,255,.28); }
+.sf-select option { background: var(--deep-water); color: #fff; }
+.sf-btn {
+  background: var(--blaze); color: #fff;
+  border: none; border-radius: 6px;
+  padding: 10px 28px;
+  font-family: var(--fb); font-size: .72rem;
+  font-weight: 800; letter-spacing: .08em;
+  text-transform: uppercase;
+  cursor: pointer; transition: background .15s;
+  white-space: nowrap; align-self: end;
+  height: 40px;
+}
+.sf-btn:hover { background: var(--blaze-dark); }
+
+/* ── PLATFORM STRIP ── */
+.platform-strip {
+  background: #fff;
+  border-bottom: 1px solid var(--limestone);
+  padding: 0 36px;
+}
+.ps-inner {
+  max-width: 1320px; margin: 0 auto;
+  display: flex; align-items: center;
+  gap: 8px; height: 52px;
+  overflow-x: auto; scrollbar-width: none;
+}
+.ps-inner::-webkit-scrollbar { display: none; }
+.ps-label { font-size: .58rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gravel); white-space: nowrap; margin-right: 8px; }
+.ps-btn {
+  border: 1.5px solid var(--limestone);
+  background: transparent;
+  color: var(--bark);
+  border-radius: 100px; padding: 5px 16px;
+  font-family: var(--fb); font-size: .65rem; font-weight: 700;
+  letter-spacing: .04em; cursor: pointer; white-space: nowrap;
+  transition: all .15s;
+}
+.ps-btn:hover { border-color: var(--bark); color: var(--deep-water); }
+.ps-btn.active { background: var(--deep-water); color: #fff; border-color: var(--deep-water); }
+.ps-sep { width: 1px; height: 18px; background: var(--limestone); margin: 0 8px; flex-shrink: 0; }
+.results-ct { margin-left: auto; font-size: .68rem; color: var(--gravel); white-space: nowrap; font-weight: 500; flex-shrink: 0; }
+
+/* ── MAIN ── */
+.main { max-width: 1320px; margin: 0 auto; padding: 36px 36px 80px; display: grid; grid-template-columns: 1fr 320px; gap: 28px; align-items: start; }
+
+/* ── RESULTS ── */
+.results { display: flex; flex-direction: column; gap: 12px; }
+
+/* Section label */
+.area-label { font-size: .6rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gravel); padding: 8px 0 4px; border-bottom: 1px solid var(--limestone); margin-bottom: 4px; margin-top: 16px; }
+.area-label:first-child { margin-top: 0; }
+
+/* Tee time card */
+.tt-card {
+  background: #fff;
+  border: 1px solid var(--limestone);
+  border-radius: 8px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  overflow: hidden;
+  transition: box-shadow .18s, transform .18s;
+}
+.tt-card:hover { box-shadow: 0 8px 28px rgba(29,34,33,.09); transform: translateY(-1px); }
+.tt-card.featured { border-color: var(--blaze); }
+
+/* Accent bar */
+.tt-accent { width: 4px; background: var(--limestone); flex-shrink: 0; }
+.tt-card.featured .tt-accent { background: var(--blaze); }
+
+/* Card body */
+.tt-body { padding: 16px 18px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.tt-name-block { flex: 1; min-width: 180px; }
+.tt-featured-badge {
+  display: inline-block;
+  font-size: .52rem; font-weight: 800; letter-spacing: .08em;
+  text-transform: uppercase; background: var(--blaze-bg);
+  color: var(--blaze); padding: 2px 7px; border-radius: 3px;
+  margin-bottom: 5px;
+}
+.tt-name { font-family: var(--fd); font-size: .95rem; font-weight: 700; color: var(--deep-water); line-height: 1.2; margin-bottom: 3px; }
+.tt-meta { font-size: .72rem; color: var(--gravel); display: flex; gap: 10px; flex-wrap: wrap; }
+.tt-meta span { white-space: nowrap; }
+.tt-meta .dot { color: var(--limestone); }
+
+/* Times row */
+.tt-times { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.time-slot {
+  border: 1.5px solid var(--limestone);
+  border-radius: 5px; padding: 6px 12px;
+  font-size: .72rem; font-weight: 700;
+  color: var(--deep-water); cursor: pointer;
+  transition: all .15s; white-space: nowrap;
+  background: #fff;
+}
+.time-slot:hover { border-color: var(--blaze); color: var(--blaze); }
+.time-slot.hot { border-color: var(--forest); color: var(--forest); background: var(--forest-bg); }
+.time-slot.few { border-color: var(--blaze); color: var(--blaze); background: var(--blaze-bg); }
+
+/* Pricing + CTA */
+.tt-cta-block { padding: 16px 18px 16px 0; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 8px; flex-shrink: 0; }
+.tt-price { font-family: var(--fd); font-size: 1.2rem; font-weight: 700; color: var(--forest); white-space: nowrap; }
+.tt-price-note { font-size: .62rem; color: var(--gravel); text-align: right; }
+.tt-book-btn {
+  background: var(--deep-water); color: #fff;
+  border-radius: 100px; padding: 9px 20px;
+  font-family: var(--fb); font-size: .65rem;
+  font-weight: 800; letter-spacing: .06em;
+  text-transform: uppercase; white-space: nowrap;
+  transition: background .15s; display: block; text-align: center;
+}
+.tt-book-btn:hover { background: var(--blaze); }
+.tt-book-btn.members { background: var(--limestone); color: var(--gravel); cursor: default; }
+.tt-book-btn.members:hover { background: var(--limestone); }
+.tt-book-btn.walkup { background: var(--forest-bg); color: var(--forest); cursor: default; }
+.tt-book-btn.walkup:hover { background: var(--forest-bg); }
+
+/* Platform tag */
+.tt-platform { font-size: .58rem; color: var(--gravel); text-align: right; margin-top: 2px; }
+
+/* ── SIDEBAR ── */
+.sidebar { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 80px; }
+.sidebar-card { background: #fff; border: 1px solid var(--limestone); border-radius: 8px; overflow: hidden; }
+.sc-head { background: var(--deep-water); padding: 12px 18px; }
+.sc-title { font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); }
+.sc-title strong { color: #fff; font-weight: 800; letter-spacing: 0; text-transform: none; font-size: .82rem; letter-spacing: -.01em; font-family: var(--fd); }
+.sc-body { padding: 16px 18px; }
+
+/* Platform cards in sidebar */
+.platform-card { border: 1px solid var(--limestone); border-radius: 6px; padding: 12px 14px; margin-bottom: 10px; }
+.platform-card:last-child { margin-bottom: 0; }
+.pc-name { font-size: .78rem; font-weight: 700; color: var(--deep-water); margin-bottom: 3px; }
+.pc-desc { font-size: .72rem; color: var(--gravel); line-height: 1.5; margin-bottom: 8px; font-weight: 300; }
+.pc-commission { font-size: .62rem; font-weight: 700; color: var(--forest); background: var(--forest-bg); display: inline-block; padding: 2px 8px; border-radius: 3px; margin-bottom: 8px; }
+.pc-link { font-size: .68rem; font-weight: 700; color: var(--blaze); }
+
+/* Quick links */
+.quick-link { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--limestone); font-size: .78rem; }
+.quick-link:last-child { border-bottom: none; }
+.ql-name { color: var(--deep-water); font-weight: 500; }
+.ql-meta { color: var(--gravel); font-size: .7rem; }
+
+/* Hot deals badge */
+.hot-badge { background: var(--blaze-bg); border: 1px solid rgba(220,131,81,.2); border-radius: 6px; padding: 12px 14px; margin-bottom: 12px; }
+.hb-label { font-size: .58rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--blaze); display: block; margin-bottom: 4px; }
+.hb-text { font-size: .78rem; color: var(--deep-water); line-height: 1.5; font-weight: 300; }
+
+/* ── NO RESULTS ── */
+.no-results { display: none; text-align: center; padding: 60px 20px; }
+.no-results.show { display: block; }
+.no-results h3 { font-family: var(--fd); font-size: 1.3rem; color: var(--deep-water); margin-bottom: 8px; }
+.no-results p { color: var(--gravel); font-size: .86rem; }
+
+/* ── AFFILIATE NOTICE ── */
+.affiliate-bar { background: var(--forest-bg); border-top: 1px solid #D4DFC8; padding: 14px 36px; }
+.ab-inner { max-width: 1320px; margin: 0 auto; font-size: .7rem; color: var(--forest); font-weight: 500; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.ab-inner span { color: var(--bark); font-weight: 300; }
+
+/* ── FOOTER ── */
+.footer { background: var(--deep-water); padding: 36px; }
+.footer-inner { max-width: 1320px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.f-logo { font-family: var(--fb); font-size: .88rem; font-weight: 800; color: rgba(255,255,255,.3); }
+.f-logo span { color: var(--blaze); }
+.f-meta { font-size: .64rem; color: rgba(255,255,255,.18); }
+
+@media(max-width:1000px){
+  .main { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .search-form { grid-template-columns: 1fr 1fr; }
+}
+@media(max-width:640px){
+  .nav-links { display: none; }
+  .page-header, .search-bar, .platform-strip, .main, .affiliate-bar, .footer { padding-left: 20px; padding-right: 20px; }
+  .search-form { grid-template-columns: 1fr; }
+  .tt-card { grid-template-columns: 4px 1fr; }
+  .tt-cta-block { grid-column: 2; padding: 0 18px 16px 18px; flex-direction: row; align-items: center; justify-content: space-between; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="austingolf-homepage.html" class="nav-logo">Austin<span>Golf</span></a>
+    <div class="nav-links">
+      <a class="nav-link" href="austingolf-directory-58.html">Directory</a>
+      <a class="nav-link" href="#">Guides</a>
+      <a class="nav-link active" href="#">Tee Times</a>
+      <a class="nav-link" href="#">Newsletter</a>
+    </div>
+    <a class="nav-cta" href="#">Get Featured</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="ph-inner">
+    <span class="ph-eyebrow">Book Any Austin Course</span>
+    <h1 class="ph-title">Austin Golf<br><em>Tee Times</em></h1>
+    <p class="ph-sub">Find and book tee times at every public, semi-private, and resort course in the Austin metro. Powered by GolfNow, Supreme Golf, and TeeOff.</p>
+  </div>
+</div>
+
+<!-- SEARCH BAR -->
+<div class="search-bar">
+  <div class="search-inner">
+    <div class="search-form">
+      <div class="sf-group">
+        <label class="sf-label">Date</label>
+        <input class="sf-input" type="date" id="dateInput">
+      </div>
+      <div class="sf-group">
+        <label class="sf-label">Area</label>
+        <select class="sf-select" id="areaFilter">
+          <option value="all">All Areas</option>
+          <option value="central">Central Austin</option>
+          <option value="beecave">Bee Cave / Lakeway</option>
+          <option value="northwest">Northwest Austin</option>
+          <option value="roundrock">Round Rock / North</option>
+          <option value="east">East Austin</option>
+          <option value="south">South / Kyle</option>
+          <option value="georgetown">Georgetown</option>
+        </select>
+      </div>
+      <div class="sf-group">
+        <label class="sf-label">Budget</label>
+        <select class="sf-select" id="budgetFilter">
+          <option value="all">Any Budget</option>
+          <option value="budget">Under $50</option>
+          <option value="mid">$50 – $100</option>
+          <option value="premium">$100+</option>
+        </select>
+      </div>
+      <div class="sf-group">
+        <label class="sf-label">Players</label>
+        <select class="sf-select" id="playersFilter">
+          <option value="any">Any Group Size</option>
+          <option value="1">1 Player</option>
+          <option value="2">2 Players</option>
+          <option value="3">3 Players</option>
+          <option value="4">4 Players</option>
+        </select>
+      </div>
+      <button class="sf-btn" onclick="applySearch()">Find Tee Times</button>
+    </div>
+  </div>
+</div>
+
+<!-- PLATFORM / TYPE FILTERS -->
+<div class="platform-strip">
+  <div class="ps-inner">
+    <span class="ps-label">Filter</span>
+    <button class="ps-btn active" data-f="type" data-v="all">All Courses</button>
+    <button class="ps-btn" data-f="type" data-v="muni">City Munis</button>
+    <button class="ps-btn" data-f="type" data-v="public">Public</button>
+    <button class="ps-btn" data-f="type" data-v="semi">Semi-Private</button>
+    <button class="ps-btn" data-f="type" data-v="resort">Resort</button>
+    <div class="ps-sep"></div>
+    <button class="ps-btn active" data-f="platform" data-v="all">All Platforms</button>
+    <button class="ps-btn" data-f="platform" data-v="golfnow">GolfNow</button>
+    <button class="ps-btn" data-f="platform" data-v="supreme">Supreme Golf</button>
+    <button class="ps-btn" data-f="platform" data-v="teeoff">TeeOff</button>
+    <span class="results-ct" id="resultsCount"></span>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+  <div>
+    <div class="no-results" id="noResults">
+      <h3>No courses match</h3>
+      <p>Try adjusting your filters above.</p>
+    </div>
+    <div class="results" id="results"></div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-card">
+      <div class="sc-head"><div class="sc-title"><strong>Book on Any Platform</strong></div></div>
+      <div class="sc-body">
+        <div class="hot-badge">
+          <span class="hb-label">Best Rates</span>
+          <div class="hb-text">GolfNow Hot Deals offer discounts up to 50% off — available on select Austin courses for same-day and next-day rounds.</div>
+        </div>
+        <div class="platform-card">
+          <div class="pc-name">GolfNow</div>
+          <div class="pc-desc">Largest tee time inventory in Austin. Hot Deals available daily. Primary booking platform for most courses.</div>
+          <div class="pc-commission">Up to 40% off via Hot Deals</div>
+          <a class="pc-link" href="https://www.golfnow.com/tee-times/city/austin/state/tx/search" target="_blank" rel="noopener">Search GolfNow Austin →</a>
+        </div>
+        <div class="platform-card">
+          <div class="pc-name">Supreme Golf</div>
+          <div class="pc-desc">Compare prices across multiple booking platforms simultaneously. Good for finding the best rate on any given day.</div>
+          <div class="pc-commission">Price comparison tool</div>
+          <a class="pc-link" href="https://www.supremegolf.com/search/facilities/?address=Austin%2C+TX" target="_blank" rel="noopener">Search Supreme Golf →</a>
+        </div>
+        <div class="platform-card">
+          <div class="pc-name">TeeOff</div>
+          <div class="pc-desc">Good selection of Austin courses with GolfPass rewards integration. Best for GolfPass members.</div>
+          <div class="pc-commission">25% GolfPass rewards</div>
+          <a class="pc-link" href="https://www.teeoff.com/tee-times/location/austin-tx" target="_blank" rel="noopener">Search TeeOff →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sc-head"><div class="sc-title"><strong>Quick Book — Top Courses</strong></div></div>
+      <div class="sc-body">
+        <div class="quick-link">
+          <span class="ql-name">Falconhead Golf Club</span>
+          <a href="https://www.golfnow.com/tee-times#q=Falconhead+Golf+Club" target="_blank" rel="noopener sponsored" class="pc-link">Book</a>
+        </div>
+        <div class="quick-link">
+          <span class="ql-name">Star Ranch Golf Club</span>
+          <a href="https://www.golfnow.com/tee-times#q=Star+Ranch+Golf+Club" target="_blank" rel="noopener sponsored" class="pc-link">Book</a>
+        </div>
+        <div class="quick-link">
+          <span class="ql-name">Grey Rock Golf Club</span>
+          <a href="https://www.golfnow.com/tee-times#q=Grey+Rock+Golf+Club+Austin" target="_blank" rel="noopener sponsored" class="pc-link">Book</a>
+        </div>
+        <div class="quick-link">
+          <span class="ql-name">Roy Kizer Golf Course</span>
+          <a href="https://www.golfnow.com/tee-times#q=Roy+Kizer+Golf+Course" target="_blank" rel="noopener sponsored" class="pc-link">Book</a>
+        </div>
+        <div class="quick-link">
+          <span class="ql-name">Barton Creek Fazio Canyons</span>
+          <a href="https://www.golfnow.com/tee-times#q=Barton+Creek+Fazio+Canyons" target="_blank" rel="noopener sponsored" class="pc-link">Book</a>
+        </div>
+        <div class="quick-link">
+          <span class="ql-name">Wolfdancer Golf Club</span>
+          <a href="https://www.golfnow.com/tee-times#q=Wolfdancer+Golf+Club" target="_blank" rel="noopener sponsored" class="pc-link">Book</a>
+        </div>
+        <div class="quick-link">
+          <span class="ql-name">Lions Municipal GC</span>
+          <a href="https://www.golfnow.com/tee-times#q=Lions+Municipal+Golf+Course" target="_blank" rel="noopener sponsored" class="pc-link">Book</a>
+        </div>
+        <div class="quick-link">
+          <span class="ql-name">Crystal Falls Golf Club</span>
+          <a href="https://www.golfnow.com/tee-times#q=Crystal+Falls+Golf+Club" target="_blank" rel="noopener sponsored" class="pc-link">Book</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sc-head"><div class="sc-title"><strong>Austin Golf Insider</strong></div></div>
+      <div class="sc-body">
+        <p style="font-size:.78rem;color:var(--bark);line-height:1.65;font-weight:300;margin-bottom:14px;">Weekly tee time deals, course conditions, and local intel — delivered free every week.</p>
+        <input type="email" placeholder="your@email.com" style="width:100%;background:var(--white-sand);border:1.5px solid var(--limestone);border-radius:6px;padding:9px 14px;font-family:var(--fb);font-size:.78rem;color:var(--deep-water);outline:none;margin-bottom:8px;">
+        <button style="width:100%;background:var(--deep-water);color:#fff;border:none;border-radius:6px;padding:10px;font-family:var(--fb);font-size:.65rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;">Subscribe Free</button>
+        <p style="font-size:.58rem;color:var(--gravel);margin-top:8px;text-align:center;">Free forever · No spam</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AFFILIATE NOTICE -->
+<div class="affiliate-bar">
+  <div class="ab-inner">
+    <div>Tee time links are powered by GolfNow, Supreme Golf, and TeeOff.</div>
+    <span>Some links are affiliate links — we earn a small commission at no cost to you. This keeps Austin Golf free.</span>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="f-logo">Austin<span>Golf</span>.com</div>
+    <div class="f-meta">Green fees are estimates · Verify with each course · © 2026 AustinGolf.com</div>
+  </div>
+</footer>
+
+<script>
+// Set today's date as default
+const dateInput = document.getElementById('dateInput');
+const today = new Date();
+dateInput.value = today.toISOString().split('T')[0];
+dateInput.min = today.toISOString().split('T')[0];
+
+const COURSES = [
+  // FEATURED (paid partners shown first)
+  {name:'Falconhead Golf Club',type:'semi',area:'beecave',budget:'mid',fee:'$65–$120',dist:'22 min W',par:72,holes:18,designer:'PGA Tour Design',featured:true,platform:'golfnow',gn:'Falconhead+Golf+Club+Bee+Cave+TX',times:['7:00','7:30','8:00','10:30','2:00'],hot:false},
+  {name:'Omni Barton Creek — Fazio Canyons',type:'resort',area:'beecave',budget:'premium',fee:'$130–$250',dist:'20 min W',par:72,holes:18,designer:'Tom Fazio',featured:true,platform:'golfnow',gn:'Barton+Creek+Fazio+Canyons+Austin+TX',times:['7:00','8:30','11:00','1:30'],hot:false},
+  {name:'Star Ranch Golf Club',type:'semi',area:'roundrock',budget:'mid',fee:'$55–$95',dist:'25 min N',par:71,holes:18,designer:'Bechtol & Morrish',featured:true,platform:'golfnow',gn:'Star+Ranch+Golf+Club+Hutto+TX',times:['6:30','7:00','7:30','9:00','11:00','2:30'],hot:true},
+  {name:'Grey Rock Golf Club',type:'muni',area:'central',budget:'mid',fee:'$45–$75',dist:'20 min SW',par:72,holes:18,designer:'Jay Morrish',featured:true,platform:'golfnow',gn:'Grey+Rock+Golf+Club+Austin+TX',times:['7:30','9:00','12:00','3:00'],hot:false},
+  {name:'Wolfdancer Golf Club',type:'resort',area:'east',budget:'premium',fee:'$100–$165',dist:'35 min E',par:72,holes:18,designer:'Arthur Hills',featured:true,platform:'golfnow',gn:'Wolfdancer+Golf+Club+Lost+Pines+TX',times:['7:00','9:30','1:00'],hot:false},
+  {name:'Lions Municipal Golf Course',type:'muni',area:'central',budget:'budget',fee:'$25–$48',dist:'4 min downtown',par:71,holes:18,designer:'Perry Maxwell',featured:true,platform:'golfnow',gn:'Lions+Municipal+Golf+Course+Austin+TX',times:['6:00','6:30','7:00','8:00','9:00','1:00','3:00'],hot:true},
+  // PUBLIC / DAILY FEE
+  {name:'Riverside Golf Course',type:'public',area:'central',budget:'budget',fee:'$20–$38',dist:'7 min downtown',par:71,holes:18,designer:'Perry Maxwell',featured:false,platform:'golfnow',gn:'Riverside+Golf+Course+Austin+TX',times:['7:00','9:00','11:00','1:30','3:30'],hot:false},
+  {name:'Roy Kizer Golf Course',type:'muni',area:'central',budget:'budget',fee:'$28–$44',dist:'12 min downtown',par:71,holes:18,designer:'Links-style',featured:false,platform:'golfnow',gn:'Roy+Kizer+Golf+Course+Austin+TX',times:['6:30','7:00','8:30','11:00','2:00','4:00'],hot:false},
+  {name:'Morris Williams Golf Course',type:'muni',area:'central',budget:'budget',fee:'$28–$44',dist:'8 min downtown',par:72,holes:18,designer:'Leon Howard',featured:false,platform:'golfnow',gn:'Morris+Williams+Golf+Course+Austin+TX',times:['7:00','9:00','12:00','2:30'],hot:false},
+  {name:'Jimmy Clay Golf Course',type:'muni',area:'central',budget:'budget',fee:'$28–$44',dist:'12 min downtown',par:72,holes:18,designer:'Joe Finger',featured:false,platform:'golfnow',gn:'Jimmy+Clay+Golf+Course+Austin+TX',times:['6:30','8:00','10:00','1:00','3:30'],hot:false},
+  {name:'Avery Ranch Golf Club',type:'semi',area:'northwest',budget:'mid',fee:'$55–$95',dist:'25 min NW',par:72,holes:18,designer:'Andy Raugust',featured:false,platform:'golfnow',gn:'Avery+Ranch+Golf+Club+Austin+TX',times:['7:00','8:30','11:00','2:00'],hot:false},
+  {name:'ShadowGlen Golf Club',type:'semi',area:'east',budget:'mid',fee:'$45–$80',dist:'20 min E',par:72,holes:18,designer:'Randolph & Boyd',featured:false,platform:'golfnow',gn:'ShadowGlen+Golf+Club+Manor+TX',times:['7:00','9:30','12:00','2:30'],hot:false},
+  {name:'Teravista Golf Club',type:'semi',area:'roundrock',budget:'mid',fee:'$55–$90',dist:'30 min N',par:72,holes:18,designer:'Roy Bechtol',featured:false,platform:'teeoff',gn:'Teravista+Golf+Club+Round+Rock+TX',times:['7:30','9:00','11:30','2:00'],hot:false},
+  {name:'Forest Creek Golf Club',type:'semi',area:'roundrock',budget:'mid',fee:'$40–$75',dist:'25 min N',par:72,holes:18,designer:'Dick Nugent',featured:false,platform:'golfnow',gn:'Forest+Creek+Golf+Club+Round+Rock+TX',times:['7:00','8:30','10:30','1:30','3:30'],hot:false},
+  {name:'Crystal Falls Golf Club',type:'semi',area:'northwest',budget:'mid',fee:'$45–$80',dist:'28 min NW',par:72,holes:18,designer:'Jack Miller',featured:false,platform:'golfnow',gn:'Crystal+Falls+Golf+Club+Leander+TX',times:['7:00','9:00','11:00','2:00'],hot:false},
+  {name:'Blackhawk Golf Club',type:'semi',area:'roundrock',budget:'budget',fee:'$35–$65',dist:'20 min NE',par:72,holes:18,designer:'Holmes & Rossini',featured:false,platform:'golfnow',gn:'Blackhawk+Golf+Club+Pflugerville+TX',times:['7:30','9:30','12:00','2:30'],hot:false},
+  {name:'Plum Creek Golf Course',type:'public',area:'south',budget:'budget',fee:'$30–$55',dist:'25 min S',par:71,holes:18,designer:'Roy Bechtol',featured:false,platform:'golfnow',gn:'Plum+Creek+Golf+Course+Kyle+TX',times:['7:00','9:00','11:30','2:00'],hot:false},
+  {name:'Kissing Tree Golf Club',type:'semi',area:'south',budget:'mid',fee:'$60–$110',dist:'40 min S',par:71,holes:18,designer:'Roy Bechtol',featured:false,platform:'supreme',gn:'Kissing+Tree+Golf+Club+San+Marcos+TX',times:['7:00','8:30','11:00','1:30'],hot:false},
+  {name:'Point Venture Golf Club',type:'public',area:'northwest',budget:'budget',fee:'$35–$55',dist:'40 min NW',par:36,holes:9,designer:'Jimmy Demaret',featured:false,platform:'golfnow',gn:'Point+Venture+Golf+Club+Lake+Travis+TX',times:['8:00','10:00','12:30','2:30'],hot:false},
+  {name:'Omni Barton Creek — Fazio Foothills',type:'resort',area:'beecave',budget:'premium',fee:'$130–$250',dist:'20 min W',par:72,holes:18,designer:'Tom Fazio',featured:false,platform:'golfnow',gn:'Barton+Creek+Fazio+Foothills+Austin+TX',times:['7:30','9:00','11:30'],hot:false},
+  {name:'Omni Barton Creek — Crenshaw Cliffside',type:'resort',area:'beecave',budget:'premium',fee:'$100–$175',dist:'20 min W',par:72,holes:18,designer:'Crenshaw & Coore',featured:false,platform:'golfnow',gn:'Barton+Creek+Crenshaw+Cliffside+Austin+TX',times:['8:00','10:00','1:00'],hot:false},
+  {name:'Omni Barton Creek — Palmer Lakeside',type:'resort',area:'south',budget:'premium',fee:'$100–$175',dist:'30 min W',par:72,holes:18,designer:'Arnold Palmer',featured:false,platform:'golfnow',gn:'Palmer+Lakeside+Golf+Spicewood+TX',times:['7:30','10:00','1:30'],hot:false},
+  {name:'Lake Travis Country Club',type:'semi',area:'northwest',budget:'mid',fee:'$35–$65',dist:'35 min NW',par:72,holes:18,designer:'Traditional',featured:false,platform:'golfnow',gn:'Lake+Travis+Golf+Course+Lago+Vista+TX',times:['8:00','10:00','12:30','3:00'],hot:false},
+  {name:'Lago Vista Golf Course',type:'public',area:'northwest',budget:'mid',fee:'$40–$75',dist:'35 min NW',par:72,holes:27,designer:'Roy Bechtol',featured:false,platform:'golfnow',gn:'Lago+Vista+Golf+Course+Lago+Vista+TX',times:['7:00','8:30','11:00','2:00'],hot:false},
+  {name:'Double J Ranch Golf Club',type:'semi',area:'south',budget:'mid',fee:'$45–$85',dist:'45 min SW',par:72,holes:18,designer:'Hill Country',featured:false,platform:'golfnow',gn:'Double+J+Ranch+Golf+Club+Wimberley+TX',times:['8:00','10:30','1:30'],hot:false},
+  {name:'Legacy Hills Golf Club',type:'semi',area:'georgetown',budget:'mid',fee:'$45–$80',dist:'35 min N',par:72,holes:18,designer:'Bob Cupp',featured:false,platform:'golfnow',gn:'Legacy+Hills+Golf+Club+Georgetown+TX',times:['7:30','9:30','12:00','2:30'],hot:false},
+  {name:'Cowan Creek Golf Course',type:'semi',area:'georgetown',budget:'mid',fee:'$40–$70',dist:'35 min N',par:72,holes:18,designer:'Finger / Dye / Spann',featured:false,platform:'golfnow',gn:'Cowan+Creek+Golf+Course+Georgetown+TX',times:['8:00','10:00','1:00'],hot:false},
+  // WALK-UP
+  {name:'Harvey Penick Golf Campus',type:'muni',area:'central',budget:'budget',fee:'$12–$22',dist:'10 min downtown',par:30,holes:9,designer:'PGA Tour Design',featured:false,platform:'walkup',gn:null,times:[],hot:false},
+  {name:'Hancock Golf Course',type:'muni',area:'central',budget:'budget',fee:'$10–$20',dist:'5 min downtown',par:35,holes:9,designer:'Original layout',featured:false,platform:'walkup',gn:null,times:[],hot:false},
+  {name:'Butler Park Pitch & Putt',type:'public',area:'central',budget:'budget',fee:'$10–$16',dist:'2 min downtown',par:27,holes:9,designer:null,featured:false,platform:'walkup',gn:null,times:[],hot:false},
+  {name:'Lockhart State Park GC',type:'public',area:'south',budget:'budget',fee:'$10–$18',dist:'48 min S',par:35,holes:9,designer:'CCC 1935',featured:false,platform:'walkup',gn:null,times:[],hot:false},
+];
+
+const AREA_LABELS = {
+  central:'Central Austin', beecave:'Bee Cave / Lakeway',
+  northwest:'Northwest Austin', roundrock:'Round Rock / North',
+  east:'East Austin', south:'South Austin / Kyle',
+  georgetown:'Georgetown', all:'All Areas'
+};
+
+const PLATFORM_URLS = {
+  golfnow: q => `https://www.golfnow.com/tee-times#sortby=Date&view=list&q=${encodeURIComponent(q)}`,
+  supreme: q => `https://www.supremegolf.com/search/facilities/?address=${encodeURIComponent(q)}`,
+  teeoff: q => `https://www.teeoff.com/tee-times?searchQuery=${encodeURIComponent(q)}`,
+};
+
+const state = { type:'all', budget:'all', area:'all', platform:'all' };
+
+function timeLabel(t) {
+  const [h,m] = t.split(':').map(Number);
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  const h12 = h > 12 ? h-12 : (h === 0 ? 12 : h);
+  return `${h12}:${m.toString().padStart(2,'0')} ${ampm}`;
+}
+
+function buildCard(c) {
+  const div = document.createElement('div');
+  div.className = 'tt-card' + (c.featured ? ' featured' : '');
+
+  const isWalkup = c.platform === 'walkup';
+  const platformLabel = { golfnow:'GolfNow', supreme:'Supreme Golf', teeoff:'TeeOff', walkup:'Walk Up & Play' }[c.platform] || '';
+
+  const timesHTML = isWalkup
+    ? '<span style="font-size:.72rem;color:var(--gravel);font-style:italic;">No online booking — walk up and play</span>'
+    : c.times.length
+      ? c.times.map((t,i) => `<span class="time-slot${c.hot && i < 2 ? ' hot' : i >= c.times.length-1 ? ' few' : ''}" onclick="bookTime('${c.gn}','${c.platform}')">${timeLabel(t)}</span>`).join('')
+      : '<span style="font-size:.72rem;color:var(--gravel);">Contact course for availability</span>';
+
+  const bookBtn = isWalkup
+    ? '<span class="tt-book-btn walkup">Walk Up & Play</span>'
+    : c.gn
+      ? `<a class="tt-book-btn" href="${PLATFORM_URLS[c.platform]?.(c.gn+' Austin TX') || '#'}" target="_blank" rel="noopener sponsored">Book Tee Time</a>`
+      : '<span class="tt-book-btn members">Members Only</span>';
+
+  div.innerHTML = `
+    <div class="tt-accent"></div>
+    <div class="tt-body">
+      <div class="tt-name-block">
+        ${c.featured ? '<span class="tt-featured-badge">Featured Partner</span>' : ''}
+        <div class="tt-name">${c.name}</div>
+        <div class="tt-meta">
+          <span>${c.holes} holes · Par ${c.par}</span>
+          <span class="dot">·</span>
+          <span>${c.dist}</span>
+          <span class="dot">·</span>
+          <span>${c.designer || 'Classic layout'}</span>
+        </div>
+      </div>
+      <div class="tt-times">${timesHTML}</div>
+    </div>
+    <div class="tt-cta-block">
+      <div class="tt-price">${c.fee}</div>
+      <div class="tt-price-note">Est. green fee</div>
+      ${bookBtn}
+      <div class="tt-platform">${platformLabel}</div>
+    </div>`;
+  return div;
+}
+
+function passes(c) {
+  if (state.type !== 'all' && c.type !== state.type) return false;
+  if (state.budget !== 'all' && c.budget !== state.budget) return false;
+  if (state.area !== 'all' && c.area !== state.area) return false;
+  if (state.platform !== 'all' && c.platform !== state.platform) return false;
+  return true;
+}
+
+function render() {
+  const results = document.getElementById('results');
+  results.innerHTML = '';
+
+  // Group by area
+  const areas = {};
+  let count = 0;
+  const sorted = [...COURSES].sort((a,b) => (b.featured?1:0)-(a.featured?1:0));
+  sorted.forEach(c => {
+    if (!passes(c)) return;
+    const key = c.area;
+    if (!areas[key]) areas[key] = [];
+    areas[key].push(c);
+    count++;
+  });
+
+  document.getElementById('noResults').classList.toggle('show', count === 0);
+  document.getElementById('resultsCount').textContent = `${count} course${count !== 1 ? 's' : ''}`;
+
+  const areaOrder = ['central','beecave','northwest','roundrock','east','south','georgetown'];
+  areaOrder.forEach(area => {
+    const courses = areas[area];
+    if (!courses || !courses.length) return;
+    const label = document.createElement('div');
+    label.className = 'area-label';
+    label.textContent = AREA_LABELS[area] || area;
+    results.appendChild(label);
+    courses.forEach(c => results.appendChild(buildCard(c)));
+  });
+}
+
+function bookTime(gn, platform) {
+  const url = PLATFORM_URLS[platform]?.(gn + ' Austin TX');
+  if (url) window.open(url, '_blank', 'noopener');
+}
+
+function applySearch() {
+  state.area = document.getElementById('areaFilter').value;
+  state.budget = document.getElementById('budgetFilter').value;
+  render();
+}
+
+// Filter buttons
+document.querySelectorAll('.ps-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const f = btn.dataset.f, v = btn.dataset.v;
+    document.querySelectorAll(`.ps-btn[data-f="${f}"]`).forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state[f] = v;
+    render();
+  });
+});
+
+render();
+</script>
+</body>
+</html>

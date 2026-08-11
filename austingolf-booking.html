@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AustinGolf.com — Booking Experience Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Lora:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --deep-water: #1D2221;
+  --white-sand: #F7F2E9;
+  --limestone:  #E5E0D8;
+  --gravel:     #A0A59C;
+  --bark:       #887A68;
+  --forest:     #627A50;
+  --forest-bg:  #EBF0E6;
+  --blaze:      #DC8351;
+  --blaze-dark: #C4693A;
+  --blaze-bg:   #FBF0E8;
+  --border:     #E5E0D8;
+  --fd: 'Lora', Georgia, serif;
+  --fb: 'Montserrat', system-ui, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--fb); background: var(--white-sand); color: var(--deep-water); -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+
+/* ── NAV ── */
+.nav { background: var(--deep-water); position: sticky; top: 0; z-index: 100; }
+.nav-inner { max-width: 1320px; margin: 0 auto; display: flex; align-items: center; height: 60px; padding: 0 36px; gap: 28px; }
+.nav-logo { font-family: var(--fb); font-size: .95rem; font-weight: 800; color: #fff; }
+.nav-logo span { color: var(--blaze); }
+.nav-links { display: flex; gap: 2px; flex: 1; }
+.nav-link { font-size: .62rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.35); padding: 6px 11px; border-radius: 4px; transition: color .15s; }
+.nav-link:hover, .nav-link.active { color: #fff; }
+.nav-cta { background: var(--blaze); color: #fff; border-radius: 100px; padding: 8px 20px; font-size: .62rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; transition: background .15s; }
+.nav-cta:hover { background: var(--blaze-dark); }
+
+/* ── DEMO PAGE ── */
+.demo-header { background: var(--deep-water); padding: 48px 36px 44px; }
+.demo-inner { max-width: 1320px; margin: 0 auto; }
+.demo-eyebrow { font-size: .6rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--blaze); display: block; margin-bottom: 12px; }
+.demo-title { font-family: var(--fd); font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: #fff; line-height: 1; letter-spacing: -.025em; margin-bottom: 10px; }
+.demo-title em { color: var(--blaze); font-style: italic; }
+.demo-sub { font-size: .86rem; color: rgba(255,255,255,.38); max-width: 480px; font-weight: 300; line-height: 1.7; }
+
+.demo-grid { max-width: 1320px; margin: 40px auto; padding: 0 36px 80px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+
+/* Course cards for demo */
+.demo-card { background: #fff; border: 1px solid var(--limestone); border-radius: 8px; overflow: hidden; transition: transform .18s, box-shadow .18s; }
+.demo-card:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(29,34,33,.1); }
+.demo-card.featured { border-color: var(--blaze); }
+.dc-head { padding: 16px 18px 14px; border-bottom: 1px solid var(--limestone); }
+.dc-badge { font-size: .52rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; background: var(--blaze-bg); color: var(--blaze); padding: 2px 7px; border-radius: 3px; display: inline-block; margin-bottom: 7px; }
+.dc-type { font-size: .55rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--blaze); display: block; margin-bottom: 5px; }
+.dc-name { font-family: var(--fd); font-size: .96rem; font-weight: 700; color: var(--deep-water); line-height: 1.2; margin-bottom: 4px; }
+.dc-hook { font-size: .75rem; color: var(--bark); font-style: italic; font-family: var(--fd); line-height: 1.5; }
+.dc-body { padding: 14px 18px; }
+.dc-stats { display: flex; background: var(--white-sand); border-radius: 5px; border: 1px solid var(--limestone); overflow: hidden; margin-bottom: 12px; }
+.dc-stat { flex: 1; padding: 6px 4px; text-align: center; border-right: 1px solid var(--limestone); }
+.dc-stat:last-child { border-right: none; }
+.dsv { font-size: .78rem; font-weight: 700; color: var(--deep-water); display: block; }
+.dsk { font-size: .5rem; color: var(--gravel); text-transform: uppercase; letter-spacing: .07em; display: block; margin-top: 2px; }
+.dc-meta { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid var(--limestone); font-size: .76rem; margin-top: 10px; }
+.dc-fee { font-weight: 700; color: var(--forest); }
+.dc-dist { color: var(--gravel); }
+.dc-book-btn {
+  display: block; width: 100%;
+  background: var(--deep-water); color: #fff;
+  border: none; border-radius: 100px; padding: 11px 16px;
+  font-family: var(--fb); font-size: .65rem; font-weight: 800;
+  letter-spacing: .06em; text-transform: uppercase;
+  cursor: pointer; transition: background .15s; margin-top: 12px;
+  text-align: center;
+}
+.dc-book-btn:hover { background: var(--blaze); }
+
+/* ══════════════════════════════════════════
+   BOOKING MODAL — DESKTOP
+══════════════════════════════════════════ */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(18,22,18,.65);
+  backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  opacity: 0; pointer-events: none;
+  transition: opacity .25s;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+
+.modal {
+  background: #fff;
+  border-radius: 12px;
+  width: 100%; max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: translateY(16px) scale(.98);
+  transition: transform .28s cubic-bezier(.22,.68,0,1.2);
+  position: relative;
+}
+.modal-overlay.open .modal { transform: translateY(0) scale(1); }
+
+/* Modal header */
+.modal-head {
+  background: var(--deep-water);
+  padding: 22px 24px 20px;
+  border-radius: 12px 12px 0 0;
+  position: sticky; top: 0; z-index: 10;
+}
+.modal-close {
+  position: absolute; top: 16px; right: 18px;
+  width: 28px; height: 28px;
+  background: rgba(255,255,255,.1);
+  border: none; border-radius: 50%; cursor: pointer;
+  color: rgba(255,255,255,.7); font-size: .9rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .15s; font-family: var(--fb);
+}
+.modal-close:hover { background: rgba(255,255,255,.2); color: #fff; }
+.modal-eyebrow { font-size: .56rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--blaze); display: block; margin-bottom: 5px; }
+.modal-course-name { font-family: var(--fd); font-size: 1.2rem; font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 3px; }
+.modal-course-meta { font-size: .72rem; color: rgba(255,255,255,.38); }
+
+/* Modal body */
+.modal-body { padding: 22px 24px; }
+
+/* Step indicator */
+.steps { display: flex; align-items: center; gap: 0; margin-bottom: 24px; }
+.step { display: flex; align-items: center; gap: 6px; flex: 1; }
+.step-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--limestone); color: var(--gravel);
+  font-size: .62rem; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all .2s;
+}
+.step.active .step-num { background: var(--blaze); color: #fff; }
+.step.done .step-num { background: var(--forest); color: #fff; }
+.step-label { font-size: .6rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--gravel); transition: color .2s; }
+.step.active .step-label { color: var(--deep-water); }
+.step.done .step-label { color: var(--forest); }
+.step-line { flex: 1; height: 1px; background: var(--limestone); margin: 0 8px; flex-shrink: 0; }
+
+/* Step panels */
+.step-panel { display: none; }
+.step-panel.active { display: block; }
+
+/* Date picker */
+.date-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 20px; }
+.date-chip {
+  padding: 8px 4px; border-radius: 6px; border: 1.5px solid var(--limestone);
+  background: transparent; cursor: pointer; text-align: center;
+  transition: all .15s; font-family: var(--fb);
+}
+.date-chip:hover { border-color: var(--bark); }
+.date-chip.selected { background: var(--deep-water); border-color: var(--deep-water); color: #fff; }
+.date-chip .dc-day { font-size: .52rem; color: var(--gravel); text-transform: uppercase; letter-spacing: .06em; display: block; margin-bottom: 2px; }
+.date-chip.selected .dc-day { color: rgba(255,255,255,.5); }
+.date-chip .dc-date { font-size: .82rem; font-weight: 700; color: var(--deep-water); display: block; }
+.date-chip.selected .dc-date { color: #fff; }
+.date-chip.today { border-color: var(--blaze); }
+.date-chip.today .dc-day { color: var(--blaze); }
+
+/* Time slots */
+.times-label { font-size: .58rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gravel); margin-bottom: 10px; display: block; }
+.times-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
+.time-chip {
+  padding: 10px 8px; border-radius: 7px;
+  border: 1.5px solid var(--limestone);
+  background: transparent; cursor: pointer; text-align: center;
+  transition: all .15s; font-family: var(--fb);
+}
+.time-chip:hover { border-color: var(--bark); }
+.time-chip.selected { background: var(--deep-water); border-color: var(--deep-water); }
+.time-chip .tc-time { font-size: .82rem; font-weight: 700; color: var(--deep-water); display: block; }
+.time-chip.selected .tc-time { color: #fff; }
+.time-chip .tc-price { font-size: .65rem; color: var(--forest); display: block; margin-top: 2px; font-weight: 600; }
+.time-chip.selected .tc-price { color: rgba(255,255,255,.7); }
+.time-chip.deal { border-color: var(--forest); }
+.time-chip.deal .tc-time { color: var(--forest); }
+.time-chip.selected.deal { background: var(--forest); border-color: var(--forest); }
+.time-chip.selected.deal .tc-time { color: #fff; }
+
+/* Players */
+.players-row { display: flex; gap: 8px; margin-bottom: 20px; }
+.player-chip {
+  flex: 1; padding: 10px 4px; border-radius: 7px;
+  border: 1.5px solid var(--limestone); background: transparent;
+  cursor: pointer; text-align: center; font-family: var(--fb);
+  font-size: .82rem; font-weight: 700; color: var(--deep-water);
+  transition: all .15s;
+}
+.player-chip:hover { border-color: var(--bark); }
+.player-chip.selected { background: var(--deep-water); border-color: var(--deep-water); color: #fff; }
+
+/* Summary */
+.summary-box { background: var(--white-sand); border: 1px solid var(--limestone); border-radius: 8px; padding: 16px 18px; margin-bottom: 20px; }
+.summary-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--limestone); font-size: .8rem; }
+.summary-row:last-child { border-bottom: none; font-weight: 700; font-size: .86rem; }
+.sr-key { color: var(--gravel); }
+.sr-val { color: var(--deep-water); font-weight: 600; }
+.summary-note { font-size: .68rem; color: var(--gravel); line-height: 1.5; margin-top: 10px; font-weight: 300; }
+
+/* Email capture */
+.email-label { font-size: .58rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gravel); margin-bottom: 6px; display: block; }
+.email-input {
+  width: 100%; background: var(--white-sand); border: 1.5px solid var(--limestone);
+  border-radius: 7px; padding: 11px 14px; font-family: var(--fb); font-size: .84rem;
+  color: var(--deep-water); outline: none; margin-bottom: 8px; transition: border .15s;
+}
+.email-input:focus { border-color: var(--bark); }
+.email-note { font-size: .65rem; color: var(--gravel); line-height: 1.5; margin-bottom: 18px; }
+.email-note strong { color: var(--deep-water); }
+
+/* Modal actions */
+.modal-actions { display: flex; gap: 10px; align-items: center; }
+.modal-back {
+  background: transparent; border: 1.5px solid var(--limestone);
+  color: var(--bark); border-radius: 100px; padding: 11px 20px;
+  font-family: var(--fb); font-size: .65rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase; cursor: pointer;
+  transition: all .15s;
+}
+.modal-back:hover { border-color: var(--bark); color: var(--deep-water); }
+.modal-next {
+  flex: 1; background: var(--deep-water); color: #fff;
+  border: none; border-radius: 100px; padding: 12px 20px;
+  font-family: var(--fb); font-size: .72rem; font-weight: 800;
+  letter-spacing: .06em; text-transform: uppercase; cursor: pointer;
+  transition: background .15s;
+}
+.modal-next:hover { background: var(--blaze); }
+.modal-next:disabled { background: var(--limestone); color: var(--gravel); cursor: default; }
+.modal-confirm {
+  flex: 1; background: var(--blaze); color: #fff;
+  border: none; border-radius: 100px; padding: 12px 20px;
+  font-family: var(--fb); font-size: .72rem; font-weight: 800;
+  letter-spacing: .06em; text-transform: uppercase; cursor: pointer;
+  transition: background .15s;
+}
+.modal-confirm:hover { background: var(--blaze-dark); }
+
+/* Platform note */
+.platform-note { font-size: .62rem; color: var(--gravel); text-align: center; margin-top: 10px; line-height: 1.5; }
+.platform-note a { color: var(--blaze); }
+
+/* ══════════════════════════════════════════
+   BOTTOM SHEET — MOBILE
+   Replaces modal on small screens
+══════════════════════════════════════════ */
+@media(max-width: 640px) {
+  .modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+  .modal {
+    border-radius: 16px 16px 0 0;
+    max-height: 92vh;
+    width: 100%;
+    max-width: 100%;
+    transform: translateY(100%);
+    transition: transform .32s cubic-bezier(.22,.68,0,1.1);
+  }
+  .modal-overlay.open .modal { transform: translateY(0); }
+
+  /* Bottom sheet drag handle */
+  .modal-head::before {
+    content: '';
+    display: block;
+    width: 36px; height: 4px;
+    background: rgba(255,255,255,.2);
+    border-radius: 2px;
+    margin: 0 auto 14px;
+  }
+
+  /* Larger touch targets on mobile */
+  .time-chip { padding: 13px 8px; }
+  .player-chip { padding: 13px 4px; }
+  .date-chip { padding: 10px 4px; }
+  .modal-next, .modal-confirm { padding: 14px 20px; font-size: .74rem; }
+
+  /* Full-width actions */
+  .modal-actions { flex-direction: column; gap: 8px; }
+  .modal-back, .modal-next, .modal-confirm { width: 100%; text-align: center; }
+  .times-grid { grid-template-columns: repeat(2, 1fr); }
+  .nav-links { display: none; }
+}
+
+/* ── FOOTER ── */
+.footer { background: var(--deep-water); padding: 28px 36px; margin-top: 0; }
+.footer-inner { max-width: 1320px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.f-logo { font-family: var(--fb); font-size: .88rem; font-weight: 800; color: rgba(255,255,255,.3); }
+.f-logo span { color: var(--blaze); }
+.f-meta { font-size: .64rem; color: rgba(255,255,255,.18); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="austingolf-homepage.html" class="nav-logo">Austin<span>Golf</span></a>
+    <div class="nav-links">
+      <a class="nav-link" href="austingolf-directory-58.html">Directory</a>
+      <a class="nav-link" href="#">Guides</a>
+      <a class="nav-link active" href="austingolf-tee-times.html">Tee Times</a>
+      <a class="nav-link" href="#">Newsletter</a>
+    </div>
+    <a class="nav-cta" href="#">Get Featured</a>
+  </div>
+</nav>
+
+<!-- DEMO HEADER -->
+<div class="demo-header">
+  <div class="demo-inner">
+    <span class="demo-eyebrow">Seamless Booking</span>
+    <h1 class="demo-title">Book a <em>Tee Time</em></h1>
+    <p class="demo-sub">Select any course below to experience the booking flow — desktop modal or mobile bottom sheet, depending on your device.</p>
+  </div>
+</div>
+
+<!-- COURSE CARDS — TRIGGERS FOR BOOKING -->
+<div class="demo-grid">
+
+  <div class="demo-card featured" onclick="openBooking('Omni Barton Creek — Fazio Canyons','resort','$130–$250','20 min W','Tom Fazio','Golf Digest Best in State. Good Good Championship Nov 2026.','golfnow')">
+    <div class="dc-head">
+      <span class="dc-badge">Featured Partner</span>
+      <span class="dc-type">Resort · Tom Fazio</span>
+      <div class="dc-name">Omni Barton Creek — Fazio Canyons</div>
+      <div class="dc-hook">Golf Digest Best in State. Good Good Championship host Nov 2026.</div>
+    </div>
+    <div class="dc-body">
+      <div class="dc-stats">
+        <div class="dc-stat"><span class="dsv">18</span><span class="dsk">Holes</span></div>
+        <div class="dc-stat"><span class="dsv">Par 72</span><span class="dsk">Par</span></div>
+        <div class="dc-stat"><span class="dsv">6,956</span><span class="dsk">Yards</span></div>
+        <div class="dc-stat"><span class="dsv">139</span><span class="dsk">Slope</span></div>
+      </div>
+      <div class="dc-meta"><span class="dc-fee">$130–$250</span><span class="dc-dist">20 min W</span></div>
+      <button class="dc-book-btn">Check Tee Times</button>
+    </div>
+  </div>
+
+  <div class="demo-card featured" onclick="openBooking('Falconhead Golf Club','semi','$65–$120','22 min W','PGA Tour Design','The par-3 8th over limestone falls — most photographed hole in Austin.','golfnow')">
+    <div class="dc-head">
+      <span class="dc-badge">Featured Partner</span>
+      <span class="dc-type">Semi-Private · PGA Tour Design</span>
+      <div class="dc-name">Falconhead Golf Club</div>
+      <div class="dc-hook">The par-3 8th over limestone falls — most photographed hole in Austin.</div>
+    </div>
+    <div class="dc-body">
+      <div class="dc-stats">
+        <div class="dc-stat"><span class="dsv">18</span><span class="dsk">Holes</span></div>
+        <div class="dc-stat"><span class="dsv">Par 72</span><span class="dsk">Par</span></div>
+        <div class="dc-stat"><span class="dsv">7,181</span><span class="dsk">Yards</span></div>
+        <div class="dc-stat"><span class="dsv">133</span><span class="dsk">Slope</span></div>
+      </div>
+      <div class="dc-meta"><span class="dc-fee">$65–$120</span><span class="dc-dist">22 min W</span></div>
+      <button class="dc-book-btn">Check Tee Times</button>
+    </div>
+  </div>
+
+  <div class="demo-card" onclick="openBooking('Star Ranch Golf Club','semi','$55–$95','25 min N','Bechtol & Morrish','The best semi-private deal north of Austin — All You Can Golf included.','golfnow')">
+    <div class="dc-head">
+      <span class="dc-type">Semi-Private · Bechtol & Morrish</span>
+      <div class="dc-name">Star Ranch Golf Club</div>
+      <div class="dc-hook">The best semi-private deal north of Austin — All You Can Golf included.</div>
+    </div>
+    <div class="dc-body">
+      <div class="dc-stats">
+        <div class="dc-stat"><span class="dsv">18</span><span class="dsk">Holes</span></div>
+        <div class="dc-stat"><span class="dsv">Par 71</span><span class="dsk">Par</span></div>
+        <div class="dc-stat"><span class="dsv">7,017</span><span class="dsk">Yards</span></div>
+        <div class="dc-stat"><span class="dsv">128</span><span class="dsk">Slope</span></div>
+      </div>
+      <div class="dc-meta"><span class="dc-fee">$55–$95</span><span class="dc-dist">25 min N</span></div>
+      <button class="dc-book-btn">Check Tee Times</button>
+    </div>
+  </div>
+
+  <div class="demo-card" onclick="openBooking('Lions Municipal Golf Course','muni','$25–$48','4 min downtown','Perry Maxwell era','The first integrated course in the South — Austin golf history in every fairway.','golfnow')">
+    <div class="dc-head">
+      <span class="dc-type">Municipal · Est. 1919</span>
+      <div class="dc-name">Lions Municipal Golf Course</div>
+      <div class="dc-hook">The first integrated course in the South — Austin golf history in every fairway.</div>
+    </div>
+    <div class="dc-body">
+      <div class="dc-stats">
+        <div class="dc-stat"><span class="dsv">18</span><span class="dsk">Holes</span></div>
+        <div class="dc-stat"><span class="dsv">Par 71</span><span class="dsk">Par</span></div>
+        <div class="dc-stat"><span class="dsv">6,001</span><span class="dsk">Yards</span></div>
+        <div class="dc-stat"><span class="dsv">113</span><span class="dsk">Slope</span></div>
+      </div>
+      <div class="dc-meta"><span class="dc-fee">$25–$48</span><span class="dc-dist">4 min downtown</span></div>
+      <button class="dc-book-btn">Check Tee Times</button>
+    </div>
+  </div>
+
+  <div class="demo-card" onclick="openBooking('Grey Rock Golf Club','muni','$45–$75','20 min SW','Jay Morrish & Roy Bechtol','Golf Digest Most Improved Course in America 2024 — and Austin\'s best 19th hole.','golfnow')">
+    <div class="dc-head">
+      <span class="dc-type">Municipal · Jay Morrish</span>
+      <div class="dc-name">Grey Rock Golf Club</div>
+      <div class="dc-hook">Golf Digest Most Improved Course in America 2024.</div>
+    </div>
+    <div class="dc-body">
+      <div class="dc-stats">
+        <div class="dc-stat"><span class="dsv">18</span><span class="dsk">Holes</span></div>
+        <div class="dc-stat"><span class="dsv">Par 72</span><span class="dsk">Par</span></div>
+        <div class="dc-stat"><span class="dsv">6,909</span><span class="dsk">Yards</span></div>
+        <div class="dc-stat"><span class="dsv">127</span><span class="dsk">Slope</span></div>
+      </div>
+      <div class="dc-meta"><span class="dc-fee">$45–$75</span><span class="dc-dist">20 min SW</span></div>
+      <button class="dc-book-btn">Check Tee Times</button>
+    </div>
+  </div>
+
+  <div class="demo-card" onclick="openBooking('Wolfdancer Golf Club','resort','$100–$165','35 min E','Arthur Hills','Arthur Hills in the East Texas pines — nothing else in Austin looks like this.','golfnow')">
+    <div class="dc-head">
+      <span class="dc-type">Resort · Arthur Hills</span>
+      <div class="dc-name">Wolfdancer Golf Club</div>
+      <div class="dc-hook">Arthur Hills in the East Texas pines — nothing else in Austin looks like this.</div>
+    </div>
+    <div class="dc-body">
+      <div class="dc-stats">
+        <div class="dc-stat"><span class="dsv">18</span><span class="dsk">Holes</span></div>
+        <div class="dc-stat"><span class="dsv">Par 72</span><span class="dsk">Par</span></div>
+        <div class="dc-stat"><span class="dsv">7,024</span><span class="dsk">Yards</span></div>
+        <div class="dc-stat"><span class="dsv">136</span><span class="dsk">Slope</span></div>
+      </div>
+      <div class="dc-meta"><span class="dc-fee">$100–$165</span><span class="dc-dist">35 min E</span></div>
+      <button class="dc-book-btn">Check Tee Times</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════
+     BOOKING MODAL / BOTTOM SHEET
+══════════════════════════════════════════ -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+
+    <!-- HEADER -->
+    <div class="modal-head">
+      <button class="modal-close" onclick="closeBooking()">✕</button>
+      <span class="modal-eyebrow" id="modalType">Resort · Tom Fazio</span>
+      <div class="modal-course-name" id="modalName">Omni Barton Creek — Fazio Canyons</div>
+      <div class="modal-course-meta" id="modalMeta">18 holes · Par 72 · 20 min W of downtown</div>
+    </div>
+
+    <!-- BODY -->
+    <div class="modal-body">
+
+      <!-- Step indicator -->
+      <div class="steps">
+        <div class="step active" id="step-ind-1">
+          <div class="step-num">1</div>
+          <span class="step-label">Date & Time</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step" id="step-ind-2">
+          <div class="step-num">2</div>
+          <span class="step-label">Players</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step" id="step-ind-3">
+          <div class="step-num">3</div>
+          <span class="step-label">Confirm</span>
+        </div>
+      </div>
+
+      <!-- STEP 1: Date & Time -->
+      <div class="step-panel active" id="panel-1">
+        <span class="times-label">Select a Date</span>
+        <div class="date-row" id="dateRow"></div>
+        <span class="times-label">Available Tee Times</span>
+        <div class="times-grid" id="timesGrid"></div>
+        <div class="modal-actions">
+          <button class="modal-next" id="nextBtn1" onclick="goStep(2)" disabled>Select a Time</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Players -->
+      <div class="step-panel" id="panel-2">
+        <span class="times-label">Number of Players</span>
+        <div class="players-row">
+          <button class="player-chip" onclick="selectPlayers(1)">1</button>
+          <button class="player-chip" onclick="selectPlayers(2)">2</button>
+          <button class="player-chip" onclick="selectPlayers(3)">3</button>
+          <button class="player-chip" onclick="selectPlayers(4)">4</button>
+        </div>
+        <div class="modal-actions">
+          <button class="modal-back" onclick="goStep(1)">Back</button>
+          <button class="modal-next" id="nextBtn2" onclick="goStep(3)" disabled>Select Players</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Confirm & Email -->
+      <div class="step-panel" id="panel-3">
+        <div class="summary-box" id="summaryBox"></div>
+        <span class="email-label">Your Email — Get Booking Confirmation</span>
+        <input class="email-input" type="email" id="emailInput" placeholder="your@email.com" oninput="checkEmail()">
+        <p class="email-note">We'll send your booking confirmation here. <strong>You're also joining the free Austin Golf Insider newsletter</strong> — weekly tee time deals and course intel. Unsubscribe anytime.</p>
+        <div class="modal-actions">
+          <button class="modal-back" onclick="goStep(2)">Back</button>
+          <button class="modal-confirm" id="confirmBtn" onclick="confirmBooking()" disabled>Complete Booking</button>
+        </div>
+        <p class="platform-note">Booking powered by <a href="#" target="_blank">GolfNow</a>. You'll be redirected to complete payment. Austin Golf earns a small affiliate commission at no cost to you.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="f-logo">Austin<span>Golf</span>.com</div>
+    <div class="f-meta">© 2026 AustinGolf.com · Some links are affiliate links</div>
+  </div>
+</footer>
+
+<script>
+// State
+const booking = { course:'', type:'', fee:'', dist:'', designer:'', hook:'', platform:'', date:null, time:null, price:null, players:null, email:'' };
+
+// Times data per course type
+const TIMES = {
+  resort: [{t:'7:00 AM',p:'$145'},{t:'7:30 AM',p:'$145'},{t:'8:00 AM',p:'$165'},{t:'9:30 AM',p:'$175'},{t:'11:00 AM',p:'$155',deal:true},{t:'1:00 PM',p:'$135',deal:true},{t:'2:30 PM',p:'$130',deal:true}],
+  semi:   [{t:'6:30 AM',p:'$68'},{t:'7:00 AM',p:'$72'},{t:'7:30 AM',p:'$78'},{t:'9:00 AM',p:'$85'},{t:'11:00 AM',p:'$75',deal:true},{t:'1:30 PM',p:'$65',deal:true},{t:'3:00 PM',p:'$58',deal:true}],
+  muni:   [{t:'6:00 AM',p:'$28'},{t:'6:30 AM',p:'$28'},{t:'7:00 AM',p:'$32'},{t:'8:00 AM',p:'$35'},{t:'9:30 AM',p:'$38'},{t:'12:00 PM',p:'$30',deal:true},{t:'2:00 PM',p:'$26',deal:true}],
+  public: [{t:'7:00 AM',p:'$45'},{t:'7:30 AM',p:'$48'},{t:'9:00 AM',p:'$52'},{t:'11:00 AM',p:'$48',deal:true},{t:'1:00 PM',p:'$42',deal:true},{t:'3:00 PM',p:'$38',deal:true}],
+};
+
+function openBooking(name, type, fee, dist, designer, hook, platform) {
+  booking.course = name;
+  booking.type = type;
+  booking.fee = fee;
+  booking.dist = dist;
+  booking.designer = designer;
+  booking.hook = hook;
+  booking.platform = platform;
+  booking.date = null; booking.time = null; booking.price = null; booking.players = null;
+
+  // Populate header
+  const typeLabels = {resort:'Resort',semi:'Semi-Private',muni:'Municipal',public:'Public'};
+  document.getElementById('modalType').textContent = `${typeLabels[type]||type} · ${designer}`;
+  document.getElementById('modalName').textContent = name;
+  document.getElementById('modalMeta').textContent = `18 holes · ${dist} of downtown`;
+
+  // Build date chips
+  buildDates();
+
+  // Build times
+  buildTimes(type);
+
+  // Reset steps
+  goStep(1, true);
+
+  // Open
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeBooking() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeBooking();
+}
+
+function buildDates() {
+  const row = document.getElementById('dateRow');
+  row.innerHTML = '';
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const today = new Date();
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(today);
+    d.setDate(today.getDate() + i);
+    const chip = document.createElement('button');
+    chip.className = 'date-chip' + (i === 0 ? ' today' : '');
+    chip.innerHTML = `<span class="dc-day">${i === 0 ? 'Today' : days[d.getDay()]}</span><span class="dc-date">${d.getDate()}</span>`;
+    chip.onclick = () => {
+      document.querySelectorAll('.date-chip').forEach(c => c.classList.remove('selected'));
+      chip.classList.add('selected');
+      booking.date = d;
+      checkStep1();
+    };
+    row.appendChild(chip);
+  }
+}
+
+function buildTimes(type) {
+  const grid = document.getElementById('timesGrid');
+  grid.innerHTML = '';
+  const times = TIMES[type] || TIMES.public;
+  times.forEach(({t, p, deal}) => {
+    const chip = document.createElement('button');
+    chip.className = 'time-chip' + (deal ? ' deal' : '');
+    chip.innerHTML = `<span class="tc-time">${t}</span><span class="tc-price">${p}/player</span>`;
+    chip.onclick = () => {
+      document.querySelectorAll('.time-chip').forEach(c => c.classList.remove('selected'));
+      chip.classList.add('selected');
+      booking.time = t;
+      booking.price = p;
+      checkStep1();
+    };
+    grid.appendChild(chip);
+  });
+}
+
+function checkStep1() {
+  const btn = document.getElementById('nextBtn1');
+  const ready = booking.date && booking.time;
+  btn.disabled = !ready;
+  btn.textContent = ready ? 'Continue' : (booking.date ? 'Select a Time' : 'Select a Date');
+}
+
+function selectPlayers(n) {
+  document.querySelectorAll('.player-chip').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.player-chip')[n-1].classList.add('selected');
+  booking.players = n;
+  const btn = document.getElementById('nextBtn2');
+  btn.disabled = false;
+  btn.textContent = 'Continue';
+}
+
+function buildSummary() {
+  const priceNum = parseFloat(booking.price?.replace('$','') || 0);
+  const total = (priceNum * (booking.players || 1)).toFixed(0);
+  const dateStr = booking.date ? booking.date.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric'}) : '';
+  document.getElementById('summaryBox').innerHTML = `
+    <div class="summary-row"><span class="sr-key">Course</span><span class="sr-val">${booking.course}</span></div>
+    <div class="summary-row"><span class="sr-key">Date</span><span class="sr-val">${dateStr}</span></div>
+    <div class="summary-row"><span class="sr-key">Tee Time</span><span class="sr-val">${booking.time}</span></div>
+    <div class="summary-row"><span class="sr-key">Players</span><span class="sr-val">${booking.players}</span></div>
+    <div class="summary-row"><span class="sr-key">Rate</span><span class="sr-val">${booking.price}/player</span></div>
+    <div class="summary-row"><span class="sr-key">Est. Total</span><span class="sr-val" style="color:var(--forest)">$${total}</span></div>
+    <p class="summary-note">Final price confirmed at checkout. GolfNow may offer additional discounts for GolfPass members.</p>`;
+}
+
+function checkEmail() {
+  const val = document.getElementById('emailInput').value;
+  const valid = val.includes('@') && val.includes('.');
+  document.getElementById('confirmBtn').disabled = !valid;
+}
+
+function goStep(n, reset) {
+  // Update panels
+  document.querySelectorAll('.step-panel').forEach((p,i) => {
+    p.classList.toggle('active', i+1 === n);
+  });
+  // Update step indicators
+  document.querySelectorAll('.steps .step').forEach((s,i) => {
+    s.classList.remove('active','done');
+    if (i+1 === n) s.classList.add('active');
+    else if (i+1 < n) s.classList.add('done');
+  });
+  // Build summary on step 3
+  if (n === 3) buildSummary();
+  // Scroll modal to top
+  if (!reset) document.getElementById('modal').scrollTop = 0;
+}
+
+function confirmBooking() {
+  booking.email = document.getElementById('emailInput').value;
+  const q = encodeURIComponent(booking.course + ' Austin TX');
+  const url = `https://www.golfnow.com/tee-times#sortby=Date&view=list&q=${q}`;
+  window.open(url, '_blank', 'noopener');
+  closeBooking();
+}
+
+// Touch/swipe to close bottom sheet on mobile
+let startY = 0;
+document.getElementById('modal').addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, { passive: true });
+document.getElementById('modal').addEventListener('touchmove', e => {
+  const delta = e.touches[0].clientY - startY;
+  if (delta > 80 && document.getElementById('modal').scrollTop === 0) closeBooking();
+}, { passive: true });
+
+// ESC to close
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeBooking(); });
+</script>
+</body>
+</html>
