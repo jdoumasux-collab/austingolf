@@ -2,196 +2,471 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AustinGolf.com — Project Dashboard</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AustinGolf.com — Working Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --green-deep:#1A3A1A; --green-mid:#2D6A2D; --green-light:#EAF2EA;
-  --gold:#C8922A; --gold-light:#F0C060;
-  --cream:#F7F3EB; --cream-dark:#EDE8DC;
-  --text:#1E1A14; --text-muted:#7A6B58; --white:#FFFFFF;
-  --font-display:'Playfair Display',Georgia,serif;
-  --font-body:'DM Sans',system-ui,sans-serif;
-  --radius:10px;
+:root{
+  --forest:#293E2F;
+  --forest-2:#1E2E23;
+  --cream:#E9EAE1;
+  --paper:#F5F5F0;
+  --ink:#171A17;
+  --terra:#C4622D;
+  --olive:#7A8471;
+  --line:#D6D7CE;
+  --line-2:#E4E5DD;
+  --amber:#B8862B;
+  --red:#8F3B32;
+  --disp:'Anton',Impact,sans-serif;
+  --body:'Archivo',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:var(--font-body);background:#f0ede6;color:var(--text);min-height:100vh;}
-.dash-header{background:var(--green-deep);padding:32px 32px 28px;position:relative;overflow:hidden;}
-.dash-header::before{content:'⛳';position:absolute;font-size:260px;opacity:.04;right:-30px;top:-40px;pointer-events:none;}
-.header-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;max-width:1200px;margin:0 auto;flex-wrap:wrap;}
-.header-brand{font-family:var(--font-display);font-size:1.7rem;font-weight:900;color:var(--white);}
-.header-brand span{color:var(--gold-light);}
-.header-sub{font-size:.82rem;color:rgba(255,255,255,.55);margin-top:3px;}
-.header-meta{text-align:right;font-size:.8rem;color:rgba(255,255,255,.5);}
-.header-meta strong{color:var(--gold-light);font-size:.9rem;display:block;}
-.progress-strip{max-width:1200px;margin:22px auto 0;display:grid;grid-template-columns:repeat(4,1fr);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;overflow:hidden;}
-.prog-cell{padding:14px 18px;border-right:1px solid rgba(255,255,255,.1);text-align:center;}
-.prog-cell:last-child{border-right:none;}
-.prog-num{font-family:var(--font-display);font-size:2rem;font-weight:900;color:var(--gold-light);line-height:1;}
-.prog-label{font-size:.7rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em;margin-top:3px;display:block;}
-.master-progress{max-width:1200px;margin:16px auto 0;display:flex;align-items:center;gap:14px;}
-.progress-label-text{font-size:.72rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;}
-.progress-track{flex:1;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;}
-.progress-fill{height:100%;background:var(--gold-light);border-radius:3px;}
-.progress-pct{font-size:.72rem;color:var(--gold-light);font-weight:700;white-space:nowrap;}
-.main{max-width:1200px;margin:28px auto;padding:0 24px;display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start;}
-.left-col{display:flex;flex-direction:column;gap:20px;}
-.sidebar{display:flex;flex-direction:column;gap:16px;}
-.section{background:var(--white);border-radius:var(--radius);overflow:hidden;border:1px solid var(--cream-dark);}
-.section-header{background:var(--green-deep);padding:12px 20px;display:flex;align-items:center;gap:10px;}
-.section-icon{font-size:1rem;}
-.section-title{font-family:var(--font-display);font-size:.95rem;font-weight:700;color:var(--white);}
-.section-count{margin-left:auto;font-size:.72rem;color:rgba(255,255,255,.5);}
-.content-item{display:flex;align-items:center;gap:14px;padding:12px 20px;border-bottom:1px solid var(--cream-dark);}
-.content-item:last-child{border-bottom:none;}
-.item-status{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;flex-shrink:0;}
-.status-done{background:var(--green-light);color:var(--green-mid);}
-.status-planned{background:var(--cream-dark);color:var(--text-muted);}
-.status-next{background:#FEF3C7;color:#92400E;}
-.item-body{flex:1;min-width:0;}
-.item-title{font-size:.84rem;font-weight:600;color:var(--text);}
-.done-title{color:var(--green-mid);}
-.item-meta{font-size:.72rem;color:var(--text-muted);margin-top:2px;}
-.item-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;}
-.pill{font-size:.65rem;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap;}
-.pill-done{background:var(--green-light);color:var(--green-mid);}
-.pill-planned{background:var(--cream-dark);color:var(--text-muted);}
-.pill-next{background:#FEF3C7;color:#92400E;}
-.item-btn{font-size:.72rem;font-weight:600;padding:4px 12px;border-radius:6px;cursor:pointer;text-decoration:none;border:1.5px solid;white-space:nowrap;}
-.btn-open{color:var(--green-mid);border-color:rgba(45,106,45,.3);background:var(--green-light);}
-.btn-ghost{color:var(--text-muted);border-color:var(--cream-dark);background:var(--cream);cursor:default;}
-.sidebar-card{background:var(--white);border-radius:var(--radius);overflow:hidden;border:1px solid var(--cream-dark);}
-.sidebar-card-header{background:var(--green-deep);padding:10px 16px;font-size:.82rem;font-weight:700;color:var(--white);}
-.sidebar-card-body{padding:14px 16px;}
-.next-up-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--cream-dark);}
-.next-up-item:last-child{border-bottom:none;}
-.next-num{width:20px;height:20px;border-radius:50%;background:var(--green-deep);color:var(--gold-light);font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
-.next-text{font-size:.8rem;font-weight:600;color:var(--text);}
-.next-sub{font-size:.7rem;color:var(--text-muted);margin-top:1px;}
-.decision-item{padding:8px 0;border-bottom:1px solid var(--cream-dark);}
-.decision-item:last-child{border-bottom:none;}
-.d-q{font-size:.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;}
-.d-a{font-size:.8rem;color:var(--text);}
-.strategy-item{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--cream-dark);}
-.strategy-item:last-child{border-bottom:none;}
-.s-icon{font-size:.9rem;flex-shrink:0;}
-.s-text{font-size:.79rem;color:var(--text);line-height:1.5;}
-.notes-box{background:var(--white);border-radius:var(--radius);overflow:hidden;border:1px solid var(--cream-dark);}
-.notes-header{background:var(--green-deep);padding:12px 20px;display:flex;align-items:center;gap:10px;}
-.notes-title{font-family:var(--font-display);font-size:.95rem;font-weight:700;color:var(--white);}
-.notes-body{padding:4px 0;}
-.note-entry{padding:12px 20px;border-bottom:1px solid var(--cream-dark);}
-.note-entry:last-child{border-bottom:none;}
-.note-date{font-size:.7rem;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
-.note-text{font-size:.8rem;color:var(--text);line-height:1.55;}
-.legend{display:flex;gap:16px;flex-wrap:wrap;padding:12px 16px;background:var(--cream);border-radius:8px;margin-bottom:20px;font-size:.75rem;align-items:center;color:var(--text-muted);}
-.legend strong{color:var(--text);margin-right:6px;}
-.legend-item{display:flex;align-items:center;gap:5px;}
-.full-width{grid-column:1/-1;}
-.dash-footer{background:var(--green-deep);color:rgba(255,255,255,.45);text-align:center;padding:18px;font-size:.76rem;margin-top:10px;}
-.dash-footer strong{color:var(--gold-light);}
-@media(max-width:900px){.main{grid-template-columns:1fr;}.sidebar{grid-column:1;}.progress-strip{grid-template-columns:repeat(2,1fr);}}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+
+/* ── MASTHEAD ─────────────────────────────── */
+.mast{background:var(--forest);color:var(--cream);padding:34px 0 0}
+.wrap{max-width:1140px;margin:0 auto;padding:0 28px}
+.mast-top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.mast h1{font-family:var(--disp);font-size:2.6rem;letter-spacing:.01em;line-height:.95;text-transform:uppercase}
+.mast h1 em{font-style:normal;color:var(--terra)}
+.mast .sub{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(233,234,225,.55);margin-top:8px}
+.asof{font-family:var(--mono);font-size:.72rem;color:rgba(233,234,225,.6);text-align:right;line-height:1.7}
+.asof b{color:var(--cream);display:block;font-size:.95rem}
+
+/* status strip */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(233,234,225,.14);margin-top:28px;border-top:1px solid rgba(233,234,225,.14)}
+.strip div{background:var(--forest);padding:14px 16px}
+.strip .n{font-family:var(--disp);font-size:1.7rem;color:var(--cream);line-height:1}
+.strip .n.warn{color:var(--terra)}
+.strip .l{font-size:.66rem;letter-spacing:.11em;text-transform:uppercase;color:rgba(233,234,225,.5);margin-top:5px}
+
+/* nav */
+.subnav{background:var(--forest-2);border-top:1px solid rgba(233,234,225,.1)}
+.subnav .wrap{display:flex;gap:2px;overflow-x:auto}
+.subnav a{color:rgba(233,234,225,.6);text-decoration:none;font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;font-weight:600;padding:12px 14px;white-space:nowrap;border-bottom:2px solid transparent}
+.subnav a:hover{color:var(--cream);border-bottom-color:var(--terra)}
+
+/* ── LAYOUT ───────────────────────────────── */
+main{padding:44px 0 80px}
+section{margin-bottom:52px;scroll-margin-top:20px}
+.head{display:flex;align-items:baseline;gap:14px;border-bottom:2px solid var(--ink);padding-bottom:9px;margin-bottom:22px}
+.head h2{font-family:var(--disp);font-size:1.4rem;text-transform:uppercase;letter-spacing:.02em}
+.head .cnt{font-family:var(--mono);font-size:.72rem;color:var(--olive);margin-left:auto;white-space:nowrap}
+.lede{font-size:.92rem;color:#4A4F49;max-width:66ch;margin-bottom:20px}
+
+/* ── ACTION ITEMS ─────────────────────────── */
+.act{border:1px solid var(--line);background:#fff}
+.act-row{display:grid;grid-template-columns:26px 1fr 108px 92px;gap:14px;align-items:start;padding:13px 16px;border-bottom:1px solid var(--line-2)}
+.act-row:last-child{border-bottom:none}
+.act-row:hover{background:#FAFAF6}
+.box{width:15px;height:15px;border:1.5px solid var(--olive);border-radius:2px;margin-top:3px}
+.act-t{font-weight:600;font-size:.9rem}
+.act-d{font-size:.79rem;color:#5C625B;margin-top:3px}
+.act-d code{font-family:var(--mono);font-size:.9em;background:var(--paper);padding:1px 4px;border:1px solid var(--line-2)}
+.who,.due{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:var(--olive);padding-top:4px}
+.due.now{color:var(--terra);font-weight:600}
+
+/* priority band */
+.band{font-family:var(--mono);font-size:.67rem;letter-spacing:.13em;text-transform:uppercase;padding:8px 16px;background:var(--forest);color:var(--cream);font-weight:600}
+.band.b2{background:var(--olive)}
+.band.b3{background:#9AA093}
+
+/* ── TABLES ───────────────────────────────── */
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);font-size:.85rem}
+th{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:10px 14px;background:var(--forest);color:var(--cream);font-weight:600}
+td{padding:9px 14px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#FAFAF6}
+td.num{font-family:var(--mono);text-align:right;width:1%;white-space:nowrap}
+.miss{color:var(--red);font-weight:600}
+.ok{color:var(--olive)}
+
+/* ── DECISION LOG ─────────────────────────── */
+.day{border-left:2px solid var(--line);padding-left:22px;margin-bottom:30px;position:relative}
+.day::before{content:'';position:absolute;left:-5px;top:6px;width:8px;height:8px;background:var(--terra);border-radius:50%}
+.day-date{font-family:var(--mono);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--olive);margin-bottom:10px}
+.day h3{font-family:var(--disp);font-size:1.05rem;text-transform:uppercase;letter-spacing:.02em;margin-bottom:12px}
+.dec{display:grid;grid-template-columns:78px 1fr;gap:14px;padding:9px 0;border-bottom:1px solid var(--line-2);font-size:.87rem}
+.dec:last-child{border-bottom:none}
+.tag{font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;padding:3px 0;color:#fff;text-align:center;height:fit-content;border-radius:2px}
+.t-dec{background:var(--forest)}
+.t-open{background:var(--amber)}
+.t-kill{background:var(--red)}
+.t-flag{background:var(--terra)}
+.dec b{display:block;margin-bottom:2px}
+.dec span{color:#5C625B;font-size:.83rem}
+
+/* ── CALLOUT ──────────────────────────────── */
+.call{border:1px solid var(--line);border-left:3px solid var(--terra);background:#fff;padding:16px 20px;margin:20px 0}
+.call h4{font-size:.88rem;font-weight:700;margin-bottom:6px}
+.call p{font-size:.86rem;color:#4A4F49}
+.call p+p{margin-top:9px}
+.call.q{border-left-color:var(--amber)}
+
+/* ── STEPS ────────────────────────────────── */
+ol.steps{list-style:none;counter-reset:s;border:1px solid var(--line);background:#fff}
+ol.steps li{counter-increment:s;padding:13px 16px 13px 52px;border-bottom:1px solid var(--line-2);position:relative;font-size:.87rem}
+ol.steps li:last-child{border-bottom:none}
+ol.steps li::before{content:counter(s,decimal-leading-zero);position:absolute;left:16px;font-family:var(--mono);font-size:.72rem;color:var(--terra);font-weight:600;top:15px}
+ol.steps b{display:block;margin-bottom:2px}
+ol.steps code{font-family:var(--mono);font-size:.86em;background:var(--paper);padding:1px 5px;border:1px solid var(--line-2);word-break:break-all}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+footer{background:var(--forest);color:rgba(233,234,225,.5);font-size:.75rem;padding:22px 0;text-align:center;font-family:var(--mono)}
+
+@media(max-width:820px){
+  .strip{grid-template-columns:1fr 1fr}
+  .two{grid-template-columns:1fr}
+  .act-row{grid-template-columns:22px 1fr;gap:10px}
+  .who,.due{grid-column:2;padding-top:0}
+  .mast h1{font-size:1.9rem}
+  .asof{text-align:left}
+}
 </style>
 </head>
 <body>
-<div class="dash-header">
-  <div class="header-top">
-    <div>
-      <div class="header-brand">Austin<span>Golf</span>.com</div>
-      <div class="header-sub">Project Dashboard · Content Tracker · Working Files Hub</div>
-    </div>
-    <div class="header-meta">
-      <strong>Last Updated: August 2026</strong>
-      Built with Jake Mercer / Austin Golf Insider brand voice
-    </div>
-  </div>
-  <div class="progress-strip">
-    <div class="prog-cell"><span class="prog-num">5</span><span class="prog-label">Files Created</span></div>
-    <div class="prog-cell"><span class="prog-num">1/7</span><span class="prog-label">Articles Done</span></div>
-    <div class="prog-cell"><span class="prog-num">44</span><span class="prog-label">Courses in Directory</span></div>
-    <div class="prog-cell"><span class="prog-num">~25%</span><span class="prog-label">Phase 1 Complete</span></div>
-  </div>
-  <div class="master-progress">
-    <span class="progress-label-text">Overall Progress</span>
-    <div class="progress-track"><div class="progress-fill" style="width:25%"></div></div>
-    <span class="progress-pct">25%</span>
-  </div>
-</div>
-<div class="main">
-  <div class="left-col">
-    <div class="legend">
-      <strong>Status Key:</strong>
-      <div class="legend-item"><span class="pill pill-done">✓ Done</span> — Complete</div>
-      <div class="legend-item"><span class="pill pill-next">▶ Up Next</span> — Next to build</div>
-      <div class="legend-item"><span class="pill pill-planned">○ Planned</span> — Queued</div>
-    </div>
-    <div class="section">
-      <div class="section-header"><div class="section-icon">📁</div><div class="section-title">Foundation Documents</div><div class="section-count">3 of 3 complete</div></div>
-      <div class="content-item"><div class="item-status status-done">✓</div><div class="item-body"><div class="item-title done-title">AustinGolf.com Strategy Overview</div><div class="item-meta">Revenue model · affiliate stack · tech stack · startup costs · 12-month roadmap</div></div><div class="item-actions"><span class="pill pill-done">✓ Done</span></div></div>
-      <div class="content-item"><div class="item-status status-done">✓</div><div class="item-body"><div class="item-title done-title">Tactical Playbook (7-Phase)</div><div class="item-meta">Foundation → Affiliate → Content → Newsletter → Sponsors → Growth · Master checklist</div></div><div class="item-actions"><span class="pill pill-done">✓ Done</span></div></div>
-      <div class="content-item"><div class="item-status status-done">✓</div><div class="item-body"><div class="item-title done-title">Course Directory (Word Doc)</div><div class="item-meta">44 verified courses · all addresses, fees, designers, ratings, slopes · research-backed</div></div><div class="item-actions"><span class="pill pill-done">✓ Done</span></div></div>
-    </div>
-    <div class="section">
-      <div class="section-header"><div class="section-icon">🌐</div><div class="section-title">Core Web Pages</div><div class="section-count">2 of 6 complete</div></div>
-      <div class="content-item"><div class="item-status status-done">✓</div><div class="item-body"><div class="item-title done-title">Interactive Course Directory</div><div class="item-meta">44 courses · filters · search · Trip Planner · GolfNow affiliate links</div></div><div class="item-actions"><span class="pill pill-done">✓ Done</span><a class="item-btn btn-open" href="austin-golf-directory.html" target="_blank">Open</a></div></div>
-      <div class="content-item"><div class="item-status status-done">✓</div><div class="item-body"><div class="item-title done-title">Homepage (austingolf.com)</div><div class="item-meta">Hub page · links to directory, articles, newsletter CTA · brand intro</div></div><div class="item-actions"><span class="pill pill-done">✓ Done</span><a class="item-btn btn-open" href="index.html" target="_blank">Open</a></div></div>
-      <div class="content-item"><div class="item-status status-planned">○</div><div class="item-body"><div class="item-title">Austin Golf Map (Interactive)</div><div class="item-meta">All 44 courses plotted by region · cluster view · trip planning tool</div></div><div class="item-actions"><span class="pill pill-planned">○ Planned</span><span class="item-btn btn-ghost">Not Built</span></div></div>
-      <div class="content-item"><div class="item-status status-planned">○</div><div class="item-body"><div class="item-title">Green Fee Tracker</div><div class="item-meta">Current estimated rates for every public course, sortable by price or area</div></div><div class="item-actions"><span class="pill pill-planned">○ Planned</span><span class="item-btn btn-ghost">Not Built</span></div></div>
-    </div>
-    <div class="section">
-      <div class="section-header"><div class="section-icon">✍️</div><div class="section-title">Articles & Content</div><div class="section-count">1 of 7 complete</div></div>
-      <div class="content-item"><div class="item-status status-done">✓</div><div class="item-body"><div class="item-title done-title">Best Public Courses in Austin</div><div class="item-meta">Article #1 · Complete · Jake Mercer voice · GolfNow affiliate links throughout</div></div><div class="item-actions"><span class="pill pill-done">✓ Done</span></div></div>
-      <div class="content-item"><div class="item-status status-next">▶</div><div class="item-body"><div class="item-title">Best Courses Under $50</div><div class="item-meta">Article #2 · High search volume · budget golfer audience</div></div><div class="item-actions"><span class="pill pill-next">▶ Up Next</span></div></div>
-      <div class="content-item"><div class="item-status status-planned">○</div><div class="item-body"><div class="item-title">Best Courses for Beginners</div><div class="item-meta">Article #3 · New golfer audience · high conversion potential</div></div><div class="item-actions"><span class="pill pill-planned">○ Planned</span></div></div>
-      <div class="content-item"><div class="item-status status-planned">○</div><div class="item-body"><div class="item-title">Best Bachelor Party Courses</div><div class="item-meta">Article #4 · High search volume · group golf audience</div></div><div class="item-actions"><span class="pill pill-planned">○ Planned</span></div></div>
-      <div class="content-item"><div class="item-status status-planned">○</div><div class="item-body"><div class="item-title">Good Good Championship Guide</div><div class="item-meta">Article #5 · Barton Creek · Nov 9-15, 2026 · major traffic opportunity</div></div><div class="item-actions"><span class="pill pill-planned">○ Planned</span></div></div>
-    </div>
-    <div class="notes-box full-width">
-      <div class="notes-header"><div class="section-icon">🗒️</div><div class="notes-title">Session Notes & Decisions Log</div></div>
-      <div class="notes-body">
-        <div class="note-entry"><div class="note-date">August 2026</div><div class="note-text">Site infrastructure complete. GitHub repo live at jdoumasux-collab/austingolf. Cloudflare Pages connected. Domain austingolf.com pointed to Cloudflare nameservers (nolan + vita). DNS propagating.</div></div>
-        <div class="note-entry"><div class="note-date">August 2026</div><div class="note-text">Good Good Championship confirmed at Barton Creek Fazio Canyons Nov 9-15, 2026. Major content opportunity. Dedicated guide article added to queue as priority #5.</div></div>
-        <div class="note-entry"><div class="note-date">March 2026</div><div class="note-text">Full interactive HTML directory built — 44 courses, filters, search, Trip Planner wizard, GolfNow affiliate links throughout. Design system established (Playfair Display + DM Sans, green/gold/cream palette).</div></div>
-        <div class="note-entry"><div class="note-date">March 2026</div><div class="note-text">Course research completed and verified across Golf Digest, TripAdvisor, GolfPass, AustinTexas.gov, and direct course sites. 44 courses confirmed. Bluebonnet Hill (closed 2019) omitted. Lost Creek CC listed as Westlake CC.</div></div>
-        <div class="note-entry"><div class="note-date">March 2026</div><div class="note-text">Strategy and Tactical Playbook (7-phase) created. Revenue target: $1,200–$4,500/month by Month 12. Primary affiliates: GolfNow (Impact.com), Amazon Associates, GlobalGolf (AvantLink). Newsletter: Beehiiv, free to 2,500 subs.</div></div>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="mast-top">
+      <div>
+        <h1>Austin<em>Golf</em> — Working Dashboard</h1>
+        <div class="sub">Internal · decisions, audit &amp; action items</div>
+      </div>
+      <div class="asof">
+        <b>13 Aug 2026</b>
+        88 days to Good&nbsp;Good&nbsp;Championship<br>
+        Publish deadline: 15&nbsp;Oct&nbsp;2026
       </div>
     </div>
-  </div>
-  <div class="sidebar">
-    <div class="sidebar-card">
-      <div class="sidebar-card-header">▶ Up Next</div>
-      <div class="sidebar-card-body">
-        <div class="next-up-item"><div class="next-num">1</div><div><div class="next-text">Add DNS records in Cloudflare</div><div class="next-sub">CNAME records for www + root domain</div></div></div>
-        <div class="next-up-item"><div class="next-num">2</div><div><div class="next-text">Sign up for GolfNow affiliate</div><div class="next-sub">Impact.com · slug: austingolf.com/go/golfnow</div></div></div>
-        <div class="next-up-item"><div class="next-num">3</div><div><div class="next-text">Set up Beehiiv newsletter</div><div class="next-sub">The Austin Golf Insider · free to 2,500 subs</div></div></div>
-        <div class="next-up-item"><div class="next-num">4</div><div><div class="next-text">Best Courses Under $50 article</div><div class="next-sub">Article #2 · High search volume</div></div></div>
-        <div class="next-up-item"><div class="next-num">5</div><div><div class="next-text">Good Good Championship guide</div><div class="next-sub">Nov 9-15 at Barton Creek · major traffic opportunity</div></div></div>
-      </div>
-    </div>
-    <div class="sidebar-card">
-      <div class="sidebar-card-header">🔑 Key Decisions Locked</div>
-      <div class="sidebar-card-body">
-        <div class="decision-item"><div class="d-q">Hosting</div><div class="d-a"><strong>Cloudflare Pages + GitHub</strong> — free, AI-native, auto-deploy</div></div>
-        <div class="decision-item"><div class="d-q">Email Platform</div><div class="d-a"><strong>Beehiiv</strong> — free to 2,500 subs. Newsletter: "The Austin Golf Insider"</div></div>
-        <div class="decision-item"><div class="d-q">Booking Affiliate</div><div class="d-a"><strong>GolfNow via Impact.com</strong> — slug: austingolf.com/go/golfnow</div></div>
-        <div class="decision-item"><div class="d-q">Total Courses</div><div class="d-a"><strong>44 verified courses</strong> across all categories</div></div>
-        <div class="decision-item"><div class="d-q">Author Persona</div><div class="d-a"><strong>Jake Mercer</strong>, Austin Golf Insider</div></div>
-      </div>
-    </div>
-    <div class="sidebar-card">
-      <div class="sidebar-card-header">🧭 Strategy North Stars</div>
-      <div class="sidebar-card-body">
-        <div class="strategy-item"><div class="s-icon">⭐</div><div class="s-text"><strong>Local moat first.</strong> AI can write golf content. Only you own the Austin insider angle.</div></div>
-        <div class="strategy-item"><div class="s-icon">🔗</div><div class="s-text"><strong>Every article links to directory.</strong> Directory links to GolfNow. Funnel is everything.</div></div>
-        <div class="strategy-item"><div class="s-icon">📧</div><div class="s-text"><strong>Newsletter is the asset.</strong> The list you own. Optimize every page for email capture.</div></div>
-        <div class="strategy-item"><div class="s-icon">🎯</div><div class="s-text"><strong>SEO before social.</strong> Search traffic compounds. Social traffic rents.</div></div>
-        <div class="strategy-item"><div class="s-icon">🏆</div><div class="s-text"><strong>Good Good Championship</strong> at Barton Creek Nov 9-15 is our launch catalyst. Be live before then.</div></div>
-      </div>
+    <div class="strip">
+      <div><div class="n">43</div><div class="l">Courses in directory</div></div>
+      <div><div class="n warn">+17</div><div class="l">Identified as missing</div></div>
+      <div><div class="n warn">0</div><div class="l">Course detail pages</div></div>
+      <div><div class="n warn">0</div><div class="l">Newsletter subscribers</div></div>
     </div>
   </div>
-</div>
-<div class="dash-footer"><strong>AustinGolf.com</strong> — Internal Project Dashboard · Not for public distribution</div>
+  <nav class="subnav"><div class="wrap">
+    <a href="#actions">Action items</a>
+    <a href="#audit">Directory audit</a>
+    <a href="#gaps">Course gaps</a>
+    <a href="#open">Open decisions</a>
+    <a href="#mapbox">Mapbox setup</a>
+    <a href="#photo">Photography</a>
+    <a href="#log">Decision log</a>
+    <a href="#locked">Locked decisions</a>
+  </div></nav>
+</header>
+
+<main class="wrap">
+
+<!-- ══ ACTION ITEMS ══ -->
+<section id="actions">
+  <div class="head"><h2>Action items</h2><span class="cnt">18 open</span></div>
+  <p class="lede">Ordered by what blocks the most downstream work. Everything is sequenced against the 15 October publish deadline, which exists so Google has 4–8 weeks to index before tournament search volume spikes.</p>
+
+  <div class="act">
+    <div class="band">Blocking — do first</div>
+
+    <div class="act-row"><div class="box"></div><div>
+      <div class="act-t">Point austingolf.com at the real site</div>
+      <div class="act-d">Move custom domains from Pages project <code>austingolf</code> to <code>austingolf-staging</code>. The splash page is holding the domain while the built site sits on a URL nobody can find.</div>
+    </div><div class="who">John</div><div class="due now">This week</div></div>
+
+    <div class="act-row"><div class="box"></div><div>
+      <div class="act-t">Resolve the Jake Mercer byline</div>
+      <div class="act-d">Blocks all editorial publishing. GGC drafts are already written under this name and the directory links <code>jake@austingolf.com</code>. See Open Decisions.</div>
+    </div><div class="who">John</div><div class="due now">This week</div></div>
+
+    <div class="act-row"><div class="box"></div><div>
+      <div class="act-t">Connect Git to austingolf-staging</div>
+      <div class="act-d">Currently deployed via file upload — no version history, no rollback. Wire to <code>jdoumasux-collab/austingolf</code>.</div>
+    </div><div class="who">John</div><div class="due">This week</div></div>
+
+    <div class="act-row"><div class="box"></div><div>
+      <div class="act-t">Install analytics before launch</div>
+      <div class="act-d">Without it the GGC traffic spike teaches you nothing. Plausible or GA4.</div>
+    </div><div class="who">John</div><div class="due">This week</div></div>
+
+    <div class="band b2">Revenue infrastructure</div>
+
+    <div class="act-row"><div class="box"></div><div>
+      <div class="act-t">Apply to GolfNow via Impact.com</div>
+      <div class="act-d">Approval takes time. Traffic arriving before links work wastes the spike.</div>
+    </div><div class="who">John</div><div class="due">Aug</div></div>
+
+    <div class="act-row"><div class="box"></div><div>
+      <div class="act-t">Stand up Beehiiv and wire the capture form</div>
+      <div class="act-d">Target from GGC window: 400–800 subscribers. A dead input during that window forfeits the entire point of the tournament content.</div>
+    </div><div class="who">John</div><div class="due">Sept</div></div>
+
+    <div class="act-row"><div class="box"></div><div>
+      <div class="act-t">Contact Visit Austin — three separate asks</div>
+      <div class="act-d">Partner listing (.org backlink), content partnership (their golf page is one paragraph and four blog links), and media library access for photography. Partnernet + Partnerships pages are the entry points.</div>
+    </div><div class="who">John</div><div class="due">Aug</div></div>
+
+    <div class="act-row"><div class="box"></div><div>
+      <div class="act-t">Verify Sun City three-course access model</div>
+      <div class="act-d">One phone call. Blocks selling that inventory and blocks the White Wing record.</div>
+    </div><div class="who">John</div><div class="due">Aug</div></div>
+
+    <div class="band b2">Directory data</div>
+
+    <div class="act-row"><div class="box"></div><div>
+      <div class="act-t">Fix broken <code>nearby[]</code> references</div>
+      <div class="act-d">Five course names appear only as neighbours with no records behind them: White Wing, Berry Creek CC, Great Hills CC, River Place CC, Twin Creeks. Live cards currently point at nothing.</div>
+    </div><div class="who">Claude</div><div class="due">Next session</div></div>
+
+    <div class="act-row"><div class="box"></div><div>
+      <div class="act-t">Split Balcones CC into two 18-hole records</div>
+      <div class="act-d">Single record currently carries <code>holes:36</code>.</div>
+    </div><div class="who">Claude</div><div class="due">Next session</div></div>
+
+    <div class="act-row"><div class="box"></div><div>
+      <div class="act-t">Add six missing metro courses</div>
+      <div class="act-d">White Wing, Berry Creek CC, Georgetown CC, Great Hills CC, River Place CC, Twin Creeks CC.</div>
+    </div><div class="who">Claude</div><div class="due">Aug</div></div>
+
+    <div class="act-row"><div class="box"></div><div>
+      <div class="act-t">Reconcile Fazio Canyons yardage</div>
+      <div class="act-d">Directory and tournament site disagree. Canyons is about to become the most-searched course on the site.</div>
+    </div><div class="who">Claude</div><div class="due">Aug</div></div>
+
+    <div class="act-row"><div class="box"></div><div>
+      <div class="act-t">Research and add Hill Country tier</div>
+      <div class="act-d">Horseshoe Bay (4 courses), Boot Ranch, Escondido, Comanche Trace, Cordillera Ranch, Tapatio Springs, Delaware Springs, Flying L. Verify count and access model for each.</div>
+    </div><div class="who">Claude</div><div class="due">Aug</div></div>
+
+    <div class="band b3">Design &amp; build</div>
+
+    <div class="act-row"><div class="box"></div><div>
+      <div class="act-t">Design the course detail template — two variants</div>
+      <div class="act-d">Bookable variant (conversion, GolfNow CTA) and access-restricted variant (access intel, newsletter/outing CTA). Poncho PDP as structural reference.</div>
+    </div><div class="who">Claude</div><div class="due">Aug</div></div>
+
+    <div class="act-row"><div class="box"></div><div>
+      <div class="act-t">Build Mapbox style + directory map</div>
+      <div class="act-d">Custom brand style in Mapbox Studio, GeoJSON of all courses, clustered pins. Replaces the Poncho hotspot section. Setup steps below.</div>
+    </div><div class="who">Both</div><div class="due">Sept</div></div>
+
+    <div class="act-row"><div class="box"></div><div>
+      <div class="act-t">Build the eight GGC-priority detail pages</div>
+      <div class="act-d">Four Barton Creek courses plus the nearest bookable options tournament visitors will actually play.</div>
+    </div><div class="who">Both</div><div class="due">Sept</div></div>
+
+    <div class="act-row"><div class="box"></div><div>
+      <div class="act-t">Publish the GGC content set</div>
+      <div class="act-d">Six pieces, three drafted. Window 1 Sept – 15 Oct.</div>
+    </div><div class="who">Both</div><div class="due now">15 Oct</div></div>
+
+    <div class="act-row"><div class="box"></div><div>
+      <div class="act-t">Approach Patrick Koenig</div>
+      <div class="act-d">Brokered-shoot model, not a free-usage ask. See Photography section.</div>
+    </div><div class="who">John</div><div class="due">Sept</div></div>
+  </div>
+</section>
+
+<!-- ══ AUDIT ══ -->
+<section id="audit">
+  <div class="head"><h2>Directory audit</h2><span class="cnt">parsed from austin-golf-directory.html · 13 Aug 2026</span></div>
+  <p class="lede">The <code>COURSES</code> array contains <b>43 records</b>, not the 44 previously claimed. No duplicate IDs. The count discrepancy is likely the unsplit Balcones entry.</p>
+
+  <div class="two">
+    <table>
+      <thead><tr><th>Access type</th><th>Count</th></tr></thead>
+      <tbody>
+        <tr><td>Private</td><td class="num">13</td></tr>
+        <tr><td>Semi-private</td><td class="num">12</td></tr>
+        <tr><td>Public</td><td class="num">7</td></tr>
+        <tr><td>Municipal</td><td class="num">6</td></tr>
+        <tr><td>Resort</td><td class="num">5</td></tr>
+      </tbody>
+    </table>
+    <table>
+      <thead><tr><th>Area</th><th>Count</th></tr></thead>
+      <tbody>
+        <tr><td>Bee Cave</td><td class="num">10</td></tr>
+        <tr><td>Central</td><td class="num">9</td></tr>
+        <tr><td>Northwest</td><td class="num">9</td></tr>
+        <tr><td>Round Rock</td><td class="num">6</td></tr>
+        <tr><td>South</td><td class="num">6</td></tr>
+        <tr><td>Georgetown</td><td class="num">3</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="call">
+    <h4>30% of the directory has no conversion action</h4>
+    <p>Thirteen private courses cannot be booked; twelve semi-privates have conditional access. That is 58% of records where “Book Tee Time” is the wrong button — which is why the detail template needs two variants rather than one.</p>
+    <p>This is also the opportunity. Access intel — guest policy, reciprocity, member-sponsor rules, outing availability — is content no competitor publishes and GolfNow structurally cannot. It is the direct expression of the access-scarce thesis and the reason a private club would ever pay for a listing.</p>
+  </div>
+</section>
+
+<!-- ══ GAPS ══ -->
+<section id="gaps">
+  <div class="head"><h2>Course gaps</h2><span class="cnt">43 now → ~60 target</span></div>
+
+  <table>
+    <thead><tr><th>Course</th><th>Location</th><th>Tier</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td class="miss">White Wing</td><td>Georgetown</td><td>Metro</td><td>Third Sun City course — access model unverified</td></tr>
+      <tr><td class="miss">Berry Creek CC</td><td>Georgetown</td><td>Metro</td><td>Referenced in nearby[] with no record</td></tr>
+      <tr><td class="miss">Georgetown CC</td><td>Georgetown</td><td>Metro</td><td>—</td></tr>
+      <tr><td class="miss">Great Hills CC</td><td>Northwest</td><td>Metro</td><td>Referenced in nearby[] with no record</td></tr>
+      <tr><td class="miss">River Place CC</td><td>Northwest</td><td>Metro</td><td>Referenced in nearby[] three times</td></tr>
+      <tr><td class="miss">Twin Creeks CC</td><td>Cedar Park</td><td>Metro</td><td>Referenced in nearby[] with no record</td></tr>
+      <tr><td class="miss">Balcones — 2nd course</td><td>Northwest</td><td>Metro</td><td>Split existing 36-hole record</td></tr>
+      <tr><td class="miss">Horseshoe Bay Resort</td><td>Marble Falls</td><td>Hill Country</td><td>Slick Rock / Ram Rock / Apple Rock / Summit Rock — verify which are resort-accessible</td></tr>
+      <tr><td class="miss">Boot Ranch</td><td>Fredericksburg</td><td>Hill Country</td><td>Private. Koenig has already shot it</td></tr>
+      <tr><td class="miss">Escondido</td><td>Horseshoe Bay</td><td>Hill Country</td><td>Private</td></tr>
+      <tr><td class="miss">Comanche Trace</td><td>Kerrville</td><td>Hill Country</td><td>—</td></tr>
+      <tr><td class="miss">Cordillera Ranch</td><td>Boerne</td><td>Hill Country</td><td>Private. Koenig has already shot it</td></tr>
+      <tr><td class="miss">Tapatio Springs</td><td>Boerne</td><td>Hill Country</td><td>Resort</td></tr>
+      <tr><td class="miss">Delaware Springs</td><td>Burnet</td><td>Hill Country</td><td>Municipal</td></tr>
+      <tr><td class="miss">Flying L</td><td>Bandera</td><td>Hill Country</td><td>Resort</td></tr>
+      <tr><td>Wells Branch · ColoVista · Pine Forest · Cottonwood Creek</td><td>Metro edge</td><td>Verify</td><td>Decide whether inside the metro boundary</td></tr>
+    </tbody>
+  </table>
+
+  <div class="call">
+    <h4>Why the Hill Country tier changes the business</h4>
+    <p>Municipal courses have no marketing budget. Semi-privates have small ones. Destination resorts buy travel marketing as a line item and are used to paying for placement — Horseshoe Bay, Boot Ranch, Escondido, Comanche Trace, Cordillera Ranch. That is the customer who can actually fund the site, and a golf-trip audience is precisely who they want to reach.</p>
+    <p>It also rescues the Golf Trail Passport, which is thin inside city limits and obvious as a Hill Country route. Visit Austin already markets Hill Country as part of the destination, so the scope is not a stretch.</p>
+    <p><b>Structure it as tiers, not one flat list:</b> Austin Metro stays complete and authoritative; Hill Country is curated and destination-framed. Complete where completeness is the claim, selective where quality is.</p>
+  </div>
+</section>
+
+<!-- ══ OPEN DECISIONS ══ -->
+<section id="open">
+  <div class="head"><h2>Open decisions</h2><span class="cnt">4 need a call</span></div>
+
+  <div class="call q">
+    <h4>1. The Jake Mercer byline</h4>
+    <p>The homepage claims every course is reviewed, there is a byline page, and the GGC drafts carry the name. If Jake is not a real person, that is a specific liability in a market where twelve decision-makers control forty-three courses and all of them talk to each other. A GM asking “who is Jake?” and getting no good answer is worse than never having called.</p>
+    <p><b>Recommendation:</b> publish under John Doumas. The whole sales frame is a named local handing GMs their customers' names. Your name on the reviews is a stronger asset than a house pseudonym, and it removes a landmine before it can go off.</p>
+  </div>
+
+  <div class="call q">
+    <h4>2. Reviews — the visitor/sponsor conflict</h4>
+    <p>You will be selling Verified and Featured listings to the same courses that user reviews would criticise. A negative top review on a paying course's page is a churn event and a reputational problem in a small market. An empty review section also reads as a dead site, and moderation is real work for one person.</p>
+    <p><b>Recommendation:</b> build the data model now; launch with your own structured assessment plus the Conditions Report; add UGC reviews once there is traffic, gated to newsletter subscribers. From day one, run a private <em>“Played it? Tell me what I got wrong”</em> form — same input, none of the downside, and it builds relationships instead of friction.</p>
+  </div>
+
+  <div class="call q">
+    <h4>3. Pricing — how much to publish</h4>
+    <p>Exact green fees rot weekly and will make the site wrong in public. Rate structure is stable and is the thing visitors genuinely cannot find elsewhere.</p>
+    <p><b>Recommendation:</b> publish bands, not numbers — weekend/weekday ranges, when twilight actually starts, resident vs non-resident, cart included or not, replay rates. Add a dated “what I paid” line, which ages honestly where an undated price does not. Launch fee data on the top 20 courses rather than all 60.</p>
+  </div>
+
+  <div class="call q">
+    <h4>4. Hosting decision is stale</h4>
+    <p>The locked decision log says SiteGround + WordPress + Kadence. Reality is Cloudflare Pages serving static HTML. Either update the decision or make the migration explicit — right now the plan and the deployment disagree.</p>
+  </div>
+</section>
+
+<!-- ══ MAPBOX ══ -->
+<section id="mapbox">
+  <div class="head"><h2>Mapbox setup</h2><span class="cnt">replaces the Poncho hotspot section</span></div>
+  <p class="lede">Mapbox is the choice because Studio lets the basemap be built from the brand palette — a map that looks like AustinGolf rather than like Google. Free tier covers 50,000 loads/month, well beyond near-term traffic.</p>
+
+  <ol class="steps">
+    <li><b>Create the account and token</b>
+      Sign up at <code>mapbox.com</code>. Under Account → Tokens, create a token scoped to <code>styles:read</code> and <code>fonts:read</code> only, and add a URL restriction for <code>austingolf.com</code>. Public tokens are visible in the browser — the URL restriction is what protects it.</li>
+    <li><b>Build the brand style in Studio</b>
+      Start from Mapbox Light, then override: land <code>#F5F5F0</code>, water <code>#293E2F</code>, parks and golf polygons <code>#7A8471</code>, roads in <code>#D6D7CE</code> with labels in <code>#171A17</code>. Turn off POI labels — they compete with the course pins. Golf course polygons exist in the base data, so greens read as green without any extra work.</li>
+    <li><b>Structure the course data as GeoJSON</b>
+      One <code>FeatureCollection</code>, one feature per course, with <code>id</code>, <code>name</code>, <code>type</code>, <code>holes</code>, <code>feeBand</code>, and <code>bookable</code> in properties. Generate it from the existing <code>COURSES</code> array so there is a single source of truth rather than two lists to keep in sync.</li>
+    <li><b>Colour pins by access type</b>
+      Terra <code>#C4622D</code> for bookable, olive <code>#7A8471</code> for private. This makes the access-scarce thesis legible at a glance — a visitor sees instantly how much of Austin golf they cannot simply book.</li>
+    <li><b>Cluster and filter</b>
+      Enable clustering at metro zoom. Wire the existing directory filters — type, area, budget, holes — to the map layer so filtering the list filters the map.</li>
+    <li><b>Detail-page variant</b>
+      On a course page, reuse the same style zoomed to that course with drive-time context rather than a routing overlay. Hole-by-hole annotation is a later, per-course project — do not block launch on it.</li>
+  </ol>
+</section>
+
+<!-- ══ PHOTOGRAPHY ══ -->
+<section id="photo">
+  <div class="head"><h2>Photography</h2><span class="cnt">hard constraint before Nov</span></div>
+
+  <div class="call">
+    <h4>What Koenig already has in the region</h4>
+    <p>His Texas gallery covers <b>Barton Creek</b>, <b>Spanish Oaks</b> (Bee Cave), <b>Boot Ranch</b> (Fredericksburg) and <b>Cordillera Ranch</b> (Boerne). Three of those four are private — exactly the courses that cannot be photographed any other way — and the fourth is the tournament venue.</p>
+    <p>He is a represented professional: national magazine credits, 116K followers, booking 2026 shoots, collaboration requests routed through management. “Exposure on a pre-launch directory” is the pitch he declines weekly. Do not lead with it.</p>
+  </div>
+
+  <p class="lede"><b>Three angles that are not that pitch:</b></p>
+  <ol class="steps">
+    <li><b>Broker the work rather than ask for free usage</b>
+      You are about to be talking to twelve decision-makers controlling forty-three properties. Bundling three or four Hill Country shoots into one Austin trip gives him paid work he would otherwise sell one at a time, gives courses assets they need, and lets your usage rights come in as a term of the deal you brokered. He already markets to destinations, not just individual courses.</li>
+    <li><b>Use the tournament as the reason to call</b>
+      A PGA Tour event at Barton Creek in November is a legitimate hook for a golf photographer to be in Austin, and Omni is a brand worth his time.</li>
+    <li><b>Print sales revenue share</b>
+      He already sells course prints as art. An Austin/Hill Country print shop on the site costs him nothing, earns him margin, and can carry usage rights as consideration.</li>
+  </ol>
+
+  <div class="call">
+    <h4>Do not block launch on any of it</h4>
+    <p>Sixty course pages need adequate, not exceptional. In order of effort: ask the courses for media-kit usage — free, and the ask doubles as a first sales touch; request Visit Austin media library access; pull resort press kits from Omni, Horseshoe Bay and Hyatt Lost Pines; shoot the munis yourself at dawn. An honest iPhone frame of Lions beats stock.</p>
+  </div>
+</section>
+
+<!-- ══ LOG ══ -->
+<section id="log">
+  <div class="head"><h2>Decision log</h2><span class="cnt">newest first</span></div>
+
+  <div class="day">
+    <div class="day-date">13 August 2026 — Thursday</div>
+    <h3>Infrastructure complete · directory audit</h3>
+    <div class="dec"><span class="tag t-dec">Decided</span><div><b>Google Workspace live on austingolf.com</b><span>Primary john.doumas@, free aliases john@ and info@. SPF, DKIM (2048-bit, domain-aligned) and DMARC all verified passing. Cloudflare Email Routing disabled; zone cleaned of Network Solutions leftovers. 2FA on, backup codes printed.</span></div></div>
+    <div class="dec"><span class="tag t-dec">Decided</span><div><b>DMARC reports routed to Postmark</b><span>Free weekly digest each Monday. Policy stays p=none until 2–3 clean digests, then tighten to p=quarantine.</span></div></div>
+    <div class="dec"><span class="tag t-dec">Decided</span><div><b>Cloudflare cleaned up</b><span>Routeless Worker deleted. Second Pages project renamed austingolf-staging — it holds the real built site.</span></div></div>
+    <div class="dec"><span class="tag t-flag">Found</span><div><b>Directory contains 43 records, not 44</b><span>Plus five broken nearby[] references and one unsplit 36-hole record.</span></div></div>
+    <div class="dec"><span class="tag t-dec">Decided</span><div><b>Two course detail templates, not one</b><span>Bookable variant is conversion-oriented; access-restricted variant is intel-oriented. Private clubs get full pages.</span></div></div>
+    <div class="dec"><span class="tag t-dec">Decided</span><div><b>Scope expands to Austin + Hill Country</b><span>Tiered: metro complete and authoritative, Hill Country curated and destination-framed. Driven by where the marketing budgets are.</span></div></div>
+    <div class="dec"><span class="tag t-dec">Decided</span><div><b>Mapbox for mapping</b><span>Custom Studio style from brand palette. Replaces the Poncho hotspot section.</span></div></div>
+    <div class="dec"><span class="tag t-kill">Deferred</span><div><b>Merchandise moves off critical path</b><span>POD converts against an existing audience; with no list and no traffic a store is a page nobody visits. Possible exception: one item timed to tournament week as a test, not a launch.</span></div></div>
+    <div class="dec"><span class="tag t-kill">Deferred</span><div><b>User reviews not at launch</b><span>Direct conflict with selling listings to the same courses. Build the model, launch with own assessment plus Conditions Report.</span></div></div>
+    <div class="dec"><span class="tag t-open">Open</span><div><b>Jake Mercer byline</b><span>Blocks all editorial publishing. Recommendation is to publish under John Doumas.</span></div></div>
+  </div>
+
+  <div class="day">
+    <div class="day-date">March 2026</div>
+    <h3>Foundation</h3>
+    <div class="dec"><span class="tag t-dec">Decided</span><div><b>Interactive directory built</b><span>Filters, search, Trip Planner, Played Tracker, GolfNow links. Playfair Display + DM Sans, green/gold/cream.</span></div></div>
+    <div class="dec"><span class="tag t-dec">Decided</span><div><b>Course research verified</b><span>Cross-checked against Golf Digest, TripAdvisor, GolfPass, AustinTexas.gov and course sites. Bluebonnet Hill omitted (closed Dec 2019). Lost Creek listed as Westlake CC.</span></div></div>
+    <div class="dec"><span class="tag t-dec">Decided</span><div><b>Strategy and 7-phase playbook created</b><span>Revenue target $1,200–$4,500/month by month 12.</span></div></div>
+  </div>
+</section>
+
+<!-- ══ LOCKED ══ -->
+<section id="locked">
+  <div class="head"><h2>Locked decisions</h2><span class="cnt">1 flagged stale</span></div>
+  <table>
+    <thead><tr><th>Item</th><th>Decision</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Email platform</td><td>Beehiiv — free to 2,500 subs. Newsletter: “The Austin Golf Insider”</td><td class="ok">Current</td></tr>
+      <tr><td>Booking affiliate</td><td>GolfNow via Impact.com — <code>austingolf.com/go/golfnow</code></td><td class="ok">Current</td></tr>
+      <tr><td>Business email</td><td>Google Workspace, one seat, aliases for john@ and info@</td><td class="ok">Current</td></tr>
+      <tr><td>DNS &amp; hosting</td><td>Cloudflare DNS + Cloudflare Pages, static HTML</td><td class="ok">Current</td></tr>
+      <tr><td>Mapping</td><td>Mapbox, custom Studio style</td><td class="ok">Current</td></tr>
+      <tr><td>Bluebonnet Hill</td><td>Omitted — closed 31 Dec 2019</td><td class="ok">Current</td></tr>
+      <tr><td>Lost Creek CC</td><td>Listed as Westlake CC</td><td class="ok">Current</td></tr>
+      <tr><td>Hosting (old)</td><td>SiteGround GrowBig + WordPress + Kadence</td><td class="miss">Stale — contradicts deployment</td></tr>
+      <tr><td>Author voice</td><td>Jake Mercer, Austin Golf Insider</td><td class="miss">Under review</td></tr>
+      <tr><td>Total courses</td><td>“44 verified”</td><td class="miss">Actual count is 43</td></tr>
+    </tbody>
+  </table>
+</section>
+
+</main>
+
+<footer><div class="wrap">AustinGolf.com — internal working dashboard · revised 13 Aug 2026 · supersedes previous version</div></footer>
+
 </body>
 </html>
