@@ -1,225 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- ══════════════════════════════════════════════════════════
-     KEEP THIS UNTIL LAUNCH. It stops Google from indexing the
-     site while it's still in progress. Delete this one line
-     on the day you go live.
+     PRE-LAUNCH. Keeps this out of Google.
+     Delete this one line on launch day.
      ══════════════════════════════════════════════════════════ -->
 <meta name="robots" content="noindex, nofollow">
 
-<title>Austin Golf</title>
-<meta name="description" content="A complete guide to golf in the Austin metro. Launching soon.">
+<title>AustinGolf.com — Hill Country Golf</title>
+<meta name="description" content="The definitive Austin golf resource. Launching soon.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-  :root{
-    --forest:#293E2F;
-    --forest-deep:#1E2E23;
-    --cream:#E9EAE1;
-    --cream-dim:rgba(233,234,225,.62);
-    --hairline:rgba(233,234,225,.20);
-    --blaze:#C8622F;
-  }
+/* — EXACT PALETTE — */
+:root{
+  --dw:  #1D2221;   /* Deep Water */
+  --ws:  #F7F2E9;   /* White Sand */
+  --ls:  #E5E0D8;   /* Limestone */
+  --gr:  #ADA59C;   /* Gravel */
+  --bk:  #887A68;   /* Bark */
+  --sf:  #9FBEB8;   /* Sea Foam */
+  --fo:  #627A50;   /* Forest */
+  --bl:  #DC8351;   /* Blaze */
+  --bl-d:#C4693A;
+  --fo-d:#4E6340;
+  --fd: 'Barlow Condensed', sans-serif;
+  --fb: 'Barlow', system-ui, sans-serif;
+}
 
-  *{box-sizing:border-box;margin:0;padding:0}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
 
-  html,body{height:100%}
+body{
+  background:var(--dw);
+  color:var(--ws);
+  font-family:var(--fb);
+  -webkit-font-smoothing:antialiased;
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+  padding:clamp(22px,4.5vw,56px);
+  position:relative;
+  overflow-x:hidden;
+}
 
-  body{
-    background:var(--forest);
-    color:var(--cream);
-    font-family:'Archivo',system-ui,sans-serif;
-    -webkit-font-smoothing:antialiased;
-    display:flex;
-    flex-direction:column;
-    min-height:100dvh;
-    padding:clamp(24px,5vw,64px);
-  }
+/* ── HERO IMAGE ────────────────────────────────────────────
+   Uses hero.jpg already in the repo. If it's missing or slow,
+   the Deep Water background shows instead — nothing breaks.
+   ─────────────────────────────────────────────────────────── */
+.bg{
+  position:fixed;
+  inset:0;
+  background:url('hero.jpg') center/cover no-repeat;
+  z-index:0;
+}
+.bg::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(105deg, var(--dw) 8%, rgba(29,34,33,.92) 42%, rgba(29,34,33,.58) 100%),
+    linear-gradient(to top, var(--dw) 0%, transparent 55%);
+}
 
-  /* subtle vertical falloff so the flat green has some depth */
-  body::before{
-    content:'';
-    position:fixed;
-    inset:0;
-    background:linear-gradient(170deg,transparent 35%,var(--forest-deep) 100%);
-    pointer-events:none;
-    z-index:0;
-  }
+.wrap{
+  position:relative;
+  z-index:1;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  max-width:660px;
+  width:100%;
+}
 
-  .wrap{
-    position:relative;
-    z-index:1;
-    flex:1;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    max-width:640px;
-    width:100%;
-  }
+/* ── LOCKUP ─────────────────────────────────────────────────
+   Swap for: <img class="logo" src="logo.png" alt="AustinGolf.com">
+   ─────────────────────────────────────────────────────────── */
+.logo{width:clamp(112px,17vw,150px);height:auto;display:block;margin-bottom:clamp(30px,5vw,46px)}
 
-  /* ── LOGO ──────────────────────────────────────────────
-     Drop your logo file in the repo and set the src below.
-     Until then the text lockup shows instead.
-     ─────────────────────────────────────────────────────── */
-  .logo{
-    width:clamp(110px,18vw,150px);
-    height:auto;
-    margin-bottom:clamp(28px,5vw,44px);
-    display:block;
-  }
+.lockup{margin-bottom:clamp(30px,5vw,46px)}
+.lockup-mark{
+  font-family:var(--fd);
+  font-weight:700;
+  font-size:clamp(1.45rem,3.6vw,1.85rem);
+  letter-spacing:.03em;
+  text-transform:uppercase;
+  line-height:1;
+}
+.lockup-rule{
+  width:34px;height:2px;background:var(--bl);
+  margin:11px 0 10px;
+}
+.lockup-sub{
+  font-family:var(--fd);
+  font-size:.8rem;
+  font-weight:500;
+  letter-spacing:.32em;
+  text-transform:uppercase;
+  color:var(--gr);
+}
 
-  .lockup{
-    margin-bottom:clamp(28px,5vw,44px);
-  }
-  .lockup-mark{
-    font-family:'Anton',sans-serif;
-    font-size:clamp(1.5rem,4vw,2rem);
-    letter-spacing:.02em;
-    line-height:1;
-    text-transform:uppercase;
-  }
-  .lockup-sub{
-    font-size:.7rem;
-    letter-spacing:.34em;
-    text-transform:uppercase;
-    color:var(--cream-dim);
-    margin-top:8px;
-  }
+h1{
+  font-family:var(--fd);
+  font-weight:700;
+  font-size:clamp(2.7rem,9vw,5rem);
+  line-height:.92;
+  letter-spacing:-.005em;
+  text-transform:uppercase;
+  text-wrap:balance;
+}
+h1 em{font-style:normal;color:var(--sf)}
 
-  h1{
-    font-family:'Anton',sans-serif;
-    font-weight:400;
-    font-size:clamp(2.4rem,8vw,4.25rem);
-    line-height:.95;
-    letter-spacing:-.005em;
-    text-transform:uppercase;
-    text-wrap:balance;
-  }
+.lede{
+  margin-top:clamp(18px,3vw,24px);
+  font-size:clamp(1rem,2.1vw,1.14rem);
+  line-height:1.6;
+  color:var(--ls);
+  max-width:47ch;
+}
 
-  h1 .star{
-    color:var(--blaze);
-    font-size:.55em;
-    vertical-align:.28em;
-    margin-left:.12em;
-  }
+.rule{
+  height:1px;
+  background:rgba(247,242,233,.16);
+  margin:clamp(30px,5vw,42px) 0 clamp(20px,3.5vw,28px);
+  max-width:460px;
+}
 
-  .lede{
-    margin-top:clamp(18px,3vw,26px);
-    font-size:clamp(1rem,2.2vw,1.15rem);
-    line-height:1.55;
-    color:var(--cream-dim);
-    max-width:46ch;
-  }
+/* ── SIGNUP ───────────────────────────────────────────────── */
+.signup-label{
+  font-family:var(--fd);
+  font-size:.82rem;
+  font-weight:600;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--gr);
+  margin-bottom:13px;
+}
 
-  .rule{
-    height:1px;
-    background:var(--hairline);
-    margin:clamp(30px,5vw,44px) 0 clamp(22px,4vw,30px);
-  }
+form{display:flex;gap:9px;flex-wrap:wrap;max-width:460px}
 
-  /* ── SIGNUP ────────────────────────────────────────────── */
-  .signup-label{
-    font-size:.72rem;
-    letter-spacing:.2em;
-    text-transform:uppercase;
-    color:var(--cream-dim);
-    margin-bottom:14px;
-  }
+input[type=email]{
+  flex:1 1 215px;
+  min-width:0;
+  background:rgba(247,242,233,.05);
+  border:1px solid rgba(247,242,233,.22);
+  border-radius:3px;
+  color:var(--ws);
+  font-family:var(--fb);
+  font-size:1rem;
+  padding:13px 15px;
+  transition:border-color .18s ease,background .18s ease;
+}
+input[type=email]::placeholder{color:var(--gr)}
+input[type=email]:hover{border-color:rgba(247,242,233,.4)}
+input[type=email]:focus{outline:none;border-color:var(--sf);background:rgba(247,242,233,.09)}
+input[type=email]:focus-visible{outline:2px solid var(--bl);outline-offset:2px}
 
-  form{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    max-width:440px;
-  }
+button{
+  background:var(--bl);
+  color:var(--dw);
+  border:1px solid var(--bl);
+  border-radius:3px;
+  font-family:var(--fd);
+  font-weight:700;
+  font-size:.95rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  padding:13px 28px;
+  cursor:pointer;
+  transition:background .18s ease,border-color .18s ease;
+}
+button:hover{background:var(--bl-d);border-color:var(--bl-d)}
+button:focus-visible{outline:2px solid var(--sf);outline-offset:2px}
 
-  input[type=email]{
-    flex:1 1 220px;
-    min-width:0;
-    background:transparent;
-    border:1px solid var(--hairline);
-    border-radius:2px;
-    color:var(--cream);
-    font-family:inherit;
-    font-size:1rem;
-    padding:13px 15px;
-    transition:border-color .18s ease;
-  }
-  input[type=email]::placeholder{color:rgba(233,234,225,.38)}
-  input[type=email]:hover{border-color:rgba(233,234,225,.36)}
-  input[type=email]:focus{
-    outline:none;
-    border-color:var(--cream);
-  }
-  input[type=email]:focus-visible{
-    outline:2px solid var(--blaze);
-    outline-offset:2px;
-  }
+.fineprint{margin-top:11px;font-size:.8rem;color:var(--bk)}
 
-  button{
-    background:var(--cream);
-    color:var(--forest);
-    border:1px solid var(--cream);
-    border-radius:2px;
-    font-family:'Archivo',sans-serif;
-    font-weight:600;
-    font-size:.82rem;
-    letter-spacing:.09em;
-    text-transform:uppercase;
-    padding:13px 26px;
-    cursor:pointer;
-    transition:background .18s ease,color .18s ease;
-  }
-  button:hover{background:transparent;color:var(--cream)}
-  button:focus-visible{outline:2px solid var(--blaze);outline-offset:2px}
+.placeholder-note{
+  font-family:var(--fd);
+  font-size:clamp(1.15rem,2.6vw,1.4rem);
+  font-weight:500;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--sf);
+}
 
-  .fineprint{
-    margin-top:12px;
-    font-size:.78rem;
-    color:rgba(233,234,225,.45);
-  }
+footer{
+  position:relative;
+  z-index:1;
+  padding-top:clamp(30px,5vw,52px);
+  font-size:.78rem;
+  letter-spacing:.04em;
+  color:var(--bk);
+}
+footer a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(136,122,104,.4)}
+footer a:hover{color:var(--ls);border-bottom-color:var(--ls)}
+footer a:focus-visible{outline:2px solid var(--bl);outline-offset:3px}
 
-  /* shown instead of the form when no list URL is configured */
-  .placeholder-note{
-    font-size:clamp(1rem,2.2vw,1.1rem);
-    color:var(--cream-dim);
-    line-height:1.5;
-  }
-
-  footer{
-    position:relative;
-    z-index:1;
-    padding-top:clamp(32px,6vw,56px);
-    font-size:.75rem;
-    letter-spacing:.05em;
-    color:rgba(233,234,225,.4);
-  }
-  footer a{color:inherit}
-
-  @media (prefers-reduced-motion:reduce){
-    *{transition:none!important;animation:none!important}
-  }
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
 </style>
 </head>
 
 <body>
 
+<div class="bg"></div>
+
 <div class="wrap">
 
-  <!-- Replace this block with: <img class="logo" src="logo.png" alt="Austin Golf"> -->
   <div class="lockup">
-    <div class="lockup-mark">Austin Golf</div>
+    <div class="lockup-mark">AustinGolf.com</div>
+    <div class="lockup-rule"></div>
     <div class="lockup-sub">Play. Live. Texas.</div>
   </div>
 
-  <h1>Every course in Austin.<br>One place.<span class="star">★</span></h1>
+  <h1>Every course<br>in Austin.<br><em>One place.</em></h1>
 
   <p class="lede">
     The full directory of Austin-area courses, plus the things their websites
@@ -241,14 +243,14 @@
 /* ══════════════════════════════════════════════════════════════
    ONE THING TO EDIT.
 
-   Paste your Beehiiv form URL between the quotes below. You'll
-   find it in Beehiiv under Grow → Subscribe Forms → Embed, as
-   the "action" URL. It looks roughly like:
+   Paste your Beehiiv form URL between the quotes below. Find it
+   in Beehiiv under Grow → Subscribe Forms → Embed — it's the
+   "action" URL, roughly:
    https://embeds.beehiiv.com/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
-   Leave it empty and the page shows a plain line of text instead
-   of a signup box — so you never collect addresses that go
-   nowhere. Fill it in and the form appears automatically.
+   Leave it empty and the page shows "Launching soon" instead of
+   a signup box, so you never collect addresses that go nowhere.
+   Fill it in and the form appears on its own.
    ══════════════════════════════════════════════════════════════ */
 const LIST_URL = "";
 
@@ -265,7 +267,7 @@ if (LIST_URL) {
     <p class="fineprint">Austin golf only. No spam, unsubscribe anytime.</p>
   `;
 } else {
-  el.innerHTML = `<p class="placeholder-note">Launching soon.</p>`;
+  el.innerHTML = `<p class="placeholder-note">Launching soon</p>`;
 }
 </script>
 
