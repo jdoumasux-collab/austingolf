@@ -1,0 +1,7 @@
+# Pre-launch. Blocks all crawlers sitewide.
+# On launch day, replace the two lines below with:
+#   User-agent: *
+#   Allow: /
+
+User-agent: *
+Disallow: /

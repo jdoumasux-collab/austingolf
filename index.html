@@ -1,1483 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AustinGolf.com — Hill Country Golf</title>
-<meta name="description" content="The definitive Austin golf resource. 54 courses reviewed, mapped, and bookable.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ══════════════════════════════════════════════════════════
+     KEEP THIS UNTIL LAUNCH. It stops Google from indexing the
+     site while it's still in progress. Delete this one line
+     on the day you go live.
+     ══════════════════════════════════════════════════════════ -->
+<meta name="robots" content="noindex, nofollow">
+
+<title>Austin Golf</title>
+<meta name="description" content="A complete guide to golf in the Austin metro. Launching soon.">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
+  :root{
+    --forest:#293E2F;
+    --forest-deep:#1E2E23;
+    --cream:#E9EAE1;
+    --cream-dim:rgba(233,234,225,.62);
+    --hairline:rgba(233,234,225,.20);
+    --blaze:#C8622F;
+  }
 
-/* ── EXACT PALETTE ── */
-:root {
-  --dw:  #1D2221;  /* Deep Water */
-  --ws:  #F7F2E9;  /* White Sand */
-  --ls:  #E5E0D8;  /* Limestone */
-  --gr:  #ADA59C;  /* Gravel */
-  --bk:  #887A68;  /* Bark */
-  --sf:  #9FBEB8;  /* Sea Foam */
-  --fo:  #627A50;  /* Forest */
-  --bl:  #DC8351;  /* Blaze */
-  --bl-d:#C4693A;
-  --fo-d:#4E6340;
-  --fd: 'Barlow Condensed', sans-serif;
-  --fb: 'Barlow', system-ui, sans-serif;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{font-size:16px;scroll-behavior:smooth;}
-body{font-family:var(--fb);background:var(--ws);color:var(--dw);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
-a{text-decoration:none;color:inherit;}
-img{display:block;max-width:100%;}
+  *{box-sizing:border-box;margin:0;padding:0}
 
-/* ── ANNOUNCE BAR ── */
-.announce{
-  background:var(--dw);
-  text-align:center;
-  padding:10px 20px;
-  font-family:var(--fd);
-  font-size:.75rem;
-  font-weight:600;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:rgba(255,255,255,.75);
-}
-.announce a{color:var(--bl);}
+  html,body{height:100%}
 
-/* ── NAV — exact Poncho: links left, logo center, icons right ── */
-.nav{
-  position:sticky;top:0;z-index:500;
-  background:var(--ws);
-  border-bottom:1px solid rgba(0,0,0,.1);
-}
-.nav-inner{
-  max-width:1440px;margin:0 auto;
-  display:grid;
-  grid-template-columns:1fr auto 1fr;
-  align-items:center;
-  height:64px;
-  padding:0 28px;
-}
-.nav-left{display:flex;align-items:center;gap:28px;}
-.nav-links-main{display:flex;gap:28px;}
-.nav-link-main{
-  font-family:var(--fd);
-  font-size:.8rem;
-  font-weight:700;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:var(--dw);
-  opacity:.55;
-  transition:opacity .15s;
-}
-.nav-link-main:hover,.nav-link-main.active{opacity:1;}
-/* AUSTINGOLF — big condensed center logo, Poncho style */
-.nav-logo{
-  font-family:var(--fd);
-  font-size:1.8rem;
-  font-weight:900;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  color:var(--dw);
-  text-align:center;
-  white-space:nowrap;
-  line-height:1;
-}
-.nav-logo em{color:var(--bl);font-style:normal;}
-.nav-right{
-  display:flex;justify-content:flex-end;
-  align-items:center;gap:20px;
-}
-.nav-icon-link{
-  font-family:var(--fd);
-  font-size:.72rem;
-  font-weight:600;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  color:var(--dw);
-  opacity:.55;
-  transition:opacity .15s;
-  cursor:pointer;
-}
-.nav-icon-link:hover{opacity:1;}
-.nav-featured{
-  background:var(--bl);
-  color:#fff;
-  font-family:var(--fd);
-  font-size:.72rem;
-  font-weight:700;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  padding:8px 16px;
-  transition:background .15s;
-}
-.nav-featured:hover{background:var(--bl-d);}
+  body{
+    background:var(--forest);
+    color:var(--cream);
+    font-family:'Archivo',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    display:flex;
+    flex-direction:column;
+    min-height:100dvh;
+    padding:clamp(24px,5vw,64px);
+  }
 
-/* NAV ICON BUTTONS — Poncho style */
-.nav-icon-btn{
-  width:36px;height:36px;
-  display:flex;align-items:center;justify-content:center;
-  background:none;border:none;cursor:pointer;
-  color:var(--dw);opacity:.5;
-  transition:opacity .15s;
-  position:relative;
-  flex-shrink:0;
-}
-.nav-icon-btn:hover{opacity:1;}
-/* Newsletter dot indicator */
-.nav-icon-nl{position:relative;}
-.nav-nl-dot{
-  position:absolute;top:6px;right:6px;
-  width:6px;height:6px;border-radius:50%;
-  background:var(--bl);
-}
-/* Search overlay */
-.search-overlay{
-  position:fixed;top:64px;left:0;right:0;z-index:490;
-  background:var(--ws);
-  border-bottom:1px solid var(--ls);
-  padding:16px 28px;
-  display:none;
-  box-shadow:0 8px 32px rgba(0,0,0,.08);
-}
-.search-overlay.open{display:block;}
-.search-inner{
-  max-width:1440px;margin:0 auto;
-  display:flex;gap:0;
-  border:1.5px solid var(--dw);
-  background:#fff;
-}
-.search-input{
-  flex:1;background:transparent;border:none;
-  padding:13px 18px;
-  font-family:var(--fb);font-size:.96rem;
-  color:var(--dw);outline:none;
-}
-.search-input::placeholder{color:var(--gr);}
-.search-submit{
-  background:var(--dw);color:#fff;border:none;
-  padding:13px 20px;
-  font-family:var(--fd);font-size:.72rem;font-weight:700;
-  letter-spacing:.14em;text-transform:uppercase;
-  cursor:pointer;transition:background .15s;
-  display:flex;align-items:center;gap:8px;
-}
-.search-submit:hover{background:var(--bl);}
-.search-close{
-  background:none;border:none;cursor:pointer;
-  color:var(--gr);font-size:1.2rem;padding:13px 16px;
-  transition:color .15s;
-}
-.search-close:hover{color:var(--dw);}
+  /* subtle vertical falloff so the flat green has some depth */
+  body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background:linear-gradient(170deg,transparent 35%,var(--forest-deep) 100%);
+    pointer-events:none;
+    z-index:0;
+  }
 
-/* ── HERO — Poncho ~55vh, centered, pill CTA ── */
-.hero{
-  position:relative;
-  width:100%;
-  height:58vh;
-  min-height:480px;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-}
-.hero-bg{
-  position:absolute;inset:0;
-  background:url('hero.jpg') center 40%/cover no-repeat;
-  transform:scale(1.04);
-  transition:transform 14s ease-out;
-}
-.hero-bg.kb{transform:scale(1);}
-.hero-ov{
-  position:absolute;inset:0;
-  background:rgba(18,22,18,.55);
-}
-.hero-body{position:relative;z-index:10;padding:0 20px;}
-.hero-pre{
-  display:block;
-  font-family:var(--fd);
-  font-size:.78rem;
-  font-weight:700;
-  letter-spacing:.26em;
-  text-transform:uppercase;
-  color:var(--bl);
-  margin-bottom:10px;
-}
-/* Poncho hero headline: MASSIVE condensed, centered, all caps */
-.hero-h1{
-  font-family:var(--fd);
-  font-size:clamp(4.5rem,11vw,9.5rem);
-  font-weight:900;
-  line-height:.88;
-  letter-spacing:-.01em;
-  text-transform:uppercase;
-  color:#fff;
-  margin-bottom:28px;
-}
-/* Poncho CTA: orange pill button */
-.hero-btn{
-  display:inline-block;
-  background:var(--bl);
-  color:#fff;
-  font-family:var(--fd);
-  font-size:.82rem;
-  font-weight:700;
-  letter-spacing:.2em;
-  text-transform:uppercase;
-  padding:11px 32px;
-  border-radius:100px;
-  transition:background .15s;
-}
-.hero-btn:hover{background:var(--bl-d);}
+  .wrap{
+    position:relative;
+    z-index:1;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    max-width:640px;
+    width:100%;
+  }
 
-/* ── CATEGORY ROW — "Outfit any undertaking" exact ── */
-.cat-section{padding:40px 0 0;background:var(--ws);}
-.cat-head{
-  display:flex;
-  align-items:baseline;
-  justify-content:space-between;
-  padding:0 28px 20px;
-  max-width:1440px;margin:0 auto;
-}
-.cat-label{
-  font-family:var(--fd);
-  font-size:.72rem;
-  font-weight:700;
-  letter-spacing:.2em;
-  text-transform:uppercase;
-  color:var(--bk);
-}
-.cat-arrows{display:flex;gap:8px;}
-.cat-arrow{
-  width:28px;height:28px;
-  border:1.5px solid var(--ls);
-  display:flex;align-items:center;justify-content:center;
-  font-size:.7rem;color:var(--gr);
-  cursor:pointer;transition:all .15s;
-}
-.cat-arrow:hover{border-color:var(--dw);color:var(--dw);}
-/* Scrollable row of square images */
-.cat-scroll{
-  display:flex;
-  gap:3px;
-  overflow-x:auto;
-  scroll-snap-type:x mandatory;
-  scrollbar-width:none;
-  padding:0 28px;
-}
-.cat-scroll::-webkit-scrollbar{display:none;}
-.cat-item{
-  flex-shrink:0;
-  width:calc((100vw - 56px - 21px) / 8);
-  min-width:140px;
-  scroll-snap-align:start;
-  cursor:pointer;
-}
-.cat-img-box{
-  aspect-ratio:1/1;
-  overflow:hidden;
-  background:var(--ls);
-  position:relative;
-}
-.cat-img-inner{
-  position:absolute;inset:0;
-  background-size:cover;background-position:center;
-  transition:transform .45s ease;
-}
-.cat-item:hover .cat-img-inner{transform:scale(1.06);}
-.cat-name{
-  font-family:var(--fd);
-  font-size:.78rem;
-  font-weight:700;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:var(--dw);
-  text-align:center;
-  padding:9px 4px 2px;
-  line-height:1.2;
-}
-.cat-sub{
-  font-size:.62rem;
-  color:var(--gr);
-  text-align:center;
-  padding-bottom:8px;
-  letter-spacing:.06em;
-}
+  /* ── LOGO ──────────────────────────────────────────────
+     Drop your logo file in the repo and set the src below.
+     Until then the text lockup shows instead.
+     ─────────────────────────────────────────────────────── */
+  .logo{
+    width:clamp(110px,18vw,150px);
+    height:auto;
+    margin-bottom:clamp(28px,5vw,44px);
+    display:block;
+  }
 
-/* ── COURSE ROW — "Best Sellers" ── */
-.courses-row{padding:48px 28px;background:var(--ws);}
-.cr-inner{max-width:1440px;margin:0 auto;}
-.cr-head{
-  display:flex;justify-content:space-between;align-items:flex-end;
-  margin-bottom:20px;flex-wrap:wrap;gap:10px;
-}
-.cr-title{
-  font-family:var(--fd);
-  font-size:clamp(1.4rem,3vw,2.2rem);
-  font-weight:900;
-  letter-spacing:.04em;
-  text-transform:uppercase;
-  color:var(--dw);
-  line-height:.95;
-}
-.cr-viewall{
-  font-family:var(--fd);
-  font-size:.72rem;
-  font-weight:700;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  color:var(--dw);
-  border-bottom:1.5px solid var(--dw);
-  padding-bottom:2px;
-  transition:color .15s,border-color .15s;
-  white-space:nowrap;
-}
-.cr-viewall:hover{color:var(--bl);border-color:var(--bl);}
-/* Horizontal scroll cards */
-.cr-scroll{
-  display:flex;
-  gap:12px;
-  overflow-x:auto;
-  scrollbar-width:none;
-  scroll-snap-type:x mandatory;
-}
-.cr-scroll::-webkit-scrollbar{display:none;}
-.course-card{
-  flex-shrink:0;
-  width:calc((100% - 48px) / 5);
-  min-width:210px;
-  scroll-snap-align:start;
-  cursor:pointer;
-}
-/* Poncho product card: photo on limestone bg, text below */
-.cc-photo{
-  aspect-ratio:3/4;
-  background:var(--ls);
-  position:relative;
-  overflow:hidden;
-}
-.cc-photo-img{
-  position:absolute;inset:0;
-  background-size:cover;background-position:center;
-  transition:opacity .35s;
-}
-.cc-photo-alt{opacity:0;}
-.course-card:hover .cc-photo-img.cc-photo-main{opacity:0;}
-.course-card:hover .cc-photo-img.cc-photo-alt{opacity:1;}
-/* Poncho badge: top-right */
-.cc-badge{
-  position:absolute;top:10px;right:10px;
-  font-family:var(--fd);
-  font-size:.56rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  padding:3px 8px;
-  z-index:5;
-}
-.cc-badge.insider{background:var(--fo);color:#fff;}
-.cc-badge.new{background:var(--bl);color:#fff;}
-.cc-info{padding:10px 2px 0;}
-.cc-type{
-  font-family:var(--fd);
-  font-size:.62rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--gr);display:block;margin-bottom:3px;
-}
-.cc-name{
-  font-family:var(--fd);
-  font-size:1.1rem;font-weight:700;letter-spacing:-.01em;
-  color:var(--dw);line-height:1.1;margin-bottom:3px;
-}
-.cc-price{
-  font-size:.86rem;font-weight:400;color:var(--bk);
-}
-.cc-price strong{color:var(--fo);font-weight:600;}
+  .lockup{
+    margin-bottom:clamp(28px,5vw,44px);
+  }
+  .lockup-mark{
+    font-family:'Anton',sans-serif;
+    font-size:clamp(1.5rem,4vw,2rem);
+    letter-spacing:.02em;
+    line-height:1;
+    text-transform:uppercase;
+  }
+  .lockup-sub{
+    font-size:.7rem;
+    letter-spacing:.34em;
+    text-transform:uppercase;
+    color:var(--cream-dim);
+    margin-top:8px;
+  }
 
-/* ── FEATURE SECTION — "Everything You Need. Nothing You Don't." ── */
-.feature-section{
-  background:var(--ws);
-  padding:72px 28px;
-}
-.fs-inner{
-  max-width:1100px;margin:0 auto;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:80px;align-items:center;
-}
-/* Poncho: big centered headline above the image */
-.fs-left{}
-.fs-headline{
-  font-family:var(--fd);
-  font-size:clamp(2.2rem,4.5vw,4rem);
-  font-weight:900;
-  letter-spacing:-.01em;
-  text-transform:uppercase;
-  line-height:.92;
-  color:var(--dw);
-  margin-bottom:32px;
-  text-align:center;
-}
-.fs-image{
-  aspect-ratio:3/4;
-  position:relative;
-  background:url('https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?auto=format&fit=crop&w=800&q=85') center/cover no-repeat;
-  margin:0 auto;
-  max-width:360px;
-}
-/* Orange dots — Poncho callout points */
-.fs-dot{
-  position:absolute;
-  width:20px;height:20px;
-  border-radius:50%;
-  background:var(--bl);
-  border:2px solid #fff;
-  cursor:pointer;
-}
-.fs-dot:nth-child(1){top:15%;left:20%;}
-.fs-dot:nth-child(2){top:28%;right:18%;}
-.fs-dot:nth-child(3){top:48%;left:12%;}
-.fs-dot:nth-child(4){top:62%;right:15%;}
-.fs-dot:nth-child(5){top:75%;left:30%;}
-/* Feature list right */
-.fs-right{}
-.fs-list{display:flex;flex-direction:column;gap:18px;margin-bottom:32px;}
-.fi{display:flex;gap:12px;align-items:flex-start;}
-.fi-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--bl);flex-shrink:0;margin-top:5px;
-}
-.fi-title{
-  font-family:var(--fd);
-  font-size:.86rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--dw);margin-bottom:2px;
-}
-.fi-desc{font-size:.82rem;color:var(--bk);line-height:1.6;font-weight:300;}
-.fs-btns{display:flex;gap:16px;flex-wrap:wrap;}
-.fs-btn-p{
-  background:var(--dw);color:#fff;
-  font-family:var(--fd);font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  padding:12px 28px;transition:background .15s;
-}
-.fs-btn-p:hover{background:var(--bl);}
-.fs-btn-g{
-  background:transparent;color:var(--dw);
-  border:1.5px solid var(--dw);
-  font-family:var(--fd);font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  padding:12px 28px;transition:all .15s;
-}
-.fs-btn-g:hover{border-color:var(--bl);color:var(--bl);}
+  h1{
+    font-family:'Anton',sans-serif;
+    font-weight:400;
+    font-size:clamp(2.4rem,8vw,4.25rem);
+    line-height:.95;
+    letter-spacing:-.005em;
+    text-transform:uppercase;
+    text-wrap:balance;
+  }
 
-/* ── CTA BAND — "Game Day" equivalent ── */
-.cta-band{
-  position:relative;
-  height:420px;
-  overflow:hidden;
-  display:flex;align-items:center;justify-content:center;text-align:center;
-}
-.cta-bg{
-  position:absolute;inset:0;
-  background:url('https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&w=2000&q=85') center/cover no-repeat;
-}
-.cta-ov{position:absolute;inset:0;background:rgba(18,22,18,.62);}
-.cta-body{position:relative;z-index:10;padding:20px;}
-.cta-pre{
-  display:block;
-  font-family:var(--fd);font-size:.7rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
-  color:var(--bl);margin-bottom:10px;
-}
-.cta-title{
-  font-family:var(--fd);
-  font-size:clamp(2.8rem,7vw,6.5rem);
-  font-weight:900;letter-spacing:-.01em;text-transform:uppercase;
-  color:#fff;line-height:.9;margin-bottom:24px;
-}
-.cta-btn{
-  display:inline-block;
-  background:var(--bl);color:#fff;
-  font-family:var(--fd);font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-  padding:11px 30px;border-radius:100px;
-  transition:background .15s;
-}
-.cta-btn:hover{background:var(--bl-d);}
+  h1 .star{
+    color:var(--blaze);
+    font-size:.55em;
+    vertical-align:.28em;
+    margin-left:.12em;
+  }
 
-/* ── ABOUT — "Inspired by out there" — Poncho: photo left, Bark bg right ── */
-.about-section{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  min-height:480px;
-}
-.about-photo{
-  background:url('https://images.unsplash.com/photo-1535132011086-b8818f016104?auto=format&fit=crop&w=1200&q=85') center/cover no-repeat;
-}
-/* Poncho about: right side has a tan/bark textured feel */
-.about-copy{
-  background:var(--ls);
-  padding:64px 56px;
-  display:flex;flex-direction:column;justify-content:center;
-}
-.about-pre{
-  font-family:var(--fd);font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--bl);margin-bottom:12px;display:block;
-}
-.about-title{
-  font-family:var(--fd);
-  font-size:clamp(2rem,4vw,3.5rem);
-  font-weight:900;letter-spacing:-.01em;text-transform:uppercase;
-  color:var(--dw);line-height:.92;margin-bottom:20px;
-}
-.about-body{
-  font-size:.9rem;font-weight:300;color:var(--bk);
-  line-height:1.75;margin-bottom:24px;max-width:380px;
-}
-.about-body strong{color:var(--dw);font-weight:500;}
-.about-link{
-  font-family:var(--fd);font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--dw);border-bottom:1.5px solid var(--dw);padding-bottom:2px;
-  display:inline-block;transition:color .15s,border-color .15s;
-}
-.about-link:hover{color:var(--bl);border-color:var(--bl);}
+  .lede{
+    margin-top:clamp(18px,3vw,26px);
+    font-size:clamp(1rem,2.2vw,1.15rem);
+    line-height:1.55;
+    color:var(--cream-dim);
+    max-width:46ch;
+  }
 
-/* ── GUIDE TYPES ROW — "The Poncho Shirt Guide" ── */
-.guides-row{padding:48px 28px;background:var(--ws);}
-.gr-inner{max-width:1440px;margin:0 auto;}
-.gr-head{margin-bottom:20px;}
-.gr-pre{
-  font-family:var(--fd);font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--bk);display:block;margin-bottom:4px;
-}
-.gr-title{
-  font-family:var(--fd);font-size:clamp(1.4rem,3vw,2.2rem);font-weight:900;
-  letter-spacing:.02em;text-transform:uppercase;color:var(--dw);
-}
-.gr-scroll{
-  display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;
-  scroll-snap-type:x mandatory;
-}
-.gr-scroll::-webkit-scrollbar{display:none;}
-.guide-card{
-  flex-shrink:0;
-  width:220px;
-  scroll-snap-align:start;
-  cursor:pointer;
-}
-.gc-img{
-  height:180px;
-  background:var(--ls);
-  background-size:cover;background-position:center;
-  margin-bottom:10px;
-  overflow:hidden;
-  position:relative;
-}
-.gc-img-inner{
-  position:absolute;inset:0;
-  background-size:cover;background-position:center;
-  transition:transform .4s ease;
-}
-.guide-card:hover .gc-img-inner{transform:scale(1.05);}
-.gc-name{
-  font-family:var(--fd);font-size:1rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
-  color:var(--dw);margin-bottom:4px;
-}
-.gc-desc{font-size:.76rem;color:var(--bk);line-height:1.55;font-weight:300;}
+  .rule{
+    height:1px;
+    background:var(--hairline);
+    margin:clamp(30px,5vw,44px) 0 clamp(22px,4vw,30px);
+  }
 
-/* ── PRESS LOGOS ── */
-.press-section{
-  padding:48px 28px;
-  background:var(--ws);
-  border-top:1px solid var(--ls);
-  text-align:center;
-}
-.press-pre{
-  font-family:var(--fd);font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--gr);margin-bottom:24px;display:block;
-}
-.press-logos{
-  display:flex;justify-content:center;align-items:center;
-  gap:48px;flex-wrap:wrap;
-}
-.press-logo{
-  font-family:var(--fd);font-size:1.3rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--ls);
-}
+  /* ── SIGNUP ────────────────────────────────────────────── */
+  .signup-label{
+    font-size:.72rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--cream-dim);
+    margin-bottom:14px;
+  }
 
-/* ── TRUST BADGES — Poncho bottom of page ── */
-.trust-badges{
-  background:var(--ls);
-  border-top:1px solid rgba(0,0,0,.06);
-  border-bottom:1px solid rgba(0,0,0,.06);
-  padding:20px 28px;
-}
-.tb-inner{
-  max-width:1440px;margin:0 auto;
-  display:flex;justify-content:center;align-items:center;
-  gap:48px;flex-wrap:wrap;
-}
-.tb-item{
-  display:flex;align-items:center;gap:10px;
-  font-family:var(--fd);font-size:.72rem;font-weight:700;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--dw);
-}
-.tb-icon{font-size:1rem;color:var(--bl);}
+  form{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    max-width:440px;
+  }
 
-/* ── NEWSLETTER — Poncho "Catch What's Next" — SEA FOAM bg ── */
-.nl-section{
-  background:var(--sf);  /* Sea Foam — exact Poncho teal */
-  padding:80px 28px;
-  text-align:center;
-}
-.nl-inner{max-width:420px;margin:0 auto;}
-.nl-pre{
-  font-family:var(--fd);font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--dw);opacity:.6;margin-bottom:8px;display:block;
-}
-.nl-title{
-  font-family:var(--fd);
-  font-size:clamp(2.2rem,5vw,3.8rem);
-  font-weight:900;letter-spacing:-.01em;text-transform:uppercase;
-  color:var(--dw);line-height:.92;margin-bottom:12px;
-}
-.nl-sub{
-  font-size:.86rem;font-weight:300;color:rgba(29,34,33,.6);
-  line-height:1.7;margin-bottom:24px;
-}
-/* Poncho inline form */
-.nl-form{
-  display:flex;gap:0;
-  border:1.5px solid var(--dw);
-  background:rgba(255,255,255,.5);
-  max-width:380px;margin:0 auto 10px;
-}
-.nl-input{
-  flex:1;background:transparent;border:none;
-  padding:12px 16px;font-family:var(--fb);font-size:.86rem;
-  color:var(--dw);outline:none;
-}
-.nl-input::placeholder{color:rgba(29,34,33,.45);}
-.nl-btn{
-  background:var(--dw);color:#fff;border:none;
-  padding:12px 20px;
-  font-family:var(--fd);font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
-  cursor:pointer;transition:background .15s;
-}
-.nl-btn:hover{background:var(--bl);}
-.nl-fine{font-size:.6rem;color:rgba(29,34,33,.4);letter-spacing:.06em;}
+  input[type=email]{
+    flex:1 1 220px;
+    min-width:0;
+    background:transparent;
+    border:1px solid var(--hairline);
+    border-radius:2px;
+    color:var(--cream);
+    font-family:inherit;
+    font-size:1rem;
+    padding:13px 15px;
+    transition:border-color .18s ease;
+  }
+  input[type=email]::placeholder{color:rgba(233,234,225,.38)}
+  input[type=email]:hover{border-color:rgba(233,234,225,.36)}
+  input[type=email]:focus{
+    outline:none;
+    border-color:var(--cream);
+  }
+  input[type=email]:focus-visible{
+    outline:2px solid var(--blaze);
+    outline-offset:2px;
+  }
 
-/* ── FOOTER — Poncho: white, 4-col, brand mark ── */
-.footer{
-  background:var(--ws);
-  padding:48px 28px 28px;
-  border-top:1px solid var(--ls);
-}
-.footer-inner{max-width:1440px;margin:0 auto;}
-.footer-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:28px;margin-bottom:40px;
-}
-.fg-h{
-  font-family:var(--fd);font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--dw);margin-bottom:16px;
-}
-.fg-links{list-style:none;display:flex;flex-direction:column;gap:10px;}
-.fg-links li a{font-size:.82rem;font-weight:300;color:var(--bk);transition:color .15s;}
-.fg-links li a:hover{color:var(--dw);}
-.footer-bottom{
-  display:flex;justify-content:space-between;align-items:center;
-  padding-top:20px;border-top:1px solid var(--ls);
-  flex-wrap:wrap;gap:12px;
-}
-.f-copy{font-size:.66rem;color:var(--gr);}
-/* Poncho P mark — we use AG */
-.f-mark{
-  font-family:var(--fd);font-size:1.8rem;font-weight:900;
-  letter-spacing:.06em;text-transform:uppercase;color:var(--ls);
-}
-.f-mark em{color:var(--bl);font-style:normal;}
-.f-legal{display:flex;gap:16px;}
-.f-legal a{font-size:.66rem;color:var(--gr);transition:color .15s;}
-.f-legal a:hover{color:var(--dw);}
+  button{
+    background:var(--cream);
+    color:var(--forest);
+    border:1px solid var(--cream);
+    border-radius:2px;
+    font-family:'Archivo',sans-serif;
+    font-weight:600;
+    font-size:.82rem;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    padding:13px 26px;
+    cursor:pointer;
+    transition:background .18s ease,color .18s ease;
+  }
+  button:hover{background:transparent;color:var(--cream)}
+  button:focus-visible{outline:2px solid var(--blaze);outline-offset:2px}
 
-/* ── RESPONSIVE ── */
-@media(max-width:1024px){
-  .about-section{grid-template-columns:1fr;}
-  .about-photo{height:360px;}
-  .fs-inner{grid-template-columns:1fr;gap:40px;}
-  .footer-grid{grid-template-columns:repeat(2,1fr);}
-}
-@media(max-width:680px){
-  .nav-inner{grid-template-columns:1fr auto;padding:0 16px;}
-  .nav-left{display:none;}
-  .nav-logo{font-size:1.3rem;}
-  .nav-right .nav-icon-link{display:none;}
-  .hero{height:50vh;min-height:360px;}
-  .hero-h1{font-size:4rem;}
-  .cat-section{padding:28px 0 0;}
-  .cat-head,.courses-row,.feature-section,.guides-row,.press-section,.trust-badges,.nl-section,.footer{padding-left:16px;padding-right:16px;}
-  .nl-form{flex-direction:column;}
-  .nl-btn{padding:12px;}
-  .footer-grid{grid-template-columns:1fr 1fr;}
-  .about-copy{padding:40px 24px;}
-  .cta-band{height:320px;}
-  .press-logos{gap:28px;}
-}
+  .fineprint{
+    margin-top:12px;
+    font-size:.78rem;
+    color:rgba(233,234,225,.45);
+  }
 
-/* Cart icon */
-.nav-icon-cart{position:relative;}
-.nav-cart-count{
-  position:absolute;top:4px;right:4px;
-  min-width:16px;height:16px;
-  background:var(--bl);color:#fff;
-  font-family:var(--fb);font-size:.52rem;font-weight:700;
-  border-radius:100px;
-  display:flex;align-items:center;justify-content:center;
-  padding:0 3px;line-height:1;
-  opacity:0;transition:opacity .2s;
-}
-.nav-cart-count.has-items{opacity:1;}
+  /* shown instead of the form when no list URL is configured */
+  .placeholder-note{
+    font-size:clamp(1rem,2.2vw,1.1rem);
+    color:var(--cream-dim);
+    line-height:1.5;
+  }
 
-/* ── BOOKING MODAL + BOTTOM SHEET ── */
-.modal-overlay{position:fixed;inset:0;z-index:1000;background:rgba(18,22,18,.65);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .25s;}
-.modal-overlay.open{opacity:1;pointer-events:all;}
-.modal{background:#fff;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;transform:translateY(16px) scale(.98);transition:transform .28s cubic-bezier(.22,.68,0,1.2);position:relative;}
-.modal-overlay.open .modal{transform:translateY(0) scale(1);}
-.modal-head{background:var(--dw);padding:22px 24px 20px;position:sticky;top:0;z-index:10;}
-.modal-close{position:absolute;top:14px;right:16px;width:28px;height:28px;background:rgba(255,255,255,.1);border:none;border-radius:50%;cursor:pointer;color:rgba(255,255,255,.7);font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:background .15s;}
-.modal-close:hover{background:rgba(255,255,255,.2);color:#fff;}
-.modal-eyebrow{font-family:var(--fd);font-size:.58rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--bl);display:block;margin-bottom:4px;}
-.modal-course-name{font-family:var(--fd);font-size:1.3rem;font-weight:900;text-transform:uppercase;color:#fff;line-height:1.05;margin-bottom:2px;letter-spacing:-.01em;}
-.modal-course-meta{font-size:.72rem;color:rgba(255,255,255,.38);}
-.modal-body{padding:22px 24px;}
-.steps{display:flex;align-items:center;gap:0;margin-bottom:24px;}
-.step{display:flex;align-items:center;gap:6px;flex:1;}
-.step-num{width:22px;height:22px;border-radius:50%;background:var(--ls);color:var(--gr);font-size:.62rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;}
-.step.active .step-num{background:var(--bl);color:#fff;}
-.step.done .step-num{background:var(--fo);color:#fff;}
-.step-label{font-family:var(--fd);font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gr);transition:color .2s;}
-.step.active .step-label{color:var(--dw);}
-.step.done .step-label{color:var(--fo);}
-.step-line{flex:1;height:1px;background:var(--ls);margin:0 8px;flex-shrink:0;}
-.step-panel{display:none;}
-.step-panel.active{display:block;}
-.times-label{font-family:var(--fd);font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gr);margin-bottom:10px;display:block;}
-.date-row{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:20px;}
-.date-chip{padding:8px 4px;border:1.5px solid var(--ls);background:transparent;cursor:pointer;text-align:center;transition:all .15s;font-family:var(--fb);}
-.date-chip:hover{border-color:var(--bk);}
-.date-chip.selected{background:var(--dw);border-color:var(--dw);color:#fff;}
-.date-chip.today{border-color:var(--bl);}
-.dc-day{font-size:.5rem;color:var(--gr);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:2px;}
-.date-chip.selected .dc-day{color:rgba(255,255,255,.5);}
-.dc-date{font-family:var(--fd);font-size:.88rem;font-weight:700;color:var(--dw);display:block;}
-.date-chip.selected .dc-date{color:#fff;}
-.times-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px;}
-.time-chip{padding:10px 8px;border:1.5px solid var(--ls);background:transparent;cursor:pointer;text-align:center;transition:all .15s;font-family:var(--fb);}
-.time-chip:hover{border-color:var(--bk);}
-.time-chip.selected{background:var(--dw);border-color:var(--dw);}
-.time-chip.deal{border-color:var(--fo);}
-.tc-time{font-family:var(--fd);font-size:.88rem;font-weight:700;color:var(--dw);display:block;}
-.time-chip.selected .tc-time{color:#fff;}
-.tc-price{font-size:.65rem;color:var(--fo);display:block;margin-top:2px;font-weight:600;}
-.time-chip.selected .tc-price{color:rgba(255,255,255,.7);}
-.players-row{display:flex;gap:8px;margin-bottom:20px;}
-.player-chip{flex:1;padding:10px 4px;border:1.5px solid var(--ls);background:transparent;cursor:pointer;text-align:center;font-family:var(--fd);font-size:.88rem;font-weight:700;color:var(--dw);transition:all .15s;}
-.player-chip:hover{border-color:var(--bk);}
-.player-chip.selected{background:var(--dw);border-color:var(--dw);color:#fff;}
-.summary-box{background:var(--ws);border:1px solid var(--ls);padding:16px 18px;margin-bottom:20px;}
-.summary-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--ls);font-size:.8rem;}
-.summary-row:last-child{border-bottom:none;font-weight:700;font-size:.86rem;}
-.sr-key{color:var(--gr);}
-.sr-val{color:var(--dw);font-weight:600;}
-.email-label{font-family:var(--fd);font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gr);margin-bottom:6px;display:block;}
-.email-input{width:100%;background:var(--ws);border:1.5px solid var(--ls);padding:11px 14px;font-family:var(--fb);font-size:.84rem;color:var(--dw);outline:none;margin-bottom:8px;transition:border .15s;}
-.email-input:focus{border-color:var(--bk);}
-.email-note{font-size:.65rem;color:var(--gr);line-height:1.5;margin-bottom:18px;}
-.email-note strong{color:var(--dw);}
-.modal-actions{display:flex;gap:10px;align-items:center;}
-.modal-back{background:transparent;border:1.5px solid var(--ls);color:var(--bk);padding:11px 20px;font-family:var(--fd);font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .15s;}
-.modal-back:hover{border-color:var(--bk);color:var(--dw);}
-.modal-next{flex:1;background:var(--dw);color:#fff;border:none;padding:12px 20px;font-family:var(--fd);font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background .15s;}
-.modal-next:hover{background:var(--bl);}
-.modal-next:disabled{background:var(--ls);color:var(--gr);cursor:default;}
-.modal-confirm{flex:1;background:var(--bl);color:#fff;border:none;padding:12px 20px;font-family:var(--fd);font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background .15s;}
-.modal-confirm:hover{background:var(--bl-d);}
-.platform-note{font-size:.62rem;color:var(--gr);text-align:center;margin-top:10px;line-height:1.5;}
-/* Mobile bottom sheet */
-@media(max-width:640px){
-  .modal-overlay{align-items:flex-end;padding:0;}
-  .modal{max-width:100%;border-radius:12px 12px 0 0;transform:translateY(100%);transition:transform .32s cubic-bezier(.22,.68,0,1.1);max-height:92vh;}
-  .modal-overlay.open .modal{transform:translateY(0);}
-  .modal-head::before{content:'';display:block;width:36px;height:4px;background:rgba(255,255,255,.2);border-radius:2px;margin:0 auto 14px;}
-  .time-chip{padding:13px 8px;}
-  .player-chip{padding:13px 4px;}
-  .modal-actions{flex-direction:column;gap:8px;}
-  .modal-back,.modal-next,.modal-confirm{width:100%;text-align:center;}
-  .times-grid{grid-template-columns:repeat(2,1fr);}
-}
+  footer{
+    position:relative;
+    z-index:1;
+    padding-top:clamp(32px,6vw,56px);
+    font-size:.75rem;
+    letter-spacing:.05em;
+    color:rgba(233,234,225,.4);
+  }
+  footer a{color:inherit}
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+  }
 </style>
 </head>
+
 <body>
 
-<!-- ANNOUNCE -->
-<div class="announce">
-  Good Good Championship &nbsp;·&nbsp; November 9–15 at Barton Creek &nbsp;·&nbsp;
-  <a href="#">Read the Guide →</a>
+<div class="wrap">
+
+  <!-- Replace this block with: <img class="logo" src="logo.png" alt="Austin Golf"> -->
+  <div class="lockup">
+    <div class="lockup-mark">Austin Golf</div>
+    <div class="lockup-sub">Play. Live. Texas.</div>
+  </div>
+
+  <h1>Every course in Austin.<br>One place.<span class="star">★</span></h1>
+
+  <p class="lede">
+    The full directory of Austin-area courses, plus the things their websites
+    won't tell you — what you'll actually pay, when the greens get punched,
+    and where you can still get a weekend tee time.
+  </p>
+
+  <div class="rule"></div>
+
+  <div id="signup"></div>
+
 </div>
 
-<!-- NAV -->
-<nav class="nav">
-  <div class="nav-inner">
-    <div class="nav-left">
-            <div class="nav-links-main">
-        <a href="austingolf-directory-58.html" class="nav-link-main">Courses</a>
-        <a href="austingolf-guides.html" class="nav-link-main">Reviews</a>
-        <a href="austingolf-tee-times.html" class="nav-link-main">Tee Times</a>
-        <a href="#shop" class="nav-link-main">Shop</a>
-      </div>
-    </div>
-    <a href="/" class="nav-logo">Austin<em>Golf</em></a>
-    <div class="nav-right">
-      <!-- Search icon -->
-      <button class="nav-icon-btn" onclick="toggleSearch()" aria-label="Search courses" title="Search">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-      </button>
-      <!-- Account icon -->
-      <button class="nav-icon-btn" aria-label="Account" title="My Account">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-        </svg>
-      </button>
-      <!-- Newsletter / "cart" equivalent -->
-      <button class="nav-icon-btn nav-icon-nl" onclick="document.getElementById('newsletter').scrollIntoView({behavior:'smooth'})" aria-label="Newsletter" title="Free Newsletter">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
-        </svg>
-        <span class="nav-nl-dot"></span>
-      </button>
-      <!-- Cart icon -->
-      <button class="nav-icon-btn nav-icon-cart" aria-label="Shop" title="Austin Golf Shop" onclick="window.location.href='#shop'">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <path d="M16 10a4 4 0 0 1-8 0"/>
-        </svg>
-        <span class="nav-cart-count">0</span>
-      </button>
-      <a href="#partner" class="nav-featured">Get Featured</a>
-    </div>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg" id="heroBg"></div>
-  <div class="hero-ov"></div>
-  <div class="hero-body">
-    <span class="hero-pre">Hill Country Golf &nbsp;·&nbsp; Austin, Texas</span>
-    <h1 class="hero-h1">Hill Country<br>Golf.</h1>
-    <a class="hero-btn" href="austingolf-directory-58.html">Browse All 54 Courses</a>
-  </div>
-</section>
-
-<!-- CATEGORY ROW -->
-<section class="cat-section">
-  <div class="cat-head">
-    <span class="cat-label">Play Your Way</span>
-    <div class="cat-arrows">
-      <div class="cat-arrow" onclick="scrollCat(-1)">&#8592;</div>
-      <div class="cat-arrow" onclick="scrollCat(1)">&#8594;</div>
-    </div>
-  </div>
-  <div class="cat-scroll" id="catScroll">
-    <a href="austingolf-directory-58.html" class="cat-item">
-      <div class="cat-img-box"><div class="cat-img-inner" style="background-image:url('https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=400&q=80');"></div></div>
-      <div class="cat-name">City Munis</div><div class="cat-sub">From $10</div>
-    </a>
-    <a href="austingolf-directory-58.html" class="cat-item">
-      <div class="cat-img-box"><div class="cat-img-inner" style="background-image:url('https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&w=400&q=80');"></div></div>
-      <div class="cat-name">Resort</div><div class="cat-sub">Barton Creek</div>
-    </a>
-    <a href="austingolf-directory-58.html" class="cat-item">
-      <div class="cat-img-box"><div class="cat-img-inner" style="background-image:url('https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?auto=format&fit=crop&w=400&q=80');"></div></div>
-      <div class="cat-name">Semi-Private</div><div class="cat-sub">Falconhead</div>
-    </a>
-    <a href="austingolf-directory-58.html" class="cat-item">
-      <div class="cat-img-box"><div class="cat-img-inner" style="background-image:url('https://images.unsplash.com/photo-1535132011086-b8818f016104?auto=format&fit=crop&w=400&q=80');"></div></div>
-      <div class="cat-name">Public</div><div class="cat-sub">Daily Fee</div>
-    </a>
-    <a href="austingolf-directory-58.html" class="cat-item">
-      <div class="cat-img-box"><div class="cat-img-inner" style="background-image:url('https://images.unsplash.com/photo-1561132952-ae3a76ac4f39?auto=format&fit=crop&w=400&q=80');"></div></div>
-      <div class="cat-name">Private</div><div class="cat-sub">Members Only</div>
-    </a>
-    <a href="austingolf-guides.html" class="cat-item">
-      <div class="cat-img-box"><div class="cat-img-inner" style="background-image:url('https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=400&q=80');filter:saturate(.7);"></div></div>
-      <div class="cat-name">Beginners</div><div class="cat-sub">Start Here</div>
-    </a>
-    <a href="austingolf-guides.html" class="cat-item">
-      <div class="cat-img-box"><div class="cat-img-inner" style="background-image:url('https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?auto=format&fit=crop&w=400&q=80');filter:brightness(.85);"></div></div>
-      <div class="cat-name">Bach Party</div><div class="cat-sub">Group Golf</div>
-    </a>
-    <a href="austingolf-tee-times.html" class="cat-item">
-      <div class="cat-img-box" style="background:var(--dw);display:flex;align-items:center;justify-content:center;">
-        <span style="font-family:var(--fd);font-size:2.4rem;font-weight:900;color:#fff;text-align:center;line-height:1;text-transform:uppercase;">Tee<br><span style="color:var(--bl);">Times</span></span>
-      </div>
-      <div class="cat-name">Book Now</div><div class="cat-sub">GolfNow</div>
-    </a>
-  </div>
-</section>
-
-<!-- INSIDER PICKS / BEST SELLERS -->
-<section class="courses-row">
-  <div class="cr-inner">
-    <div class="cr-head">
-      <h2 class="cr-title">Insider Picks</h2>
-      <a href="austingolf-directory-58.html" class="cr-viewall">See All 54 Courses</a>
-    </div>
-    <div class="cr-scroll">
-      <div class="course-card">
-        <div class="cc-photo">
-          <div class="cc-photo-img cc-photo-main" style="background-image:url('https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&w=500&q=80');"></div>
-          <div class="cc-photo-img cc-photo-alt" style="background-image:url('https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?auto=format&fit=crop&w=500&q=80');"></div>
-          <span class="cc-badge insider">Insider Pick</span>
-        </div>
-        <div class="cc-info">
-          <span class="cc-type">Resort · Tom Fazio</span>
-          <div class="cc-name">Barton Creek Fazio Canyons</div>
-          <div class="cc-price">From <strong>$130</strong> · 20 min W</div>
-        </div>
-      </div>
-      <div class="course-card">
-        <div class="cc-photo">
-          <div class="cc-photo-img cc-photo-main" style="background-image:url('https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=500&q=80');"></div>
-          <div class="cc-photo-img cc-photo-alt" style="background-image:url('https://images.unsplash.com/photo-1535132011086-b8818f016104?auto=format&fit=crop&w=500&q=80');"></div>
-          <span class="cc-badge insider">Insider Pick</span>
-        </div>
-        <div class="cc-info">
-          <span class="cc-type">Semi-Private · PGA Tour Design</span>
-          <div class="cc-name">Falconhead Golf Club</div>
-          <div class="cc-price">From <strong>$65</strong> · 22 min W</div>
-        </div>
-      </div>
-      <div class="course-card">
-        <div class="cc-photo">
-          <div class="cc-photo-img cc-photo-main" style="background-image:url('https://images.unsplash.com/photo-1561132952-ae3a76ac4f39?auto=format&fit=crop&w=500&q=80');"></div>
-          <div class="cc-photo-img cc-photo-alt" style="background-image:url('https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&w=500&q=80');"></div>
-          <span class="cc-badge new">Est. 1919</span>
-        </div>
-        <div class="cc-info">
-          <span class="cc-type">Municipal · Perry Maxwell</span>
-          <div class="cc-name">Lions Municipal GC</div>
-          <div class="cc-price">From <strong>$25</strong> · 4 min downtown</div>
-        </div>
-      </div>
-      <div class="course-card">
-        <div class="cc-photo">
-          <div class="cc-photo-img cc-photo-main" style="background-image:url('https://images.unsplash.com/photo-1535132011086-b8818f016104?auto=format&fit=crop&w=500&q=80');"></div>
-          <div class="cc-photo-img cc-photo-alt" style="background-image:url('https://images.unsplash.com/photo-1561132952-ae3a76ac4f39?auto=format&fit=crop&w=500&q=80');"></div>
-          <span class="cc-badge insider">Insider Pick</span>
-        </div>
-        <div class="cc-info">
-          <span class="cc-type">Resort · Arthur Hills</span>
-          <div class="cc-name">Wolfdancer Golf Club</div>
-          <div class="cc-price">From <strong>$100</strong> · 35 min E</div>
-        </div>
-      </div>
-      <div class="course-card">
-        <div class="cc-photo">
-          <div class="cc-photo-img cc-photo-main" style="background-image:url('https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?auto=format&fit=crop&w=500&q=80');"></div>
-          <div class="cc-photo-img cc-photo-alt" style="background-image:url('https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=500&q=80');"></div>
-          <span class="cc-badge insider">Insider Pick</span>
-        </div>
-        <div class="cc-info">
-          <span class="cc-type">Semi-Private · Bechtol & Morrish</span>
-          <div class="cc-name">Star Ranch Golf Club</div>
-          <div class="cc-price">From <strong>$55</strong> · 25 min N</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURE SECTION -->
-<section class="feature-section">
-  <div class="fs-inner">
-    <div class="fs-left">
-      <h2 class="fs-headline">Everything<br>You Need.<br>Nothing<br>You Don't.</h2>
-      <div class="fs-image">
-        <div class="fs-dot"></div>
-        <div class="fs-dot"></div>
-        <div class="fs-dot"></div>
-        <div class="fs-dot"></div>
-        <div class="fs-dot"></div>
-      </div>
-    </div>
-    <div class="fs-right">
-      <div class="fs-list">
-        <div class="fi"><div class="fi-dot"></div><div><div class="fi-title">54 Verified Courses</div><div class="fi-desc">Every course in the Austin metro, researched and confirmed. More than any other platform.</div></div></div>
-        <div class="fi"><div class="fi-dot"></div><div><div class="fi-title">GolfNow Booking</div><div class="fi-desc">Book tee times directly from every public listing. No extra steps.</div></div></div>
-        <div class="fi"><div class="fi-dot"></div><div><div class="fi-title">Insider Tips</div><div class="fi-desc">Best time to play, what to avoid, local knowledge from people who actually play here.</div></div></div>
-        <div class="fi"><div class="fi-dot"></div><div><div class="fi-title">Green Fee Tracker</div><div class="fi-desc">Current rates for every course. Updated regularly, not guessed.</div></div></div>
-        <div class="fi"><div class="fi-dot"></div><div><div class="fi-title">Free Weekly Newsletter</div><div class="fi-desc">Tee time deals, course conditions, and local intel every week.</div></div></div>
-        <div class="fi"><div class="fi-dot"></div><div><div class="fi-title">Course Maps & Directions</div><div class="fi-desc">Distance from downtown, Google Maps on every listing.</div></div></div>
-      </div>
-      <div class="fs-btns">
-        <a href="austingolf-directory-58.html" class="fs-btn-p">Browse the Directory</a>
-        <a href="austingolf-tee-times.html" class="fs-btn-g">Find Tee Times</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA BAND — Good Good Championship -->
-<div class="cta-band">
-  <div class="cta-bg"></div>
-  <div class="cta-ov"></div>
-  <div class="cta-body">
-    <span class="cta-pre">Officially Sanctioned &nbsp;·&nbsp; November 9–15, 2026</span>
-    <div class="cta-title">Good Good<br>Championship</div>
-    <a class="cta-btn" href="#">Read the Guide</a>
-  </div>
-</div>
-
-<!-- LATEST GUIDES -->
-<section class="courses-row" style="background:var(--ws);">
-  <div class="cr-inner">
-    <div class="cr-head">
-      <h2 class="cr-title">Latest Guides</h2>
-      <a href="austingolf-guides.html" class="cr-viewall">All Guides</a>
-    </div>
-    <div class="cr-scroll">
-      <div class="course-card">
-        <div class="cc-photo">
-          <div class="cc-photo-img cc-photo-main" style="background-image:url('https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&w=500&q=80');"></div>
-          <div class="cc-photo-img cc-photo-alt" style="background-image:url('https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=500&q=80');"></div>
-          <span class="cc-badge new">New</span>
-        </div>
-        <div class="cc-info">
-          <span class="cc-type">Course Guide</span>
-          <div class="cc-name">Best Public Courses in Austin</div>
-          <div class="cc-price">By Jake Mercer</div>
-        </div>
-      </div>
-      <div class="course-card">
-        <div class="cc-photo">
-          <div class="cc-photo-img cc-photo-main" style="background-image:url('https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?auto=format&fit=crop&w=500&q=80');"></div>
-          <div class="cc-photo-img cc-photo-alt" style="background-image:url('https://images.unsplash.com/photo-1561132952-ae3a76ac4f39?auto=format&fit=crop&w=500&q=80');"></div>
-          <span class="cc-badge new">New</span>
-        </div>
-        <div class="cc-info">
-          <span class="cc-type">Budget Guide</span>
-          <div class="cc-name">Best Courses Under $50</div>
-          <div class="cc-price">By Jake Mercer</div>
-        </div>
-      </div>
-      <div class="course-card">
-        <div class="cc-photo">
-          <div class="cc-photo-img cc-photo-main" style="background-image:url('https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=500&q=80');"></div>
-          <div class="cc-photo-img cc-photo-alt" style="background-image:url('https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&w=500&q=80');"></div>
-        </div>
-        <div class="cc-info">
-          <span class="cc-type">Event Guide</span>
-          <div class="cc-name">Good Good Championship Guide</div>
-          <div class="cc-price">By Jake Mercer</div>
-        </div>
-      </div>
-      <div class="course-card">
-        <div class="cc-photo">
-          <div class="cc-photo-img cc-photo-main" style="background-image:url('https://images.unsplash.com/photo-1535132011086-b8818f016104?auto=format&fit=crop&w=500&q=80');"></div>
-          <div class="cc-photo-img cc-photo-alt" style="background-image:url('https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?auto=format&fit=crop&w=500&q=80');"></div>
-        </div>
-        <div class="cc-info">
-          <span class="cc-type">Trip Guide</span>
-          <div class="cc-name">Austin Golf Bachelor Party Guide</div>
-          <div class="cc-price">By Brooke Hartley</div>
-        </div>
-      </div>
-      <div class="course-card">
-        <div class="cc-photo">
-          <div class="cc-photo-img cc-photo-main" style="background-image:url('https://images.unsplash.com/photo-1561132952-ae3a76ac4f39?auto=format&fit=crop&w=500&q=80');"></div>
-          <div class="cc-photo-img cc-photo-alt" style="background-image:url('https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=500&q=80');"></div>
-        </div>
-        <div class="cc-info">
-          <span class="cc-type">Heritage</span>
-          <div class="cc-name">Harvey Penick: The Austin Golf Story</div>
-          <div class="cc-price">By Jake Mercer</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<div class="about-section">
-  <div class="about-photo"></div>
-  <div class="about-copy">
-    <span class="about-pre">About Austin Golf</span>
-    <h2 class="about-title">Inspired<br>By Out<br>There.</h2>
-    <p class="about-body">We couldn't find an Austin golf resource that actually knew Austin golf. So we built our own. <strong>Made for people who play these courses — not people who list them.</strong></p>
-    <a href="#" class="about-link">Our Story</a>
-  </div>
-</div>
-
-<!-- GUIDE TYPES — "The Poncho Shirt Guide" equivalent -->
-<section class="guides-row">
-  <div class="gr-inner">
-    <div class="gr-head">
-      <span class="gr-pre">Find Your Guide</span>
-      <div class="gr-title">The Austin Golf Guide</div>
-    </div>
-    <div class="gr-scroll">
-      <div class="guide-card">
-        <div class="gc-img"><div class="gc-img-inner" style="background-image:url('https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=300&q=80');"></div></div>
-        <div class="gc-name">City Munis</div>
-        <div class="gc-desc">Austin's public courses from $10. Where the game began for Crenshaw and Kite.</div>
-      </div>
-      <div class="guide-card">
-        <div class="gc-img"><div class="gc-img-inner" style="background-image:url('https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&w=300&q=80');"></div></div>
-        <div class="gc-name">Resort Courses</div>
-        <div class="gc-desc">Barton Creek, Wolfdancer, and more. Austin's bucket-list rounds.</div>
-      </div>
-      <div class="guide-card">
-        <div class="gc-img"><div class="gc-img-inner" style="background-image:url('https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?auto=format&fit=crop&w=300&q=80');"></div></div>
-        <div class="gc-name">Under $50</div>
-        <div class="gc-desc">Great Austin golf doesn't require a big spend. The best value rounds.</div>
-      </div>
-      <div class="guide-card">
-        <div class="gc-img"><div class="gc-img-inner" style="background-image:url('https://images.unsplash.com/photo-1535132011086-b8818f016104?auto=format&fit=crop&w=300&q=80');"></div></div>
-        <div class="gc-name">Bach Party</div>
-        <div class="gc-desc">The right course makes a bachelor party. Our picks for groups.</div>
-      </div>
-      <div class="guide-card">
-        <div class="gc-img"><div class="gc-img-inner" style="background-image:url('https://images.unsplash.com/photo-1561132952-ae3a76ac4f39?auto=format&fit=crop&w=300&q=80');"></div></div>
-        <div class="gc-name">Beginners</div>
-        <div class="gc-desc">New to golf? Start here. The most approachable courses in Austin.</div>
-      </div>
-      <div class="guide-card">
-        <div class="gc-img"><div class="gc-img-inner" style="background-image:url('https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?auto=format&fit=crop&w=300&q=80');filter:brightness(.85);"></div></div>
-        <div class="gc-name">Hill Country</div>
-        <div class="gc-desc">Limestone, cedar, and dramatic elevation. The iconic Hill Country rounds.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRESS -->
-<section class="press-section">
-  <span class="press-pre">Performance That Demands Attention</span>
-  <div class="press-logos">
-    <span class="press-logo">Golf Digest</span>
-    <span class="press-logo">Texas Monthly</span>
-    <span class="press-logo">GOLF Mag</span>
-    <span class="press-logo">Austin Monthly</span>
-  </div>
-</section>
-
-<!-- TRUST BADGES -->
-<div class="trust-badges">
-  <div class="tb-inner">
-    <div class="tb-item"><span class="tb-icon">✓</span> 54 Verified Courses</div>
-    <div class="tb-item"><span class="tb-icon">✓</span> Free Newsletter</div>
-    <div class="tb-item"><span class="tb-icon">✓</span> Backed by the Austin Golf Insider</div>
-  </div>
-</div>
-
-<!-- NEWSLETTER — SEA FOAM -->
-<section class="nl-section" id="newsletter">
-  <div class="nl-inner">
-    <span class="nl-pre">Join The Insider</span>
-    <h2 class="nl-title">Catch What's<br>Next.</h2>
-    <p class="nl-sub">Tee time deals, course conditions, and local intel — delivered free every week.</p>
-    <div class="nl-form">
-      <input class="nl-input" type="email" id="nlEmail" placeholder="Email address">
-      <button class="nl-btn" onclick="subscribe()">Sign Up</button>
-    </div>
-    <p class="nl-fine">Free forever · No spam · Unsubscribe anytime</p>
-  </div>
-</section>
-
-<!-- PARTNER BAND -->
-<div id="partner" style="background:var(--dw);padding:52px 28px;text-align:center;">
-  <div style="max-width:440px;margin:0 auto;">
-    <span style="font-family:var(--fd);font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--bl);display:block;margin-bottom:8px;">For Course Managers</span>
-    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:900;text-transform:uppercase;color:#fff;line-height:.92;margin-bottom:12px;">Is Your Course<br>Featured?</h2>
-    <p style="font-size:.86rem;font-weight:300;color:rgba(255,255,255,.38);line-height:1.7;margin-bottom:22px;">Featured partners get the Insider Pick badge, a full course guide, newsletter placement, and a monthly report. First 90 days free.</p>
-    <a href="mailto:john.doumas@austingolf.com" style="display:inline-block;background:var(--bl);color:#fff;font-family:var(--fd);font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:12px 30px;transition:background .15s;">Get Featured Free</a>
-  </div>
-</div>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-grid">
-      <div>
-        <div class="fg-h">Courses</div>
-        <ul class="fg-links">
-          <li><a href="austingolf-directory-58.html">Full Directory</a></li>
-          <li><a href="#">Best Public Courses</a></li>
-          <li><a href="#">Under $50</a></li>
-          <li><a href="#">Resort Courses</a></li>
-          <li><a href="#">Near Downtown</a></li>
-          <li><a href="#">Private Clubs</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="fg-h">Guides</div>
-        <ul class="fg-links">
-          <li><a href="#">Beginners Guide</a></li>
-          <li><a href="#">Bachelor Party</a></li>
-          <li><a href="#">Weekend Trips</a></li>
-          <li><a href="#">Good Good Championship</a></li>
-          <li><a href="#">Harvey Penick Story</a></li>
-          <li><a href="#">Willie Nelson's Course</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="fg-h">Tee Times</div>
-        <ul class="fg-links">
-          <li><a href="austingolf-tee-times.html">Find Tee Times</a></li>
-          <li><a href="#">GolfNow Austin</a></li>
-          <li><a href="#">Hot Deals</a></li>
-          <li><a href="#">Weekend Tee Times</a></li>
-          <li><a href="#">Supreme Golf</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="fg-h">The Insider</div>
-        <ul class="fg-links">
-          <li><a href="#newsletter">Free Newsletter</a></li>
-          <li><a href="#">Green Fee Tracker</a></li>
-          <li><a href="#">Austin Golf Pass</a></li>
-          <li><a href="#partner">Partner With Us</a></li>
-          <li><a href="mailto:john.doumas@austingolf.com">Contact</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="f-copy">© 2026 AustinGolf.com · All rights reserved.</div>
-      <div class="f-mark">Austin<em>Golf</em></div>
-      <div class="f-legal">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <a href="#">Affiliate Disclosure</a>
-      </div>
-    </div>
-  </div>
+<footer>
+  Austin, Texas &nbsp;·&nbsp; <a href="mailto:john@austingolf.com">john@austingolf.com</a>
 </footer>
 
-
-<!-- SEARCH OVERLAY -->
-<div class="search-overlay" id="searchOverlay">
-  <div class="search-inner">
-    <input class="search-input" type="text" placeholder="Search courses, areas, guides..." id="siteSearch" onkeydown="if(event.key==='Enter')doSearch()">
-    <button class="search-submit" onclick="doSearch()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      Search
-    </button>
-    <button class="search-close" onclick="toggleSearch()">✕</button>
-  </div>
-</div>
-
 <script>
-// Ken Burns
-const heroBg = document.getElementById('heroBg');
-requestAnimationFrame(() => setTimeout(() => heroBg.classList.add('kb'), 100));
+/* ══════════════════════════════════════════════════════════════
+   ONE THING TO EDIT.
 
-// Cat scroll arrows
-function scrollCat(dir) {
-  const el = document.getElementById('catScroll');
-  el.scrollBy({ left: dir * 300, behavior: 'smooth' });
-}
+   Paste your Beehiiv form URL between the quotes below. You'll
+   find it in Beehiiv under Grow → Subscribe Forms → Embed, as
+   the "action" URL. It looks roughly like:
+   https://embeds.beehiiv.com/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
-// Search overlay
-function toggleSearch() {
-  const overlay = document.getElementById('searchOverlay');
-  overlay.classList.toggle('open');
-  if (overlay.classList.contains('open')) {
-    setTimeout(() => document.getElementById('siteSearch').focus(), 50);
-  }
-}
-function doSearch() {
-  const q = document.getElementById('siteSearch').value.trim();
-  if (q) window.location.href = 'austingolf-directory-58.html?q=' + encodeURIComponent(q);
-}
-document.addEventListener('keydown', e => { if (e.key === 'Escape') document.getElementById('searchOverlay').classList.remove('open'); });
+   Leave it empty and the page shows a plain line of text instead
+   of a signup box — so you never collect addresses that go
+   nowhere. Fill it in and the form appears automatically.
+   ══════════════════════════════════════════════════════════════ */
+const LIST_URL = "";
 
-// Newsletter
-function subscribe() {
-  const input = document.getElementById('nlEmail');
-  const btn = document.querySelector('.nl-btn');
-  if (input.value && input.value.includes('@')) {
-    input.value = '';
-    input.placeholder = "You're in. Welcome to the Insider.";
-    btn.textContent = 'Subscribed';
-    btn.style.background = 'var(--fo)';
-  }
-}
+const el = document.getElementById('signup');
 
-// ── BOOKING MODAL ──────────────────────────
-const BK = {course:'',type:'',meta:'',fee:'',gn:'',date:null,time:null,price:null,players:null};
-const TIMES_BY_TYPE = {
-  resort:[{t:'7:00 AM',p:'$145'},{t:'7:30 AM',p:'$145'},{t:'9:30 AM',p:'$165'},{t:'11:00 AM',p:'$145',deal:true},{t:'1:00 PM',p:'$130',deal:true},{t:'2:30 PM',p:'$120',deal:true}],
-  semi:  [{t:'6:30 AM',p:'$75'},{t:'7:00 AM',p:'$80'},{t:'7:30 AM',p:'$85'},{t:'9:00 AM',p:'$90'},{t:'11:00 AM',p:'$72',deal:true},{t:'1:30 PM',p:'$65',deal:true}],
-  muni:  [{t:'6:00 AM',p:'$28'},{t:'6:30 AM',p:'$28'},{t:'7:00 AM',p:'$32'},{t:'8:00 AM',p:'$35'},{t:'12:00 PM',p:'$30',deal:true},{t:'2:00 PM',p:'$26',deal:true}],
-  public:[{t:'7:00 AM',p:'$48'},{t:'7:30 AM',p:'$52'},{t:'9:00 AM',p:'$55'},{t:'11:00 AM',p:'$48',deal:true},{t:'1:00 PM',p:'$42',deal:true},{t:'3:00 PM',p:'$38',deal:true}],
-};
-function openBooking(name,type,fee,meta,gn){
-  BK.course=name;BK.type=type;BK.fee=fee;BK.meta=meta;BK.gn=gn;
-  BK.date=null;BK.time=null;BK.price=null;BK.players=null;
-  const tl={resort:'Resort',semi:'Semi-Private',muni:'Municipal',public:'Public'};
-  document.getElementById('mType').textContent=tl[type]||type;
-  document.getElementById('mName').textContent=name;
-  document.getElementById('mMeta').textContent=meta;
-  buildDates();buildTimes(type);
-  goStep(1,true);
-  document.getElementById('bookingModal').classList.add('open');
-  document.body.style.overflow='hidden';
+if (LIST_URL) {
+  el.innerHTML = `
+    <div class="signup-label">Get the first issue</div>
+    <form action="${LIST_URL}" method="post" target="_blank">
+      <label for="email" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Email address</label>
+      <input id="email" type="email" name="email" placeholder="you@email.com" required autocomplete="email">
+      <button type="submit">Notify me</button>
+    </form>
+    <p class="fineprint">Austin golf only. No spam, unsubscribe anytime.</p>
+  `;
+} else {
+  el.innerHTML = `<p class="placeholder-note">Launching soon.</p>`;
 }
-function closeBooking(){
-  document.getElementById('bookingModal').classList.remove('open');
-  document.body.style.overflow='';
-}
-function handleModalClick(e){if(e.target===document.getElementById('bookingModal'))closeBooking();}
-function buildDates(){
-  const row=document.getElementById('dateRow');row.innerHTML='';
-  const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  const today=new Date();
-  for(let i=0;i<7;i++){
-    const d=new Date(today);d.setDate(today.getDate()+i);
-    const chip=document.createElement('button');
-    chip.className='date-chip'+(i===0?' today':'');
-    chip.innerHTML=`<span class="dc-day">${i===0?'Today':days[d.getDay()]}</span><span class="dc-date">${d.getDate()}</span>`;
-    chip.onclick=()=>{
-      document.querySelectorAll('.date-chip').forEach(c=>c.classList.remove('selected'));
-      chip.classList.add('selected');BK.date=d;checkStep1();
-    };
-    row.appendChild(chip);
-  }
-}
-function buildTimes(type){
-  const grid=document.getElementById('timesGrid');grid.innerHTML='';
-  const times=TIMES_BY_TYPE[type]||TIMES_BY_TYPE.public;
-  times.forEach(({t,p,deal})=>{
-    const chip=document.createElement('button');
-    chip.className='time-chip'+(deal?' deal':'');
-    chip.innerHTML=`<span class="tc-time">${t}</span><span class="tc-price">${p}/player</span>`;
-    chip.onclick=()=>{
-      document.querySelectorAll('.time-chip').forEach(c=>c.classList.remove('selected'));
-      chip.classList.add('selected');BK.time=t;BK.price=p;checkStep1();
-    };
-    grid.appendChild(chip);
-  });
-}
-function checkStep1(){
-  const btn=document.getElementById('btn1');
-  const ok=BK.date&&BK.time;
-  btn.disabled=!ok;
-  btn.textContent=ok?'Continue':BK.date?'Select a Time':'Select a Date';
-}
-function selPlayers(el){
-  document.querySelectorAll('.player-chip').forEach(c=>c.classList.remove('selected'));
-  el.classList.add('selected');BK.players=parseInt(el.textContent);
-  const btn=document.getElementById('btn2');btn.disabled=false;btn.textContent='Continue';
-}
-function buildSummary(){
-  const price=parseFloat(BK.price?.replace('$','')||0);
-  const total=(price*(BK.players||1)).toFixed(0);
-  const dateStr=BK.date?BK.date.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'}):'';
-  document.getElementById('summaryBox').innerHTML=`
-    <div class="summary-row"><span class="sr-key">Course</span><span class="sr-val">${BK.course}</span></div>
-    <div class="summary-row"><span class="sr-key">Date</span><span class="sr-val">${dateStr}</span></div>
-    <div class="summary-row"><span class="sr-key">Tee Time</span><span class="sr-val">${BK.time}</span></div>
-    <div class="summary-row"><span class="sr-key">Players</span><span class="sr-val">${BK.players}</span></div>
-    <div class="summary-row"><span class="sr-key">Rate</span><span class="sr-val">${BK.price}/player</span></div>
-    <div class="summary-row"><span class="sr-key">Est. Total</span><span class="sr-val" style="color:var(--fo)">$${total}</span></div>`;
-}
-function checkEmail(){
-  const v=document.getElementById('bookEmail').value;
-  document.getElementById('btnConfirm').disabled=!(v.includes('@')&&v.includes('.'));
-}
-function goStep(n,reset){
-  document.querySelectorAll('.step-panel').forEach((p,i)=>p.classList.toggle('active',i+1===n));
-  document.querySelectorAll('.steps .step').forEach((s,i)=>{
-    s.classList.remove('active','done');
-    if(i+1===n)s.classList.add('active');
-    else if(i+1<n)s.classList.add('done');
-  });
-  if(n===3)buildSummary();
-  if(!reset)document.querySelector('.modal').scrollTop=0;
-}
-function confirmBook(){
-  const q=encodeURIComponent(BK.course+' Austin TX');
-  window.open(`https://www.golfnow.com/tee-times#sortby=Date&view=list&q=${q}`,'_blank','noopener');
-  closeBooking();
-}
-// Swipe down to close on mobile
-let _sy=0;
-document.addEventListener('DOMContentLoaded',()=>{
-  const modal=document.querySelector('.modal');
-  if(modal){
-    modal.addEventListener('touchstart',e=>{_sy=e.touches[0].clientY;},{passive:true});
-    modal.addEventListener('touchmove',e=>{if(e.touches[0].clientY-_sy>80&&modal.scrollTop===0)closeBooking();},{passive:true});
-  }
-});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeBooking();});
-// ── END BOOKING MODAL ──────────────────────
-
 </script>
-
-<!-- BOOKING MODAL / BOTTOM SHEET -->
-<div class="modal-overlay" id="bookingModal" onclick="handleModalClick(event)">
-  <div class="modal">
-    <div class="modal-head">
-      <button class="modal-close" onclick="closeBooking()">&#10005;</button>
-      <span class="modal-eyebrow" id="mType">Semi-Private</span>
-      <div class="modal-course-name" id="mName">Falconhead Golf Club</div>
-      <div class="modal-course-meta" id="mMeta">18 holes &nbsp;·&nbsp; Par 72 &nbsp;·&nbsp; 22 min W</div>
-    </div>
-    <div class="modal-body">
-      <div class="steps">
-        <div class="step active" id="si1"><div class="step-num">1</div><span class="step-label">Date &amp; Time</span></div>
-        <div class="step-line"></div>
-        <div class="step" id="si2"><div class="step-num">2</div><span class="step-label">Players</span></div>
-        <div class="step-line"></div>
-        <div class="step" id="si3"><div class="step-num">3</div><span class="step-label">Confirm</span></div>
-      </div>
-      <!-- Step 1 -->
-      <div class="step-panel active" id="sp1">
-        <span class="times-label">Select a Date</span>
-        <div class="date-row" id="dateRow"></div>
-        <span class="times-label">Available Times</span>
-        <div class="times-grid" id="timesGrid"></div>
-        <div class="modal-actions">
-          <button class="modal-next" id="btn1" onclick="goStep(2)" disabled>Select a Time</button>
-        </div>
-      </div>
-      <!-- Step 2 -->
-      <div class="step-panel" id="sp2">
-        <span class="times-label">Number of Players</span>
-        <div class="players-row">
-          <button class="player-chip" onclick="selPlayers(this)">1</button>
-          <button class="player-chip" onclick="selPlayers(this)">2</button>
-          <button class="player-chip" onclick="selPlayers(this)">3</button>
-          <button class="player-chip" onclick="selPlayers(this)">4</button>
-        </div>
-        <div class="modal-actions">
-          <button class="modal-back" onclick="goStep(1)">Back</button>
-          <button class="modal-next" id="btn2" onclick="goStep(3)" disabled>Select Players</button>
-        </div>
-      </div>
-      <!-- Step 3 -->
-      <div class="step-panel" id="sp3">
-        <div class="summary-box" id="summaryBox"></div>
-        <span class="email-label">Your Email</span>
-        <input class="email-input" type="email" id="bookEmail" placeholder="your@email.com" oninput="checkEmail()">
-        <p class="email-note">We'll send your confirmation here. <strong>You'll also join the free Austin Golf Insider newsletter.</strong> Unsubscribe anytime.</p>
-        <div class="modal-actions">
-          <button class="modal-back" onclick="goStep(2)">Back</button>
-          <button class="modal-confirm" id="btnConfirm" onclick="confirmBook()" disabled>Complete Booking</button>
-        </div>
-        <p class="platform-note">Powered by GolfNow · You'll be redirected to complete payment · AustinGolf.com earns a small affiliate commission</p>
-      </div>
-    </div>
-  </div>
-</div>
 
 </body>
 </html>
