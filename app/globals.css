@@ -1,0 +1,150 @@
+@import 'tailwindcss';
+@import 'shadcn/tailwind.css';
+
+/*
+  AustinGolf COURSES — Prototype V1
+  Palette roles per Visual & Design Reference v0.1 §3:
+    deep ink / navy .... primary text, navigation, high-emphasis headings
+    live-oak green ..... labels, selected states, quiet emphasis, restrained buttons
+    warm sand / tan .... small accents, rules, editorial highlights
+    warm cream ......... editorial section fields and soft contrast
+    white .............. primary content surfaces
+  Dark mode is intentionally absent (Visual Reference §14 anti-patterns).
+*/
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-muted: var(--ink-muted);
+  --color-green: var(--green);
+  --color-green-deep: var(--green-deep);
+  --color-green-wash: var(--green-wash);
+  --color-sand: var(--sand);
+  --color-sand-soft: var(--sand-soft);
+  --color-cream: var(--cream);
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-source-serif), ui-serif, Georgia, serif;
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+}
+
+:root {
+  color-scheme: light;
+
+  --ink: oklch(0.255 0.031 250);
+  --ink-soft: oklch(0.468 0.021 250);
+  /*
+    Provenance/caveat text. `text-ink-muted` was already in use in seven places
+    while `--color-ink-muted` was never registered in `@theme`, so those spans
+    silently inherited their parent colour — trust captions rendered at full ink
+    weight. Set one step lighter than `--ink-soft` and kept at 4.6:1 on white so
+    it reads as secondary without dropping below AA for body-size text.
+  */
+  --ink-muted: oklch(0.556 0.019 250);
+  --green: oklch(0.455 0.058 148);
+  --green-deep: oklch(0.365 0.05 148);
+  --green-wash: oklch(0.955 0.017 148);
+  --sand: oklch(0.79 0.055 76);
+  --sand-soft: oklch(0.93 0.031 80);
+  --cream: oklch(0.972 0.011 84);
+
+  --background: oklch(1 0 0);
+  --foreground: var(--ink);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--ink);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--ink);
+  --primary: var(--green);
+  --primary-foreground: oklch(0.99 0.005 84);
+  --secondary: var(--cream);
+  --secondary-foreground: var(--ink);
+  --muted: var(--cream);
+  --muted-foreground: var(--ink-soft);
+  --accent: var(--green-wash);
+  --accent-foreground: var(--green-deep);
+  --destructive: oklch(0.52 0.16 28);
+  --border: oklch(0.905 0.012 80);
+  --input: oklch(0.885 0.014 80);
+  --ring: var(--green);
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* Visual Reference §13: visible keyboard focus states throughout. */
+  :focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* Small uppercase label — used sparingly for discovery-state markers (§4). */
+  .ag-label {
+    @apply font-sans text-[0.6875rem] font-semibold uppercase tracking-[0.14em];
+  }
+  /* Editorial display voice for page and section titles. */
+  .ag-display {
+    @apply font-serif font-normal tracking-[-0.011em];
+    text-wrap: balance;
+  }
+  .ag-shell {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+  /*
+    Editorial reading measure for Course Guides.
+
+    `.ag-shell` is a 6xl application shell built for scanning decision data in
+    columns; long-form prose needs a single narrow column instead. 45rem lands at
+    720px, inside the Build Brief's 700–760px reading-width range, and keeps
+    line length in the comfortable range for continuous reading. Guides use this
+    for prose and may break figures wider, but prose itself never widens.
+  */
+  .ag-measure {
+    @apply mx-auto w-full max-w-[45rem] px-5 sm:px-8;
+  }
+  .ag-rule {
+    @apply h-px w-full border-0 bg-border;
+  }
+}
+
+/* Quiet motion only (§11). Respect reduced-motion preferences. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
