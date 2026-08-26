@@ -54,7 +54,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${sourceSerif.variable} bg-background`}>
+    // EXPERIMENT 03: the canvas is declared with bg-cream (White Sand) rather
+    // than bg-background. --background has reverted to white because 25 of its
+    // 26 usages are functional control surfaces, not the page field; naming the
+    // canvas explicitly keeps White Sand dominant while letting white read as a
+    // deliberate working surface. Colour declaration only — no layout change.
+    <html lang="en" className={`${inter.variable} ${sourceSerif.variable} bg-cream`}>
       <body className="antialiased">
         <a
           href="#main"

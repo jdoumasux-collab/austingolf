@@ -98,13 +98,32 @@
   --cream: oklch(0.9626 0.0131 82.4);
 
   /*
-    The substantive change: the canvas was pure white, which is what made the
-    page read as generic. White Sand becomes the primary page field, and --card
-    stays pure white so cards/panels lift off the warm ground. That inverts the
-    old relationship (white ground + cream bands) into the approved one (warm
-    ground + white surfaces) without moving a single element.
+    EXPERIMENT 03 — SURFACE HIERARCHY.
+
+    Experiment 02 set --background to White Sand, which collapsed it into
+    --cream. An audit of every usage shows why that flattened the system:
+    --background is used ONCE as the page canvas (the <html> element in
+    app/layout.tsx) and TWENTY-FIVE times as a *functional working surface* —
+    form inputs (`border-input bg-background`), filter pills, quick-path chips,
+    the outline button variant, the mobile bottom sheet, map overlays and the
+    sticky header.
+
+    So warming --background warmed all 26 at once, and every control sank into
+    the canvas it sits on. That is the real cause of "white no longer feels
+    intentional".
+
+    The fix keeps White Sand as the dominant canvas but returns --background to
+    its majority role: white as the selective functional/elevated surface. The
+    canvas is declared separately (bg-cream on <html>), so the two roles are
+    distinct again — which is precisely the distinction Experiment 02 lost.
+
+    No new colour is introduced. The hierarchy is built from the three
+    authoritative surfaces already approved:
+      White Sand -> dominant page canvas and editorial section fields (--cream)
+      white      -> cards, panels, controls, header            (--card/--background)
+      Limestone  -> rules and borders                          (--border/--input)
   */
-  --background: oklch(0.9626 0.0131 82.4);
+  --background: oklch(1 0 0);
   --foreground: var(--ink);
   --card: oklch(1 0 0);
   --card-foreground: var(--ink);
@@ -137,7 +156,14 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    /*
+      EXPERIMENT 03: the page canvas is painted here, not by the <html> class,
+      so this is the declaration that actually decides the dominant field. It
+      now names bg-cream (White Sand) explicitly instead of bg-background,
+      because --background has reverted to white to serve its 25 control-surface
+      usages. Colour declaration only.
+    */
+    @apply bg-cream text-foreground font-sans antialiased;
     -webkit-font-smoothing: antialiased;
   }
   /* Visual Reference §13: visible keyboard focus states throughout. */
