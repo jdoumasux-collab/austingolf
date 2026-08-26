@@ -30,6 +30,8 @@
   --color-sand: var(--sand);
   --color-sand-soft: var(--sand-soft);
   --color-cream: var(--cream);
+  /* Experiment 04: registers Blaze as a utility (bg-blaze / text-blaze). */
+  --color-blaze: var(--blaze);
 
   --color-ring: var(--ring);
   --color-input: var(--input);
@@ -90,6 +92,22 @@
   --green-wash: oklch(0.955 0.017 148);
   --sand: oklch(0.79 0.055 76);
   --sand-soft: oklch(0.93 0.031 80);
+  /*
+    EXPERIMENT 04 — Blaze #DC8351 = oklch(0.6954 0.1278 48.91).
+
+    Additive accent token only; no existing token is altered. Introduced so the
+    header's active/action accent can be themed rather than hard-coded, matching
+    the project rule that colour never appears as a raw hex in a component.
+
+    ACCESSIBILITY CONSTRAINT, measured not assumed:
+      Blaze on White Sand  = 2.54:1  -> FAILS AA for text
+      Blaze on Deep Water  = 5.69:1  -> passes AA
+    The AustinGolf mockup uses Blaze as active nav *text* on a cream field,
+    which is why that treatment is not reproduced literally here. Blaze is used
+    only as a redundant graphical indicator (the active underline), with the
+    active label itself carrying full-contrast Deep Water ink.
+  */
+  --blaze: oklch(0.6954 0.1278 48.91);
   /*
     White Sand #F7F2E9 = oklch(0.9626 0.0131 82.40). The previous --cream was
     oklch(0.972 0.011 84) — already within a hair of White Sand — so this is a
