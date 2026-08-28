@@ -327,7 +327,14 @@ export default function HomePage() {
             </TrustPoint>
           </ul>
           <p className="mt-6 text-sm leading-relaxed text-ink-soft">
-            A fuller methodology note is on the way as the site grows.
+            The full{" "}
+            <Link
+              href="/about/methodology"
+              className="underline underline-offset-2 hover:text-green-deep"
+            >
+              methodology
+            </Link>{" "}
+            explains how we handle facts, unknowns, Guides and Reviews.
           </p>
         </div>
       </section>
