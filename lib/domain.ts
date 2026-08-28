@@ -896,6 +896,11 @@ export function glanceGroups() {
       blurb:
         "City-run golf, the civic layer of Austin's game and its most public front door.",
       href: "/courses/explore?path=austin-munis",
+      // Cross-link provenance: which canonical destination this row maps to. The
+      // Explorer `href` above stays the fallback; the consumer resolves a
+      // Collection from this and prefers it when one exists. `access` rows have
+      // no editorial Collection and remain on the Finder.
+      source: { kind: "path", id: "austin-munis" } as const,
     },
     {
       label: "Daily-Fee Golf",
@@ -905,6 +910,9 @@ export function glanceGroups() {
       blurb:
         "The bulk of the metro. Clubs open to the public without a membership.",
       href: "/courses/explore?access=public",
+      // Structured access category, not a locked editorial Collection (task §3):
+      // stays on the Explorer.
+      source: { kind: "access" } as const,
     },
     {
       label: "Hill Country Golf",
@@ -912,18 +920,21 @@ export function glanceGroups() {
       blurb:
         "West of the city the land changes. Elevation, limestone and live oak.",
       href: "/courses/explore?path=hill-country",
+      source: { kind: "intent", classification: "Hill Country Experience" } as const,
     },
     {
       label: "Resort Golf",
       count: resort.length,
       blurb: "Golf tied to a stay, concentrated almost entirely at Barton Creek.",
       href: "/courses/explore?path=resort-golf",
+      source: { kind: "path", id: "resort-golf" } as const,
     },
     {
       label: "Short & Casual Golf",
       count: shortForm.length,
       blurb: "Lower-commitment rounds for when the day will not hold eighteen.",
       href: "/courses/explore?intent=Quick+Round",
+      source: { kind: "intent", classification: "Quick Round" } as const,
     },
   ]
 }

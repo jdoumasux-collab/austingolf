@@ -179,3 +179,15 @@ export function areaRelatedCollections(a: Area): Collection[] {
     .map((slug) => collections.find((c) => c.slug === slug))
     .filter((c): c is Collection => Boolean(c))
 }
+
+/**
+ * The reciprocal of `areaRelatedCollections`: the Areas that declare a genuine
+ * relationship to a given Collection. This is a strict inversion of the vetted
+ * `relatedCollectionSlugs` — it invents no new relationship and only ever
+ * surfaces a pairing an Area already asserts (e.g. Resort Golf ↔ Resort
+ * Corridor). Used by the Collection detail page so the Area ↔ Collection link
+ * reads the same in both directions.
+ */
+export function collectionRelatedAreas(collectionSlug: string): Area[] {
+  return areas.filter((a) => a.relatedCollectionSlugs.includes(collectionSlug))
+}

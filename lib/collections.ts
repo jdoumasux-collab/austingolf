@@ -263,3 +263,49 @@ export function collectionReason(c: Collection, course: Course): Recommendation 
   if (c.membership.kind !== "intent") return null
   return reasonForIntent(course, c.membership.classification)
 }
+
+/* ------------------------------------------ canonical-destination resolvers */
+
+/*
+ * Cross-link integration: the inverse of `collectionExploreHref`. Discovery
+ * modules (Quick Paths, Find the Right Round, Austin Golf Explained) historically
+ * pointed every shortcut at an Explorer state; where that shortcut now has a
+ * canonical editorial Collection, it should lead there instead. These lookups are
+ * built from the Collections' OWN `membership`, so there is no second mapping to
+ * drift — a Collection is reachable from exactly the path/classification it is
+ * already defined by. A shortcut with no Collection resolves to `undefined`, and
+ * the caller keeps its Explorer link (so "Great for Groups", "Golf Trip" and
+ * Daily-Fee stay on the Finder, exactly as the locked IA requires).
+ */
+const collectionByPathId = new Map<string, Collection>()
+const collectionByClassification = new Map<string, Collection>()
+for (const c of collections) {
+  if (c.membership.kind === "path") collectionByPathId.set(c.membership.pathId, c)
+  else collectionByClassification.set(c.membership.classification, c)
+}
+
+/**
+ * The one Quick Path whose Collection is defined by intent rather than by its
+ * own id: `matchesQuickPath("hill-country")` tests the "Hill Country Experience"
+ * classification, which is exactly how the Hill Country Golf Collection selects
+ * its courses. Bridging through that classification keeps the pairing a fact
+ * about the data, not a hand-kept parallel list.
+ */
+const QUICK_PATH_INTENT: Record<string, string> = {
+  "hill-country": "Hill Country Experience",
+}
+
+/** Canonical Collection for a Quick Path id, or `undefined` (keep Explorer). */
+export function collectionForQuickPath(pathId: string): Collection | undefined {
+  return (
+    collectionByPathId.get(pathId) ??
+    collectionByClassification.get(QUICK_PATH_INTENT[pathId] ?? "")
+  )
+}
+
+/** Canonical Collection for a recommendation classification, or `undefined`. */
+export function collectionForClassification(
+  classification: string,
+): Collection | undefined {
+  return collectionByClassification.get(classification)
+}
