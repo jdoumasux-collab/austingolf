@@ -14,7 +14,17 @@
 
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
+import { collectionForClassification, collectionForQuickPath } from "@/lib/collections"
 
+/*
+ * Cross-link integration: each editorial card promises a curated answer, and an
+ * editorial Collection IS that answer — so where a card's question maps to a
+ * canonical Collection, it now leads there instead of to the raw Explorer
+ * filter. `source` records that mapping; the Explorer `href` remains the
+ * fallback for cards with no Collection ("Great for Groups"), which stay on the
+ * Finder. The trust posture is unchanged: these are settle-from-data questions,
+ * not firsthand reviews, and nothing here gains a byline, date or review badge.
+ */
 const entries = [
   {
     kicker: "Comparison",
@@ -23,6 +33,7 @@ const entries = [
       "Weighs the open-access courses that can absorb an outing against the resort option, as a property rather than four near-identical course cards.",
     href: "/courses/explore?intent=Great+for+Groups",
     cta: "See group golf",
+    source: { kind: "intent", classification: "Great for Groups" } as const,
   },
   {
     kicker: "Comparison",
@@ -31,6 +42,7 @@ const entries = [
       "The layouts with enough golf course to stay interesting after the third round, and what specifically makes each one demanding.",
     href: "/courses/explore?intent=Serious+Golf",
     cta: "See serious golf",
+    source: { kind: "intent", classification: "Serious Golf" } as const,
   },
   {
     kicker: "Explainer",
@@ -39,8 +51,18 @@ const entries = [
       "Municipal and daily-fee golf inside the city core, ordered by distance from downtown rather than by reputation.",
     href: "/courses/explore?path=near-downtown",
     cta: "See downtown golf",
+    source: { kind: "path", id: "near-downtown" } as const,
   },
 ] as const
+
+/** Canonical Collection href for an entry, or its Explorer fallback. */
+function entryHref(g: (typeof entries)[number]): string {
+  const collection =
+    g.source.kind === "path"
+      ? collectionForQuickPath(g.source.id)
+      : collectionForClassification(g.source.classification)
+  return collection ? `/collections/${collection.slug}` : g.href
+}
 
 export function Guides() {
   return (
@@ -69,7 +91,7 @@ export function Guides() {
         {entries.map((g) => (
           <li key={g.href}>
             <Link
-              href={g.href}
+              href={entryHref(g)}
               className="group flex h-full flex-col rounded-xl border border-border bg-card p-6 transition-colors hover:border-green"
             >
               <span className="ag-label text-green-deep">{g.kicker}</span>

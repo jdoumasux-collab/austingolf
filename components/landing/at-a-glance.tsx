@@ -14,6 +14,23 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { courseCountLabel, glanceGroups } from "@/lib/domain"
+import { collectionForClassification, collectionForQuickPath } from "@/lib/collections"
+
+/**
+ * Cross-link integration: resolve a glance row to its canonical editorial
+ * Collection via the row's own `source` provenance, falling back to the
+ * Explorer `href` when the row is a structured access category (Daily-Fee),
+ * which has no Collection and stays on the Finder per the locked IA.
+ */
+function glanceHref(g: ReturnType<typeof glanceGroups>[number]): string {
+  const collection =
+    g.source.kind === "path"
+      ? collectionForQuickPath(g.source.id)
+      : g.source.kind === "intent"
+        ? collectionForClassification(g.source.classification)
+        : undefined
+  return collection ? `/collections/${collection.slug}` : g.href
+}
 
 export function AtAGlance() {
   const groups = glanceGroups()
@@ -46,7 +63,7 @@ export function AtAGlance() {
           {groups.map((g) => (
             <li key={g.label} className="border-t border-ink/12 last:border-b">
               <Link
-                href={g.href}
+                href={glanceHref(g)}
                 className="group flex flex-wrap items-baseline gap-x-6 gap-y-1.5 py-5 transition-colors hover:bg-background/50"
               >
                 <span className="ag-display w-full text-xl text-ink sm:w-64 sm:shrink-0">

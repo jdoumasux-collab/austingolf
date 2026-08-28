@@ -30,6 +30,7 @@ import {
   getCollection,
 } from "@/lib/collections"
 import { courseCountLabel } from "@/lib/domain"
+import { collectionRelatedAreas, areaCourses } from "@/lib/areas"
 
 export function generateStaticParams() {
   return collections.map((c) => ({ slug: c.slug }))
@@ -62,6 +63,10 @@ export default async function CollectionPage({
   const courses = collectionCourses(collection)
   const context = collectionCardContext(collection)
   const exploreHref = collectionExploreHref(collection)
+  // Cross-link integration: the reciprocal of the Area page's "Related
+  // collections". Only Areas that already assert a relationship to this
+  // Collection appear, so the pairing is symmetric and invents nothing.
+  const relatedAreas = collectionRelatedAreas(collection.slug)
 
   return (
     <div className="ag-shell py-10 sm:py-14">
@@ -152,6 +157,45 @@ export default async function CollectionPage({
           </Link>
         </section>
       )}
+
+      {/*
+        Related areas — the reciprocal of the Area page's "Related collections".
+        Rendered only when a genuine, already-asserted pairing exists, so most
+        Collections show nothing here rather than a manufactured relationship.
+      */}
+      {relatedAreas.length > 0 ? (
+        <section aria-labelledby="collection-areas" className="mt-12 border-t border-border pt-8">
+          <h2 id="collection-areas" className="ag-display text-2xl text-ink">
+            Related areas
+          </h2>
+          <ul className="mt-6 grid list-none grid-cols-1 gap-px overflow-hidden rounded-xl border border-border bg-border p-0 sm:grid-cols-2 lg:grid-cols-3">
+            {relatedAreas.map((a) => (
+              <li key={a.slug}>
+                <Link
+                  href={`/areas/${a.slug}`}
+                  className="group flex h-full flex-col bg-card p-5 transition-colors hover:bg-green-wash"
+                >
+                  <span className="flex items-start justify-between gap-3">
+                    <span className="ag-display text-xl leading-snug text-ink">
+                      {a.region.label}
+                    </span>
+                    <ArrowUpRight
+                      aria-hidden="true"
+                      className="mt-0.5 size-4 shrink-0 text-green transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                    />
+                  </span>
+                  <span className="mt-2 text-sm leading-relaxed text-ink-soft">
+                    {a.region.blurb}
+                  </span>
+                  <span className="ag-label mt-4 text-green-deep">
+                    {courseCountLabel(areaCourses(a).length)}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
     </div>
   )
 }

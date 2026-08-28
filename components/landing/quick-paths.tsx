@@ -8,6 +8,7 @@
 
 import Link from "next/link"
 import { courses, matchesQuickPath, quickPaths } from "@/lib/domain"
+import { collectionForQuickPath } from "@/lib/collections"
 
 export function QuickPaths() {
   // Gen2 §14: shortcuts stay on one line with the utility rail, not a module.
@@ -20,10 +21,16 @@ export function QuickPaths() {
       <ul className="flex list-none flex-wrap gap-2 p-0">
         {quickPaths.map((path) => {
           const count = courses.filter((c) => matchesQuickPath(path.id, c)).length
+          // Cross-link integration: prefer the canonical editorial Collection for
+          // this path when one exists; otherwise keep the Explorer state (the
+          // locked IA keeps filter-only shortcuts on the Finder). The count is
+          // unchanged — still the number of courses matching the path.
+          const collection = collectionForQuickPath(path.id)
+          const href = collection ? `/collections/${collection.slug}` : `/courses/explore?path=${path.id}`
           return (
             <li key={path.id}>
               <Link
-                href={`/courses/explore?path=${path.id}`}
+                href={href}
                 className="flex items-baseline gap-2 rounded-full border border-input bg-background px-3.5 py-2 text-sm font-medium text-ink transition-colors hover:border-green hover:text-green-deep"
               >
                 {path.label}

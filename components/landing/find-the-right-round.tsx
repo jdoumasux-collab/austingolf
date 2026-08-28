@@ -19,6 +19,7 @@
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import { courseCountLabel, courses, primaryPathways } from "@/lib/domain"
+import { collectionForClassification } from "@/lib/collections"
 
 const countFor = (id: string) =>
   courses.filter((c) => c.recommendations.some((r) => r.classification === id)).length
@@ -48,10 +49,19 @@ export function FindTheRightRound() {
 
       {/* Six pathways, equal weight, one scan. */}
       <ul className="mt-8 grid list-none grid-cols-1 gap-px overflow-hidden rounded-xl border border-border bg-border p-0 sm:grid-cols-2 lg:grid-cols-3">
-        {primaryPathways.map((c) => (
+        {primaryPathways.map((c) => {
+          // Cross-link integration: lead to the canonical editorial Collection
+          // when this pathway has one; otherwise keep the intent Explorer state
+          // (so "Great for Groups" and "Golf Trip", which have no Collection,
+          // stay on the Finder — locked IA §3).
+          const collection = collectionForClassification(c.id)
+          const href = collection
+            ? `/collections/${collection.slug}`
+            : `/courses/explore?intent=${encodeURIComponent(c.id)}`
+          return (
           <li key={c.id}>
             <Link
-              href={`/courses/explore?intent=${encodeURIComponent(c.id)}`}
+              href={href}
               className="group flex h-full flex-col bg-card p-5 transition-colors hover:bg-green-wash sm:p-6"
             >
               <span className="flex items-start justify-between gap-3">
@@ -71,7 +81,8 @@ export function FindTheRightRound() {
               </span>
             </Link>
           </li>
-        ))}
+          )
+        })}
       </ul>
     </section>
   )

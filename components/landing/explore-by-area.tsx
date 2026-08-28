@@ -24,7 +24,6 @@ import {
   projectToPanel,
   regionCentroid,
   regionCourses,
-  regionHref,
 } from "@/lib/domain"
 
 export function ExploreByArea() {
@@ -132,14 +131,19 @@ export function ExploreByArea() {
             </p>
           </div>
 
-          {/* Consumer geography. Each region expands into its dataset areas. */}
+          {/*
+            Consumer geography. Cross-link integration: each region now leads to
+            its canonical Area page (Area.slug === region.id, and every region
+            publishes as an Area), which is the durable geographic destination.
+            "Open full map" above remains the Explorer/map companion.
+          */}
           <ul className="grid list-none grid-cols-1 gap-px overflow-hidden rounded-xl border border-border bg-border p-0 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-1">
             {consumerRegions.map((r) => {
               const count = regionCourses(r).length
               return (
                 <li key={r.id}>
                   <Link
-                    href={regionHref(r)}
+                    href={`/areas/${r.id}`}
                     className="flex h-full items-baseline justify-between gap-3 bg-card px-4 py-3.5 transition-colors hover:bg-green-wash"
                   >
                     <span>
