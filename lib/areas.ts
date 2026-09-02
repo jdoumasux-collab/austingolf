@@ -15,11 +15,12 @@
  *     So an Area page, the landing map and the Explorer can never disagree, and
  *     no course is reclassified.
  *
- *  2. The canonical region set already omits three active courses whose dataset
- *     areas are intentionally unmapped (Kissing Tree — Kyle/San Marcos, Austin
- *     Country Club — Lake Austin, Lost Pines — Bastrop). We preserve that
- *     decision rather than inventing regions to absorb them, and the hub
- *     discloses the omission instead of silently implying full coverage.
+ *  2. Under the eleven-region Metro & Travel Corridors model every publicly
+ *     playable course now has an Area home. The one course the canonical region
+ *     set intentionally omits is Austin Country Club (dataset area "West Austin
+ *     / Lake Austin", left unmapped): it is private, and per policy a private
+ *     course is not surfaced or counted on playable discovery yet. Geography
+ *     could place it; that is deferred to separate private-course discovery.
  *
  *  3. Editorial prose is conservative. `blurb` is the vetted region string from
  *     the domain; the optional `intro` states only direction and what inventory
@@ -64,9 +65,10 @@ export type Area = {
  *  - `intro` restates direction/inventory, never a new fact.
  *  - `relatedCollectionSlugs` lists a Collection only where the geography and the
  *    Collection genuinely coincide. "Genuine" means the relationship is real in
- *    the data, not merely thematically adjacent — e.g. Resort Corridor ↔ Resort
- *    Golf (the resort campus is that region), West & Hill Country ↔ Hill Country
- *    Golf (that is where the terrain is), Central Austin ↔ Near Downtown / Austin
+ *    the data, not merely thematically adjacent — e.g. Barton Creek ↔ Resort
+ *    Golf (the resort campus is that region), Highland Lakes and Hill Country ·
+ *    Blanco & Wimberley ↔ Hill Country Golf (that is where the terrain actually
+ *    is, by dataset classification), Central Austin ↔ Near Downtown / Austin
  *    Munis (the munis and the closest-in golf sit in the core). Regions with no
  *    honest editorial tie carry an empty list rather than a stretched one.
  */
@@ -79,36 +81,60 @@ const SUPPLEMENT: Record<
       "The golf closest to the centre of the city, including its municipal courses. A first place to look when proximity to downtown is the deciding factor.",
     relatedCollectionSlugs: ["near-downtown", "austin-munis"],
   },
-  "north-austin": {
-    intro:
-      "Daily-fee golf up the northern corridor, in the suburbs above the city.",
-    relatedCollectionSlugs: [],
-  },
-  "west-hill-country": {
-    intro:
-      "West of the city the land rises into the Hill Country. This is where terrain becomes part of the round.",
-    relatedCollectionSlugs: ["hill-country-golf"],
-  },
   "east-northeast": {
     intro:
       "The metro's deepest concentration of open-access golf, spread east and northeast of the core.",
     relatedCollectionSlugs: [],
   },
-  "south-southwest": {
+  "north-austin-cedar-park": {
+    intro:
+      "Daily-fee golf up the northern corridor, through Cedar Park and Leander.",
+    relatedCollectionSlugs: [],
+  },
+  "southwest-austin": {
     // Direction only — the region blurb is explicit that it makes no view or
     // terrain promise, so the intro must not add one.
     intro: "Golf south and southwest of central Austin.",
     relatedCollectionSlugs: [],
   },
-  "round-rock": {
+  "barton-creek": {
+    // The place, west of the city. The resort *experience* is the Resort Golf
+    // collection — hence the cross-link — but the Area itself is geography.
     intro:
-      "Established clubs just north of the city line, in Round Rock.",
+      "Several regulation courses on a single resort campus, west of the city.",
+    relatedCollectionSlugs: ["resort-golf"],
+  },
+  "lake-travis-bee-cave": {
+    intro:
+      "The nearer western golf, out toward Bee Cave and along Lake Travis.",
     relatedCollectionSlugs: [],
   },
-  "resort-corridor": {
+  "round-rock-georgetown": {
     intro:
-      "Several regulation courses under a single resort campus, west of the city — the golf here is part of a stay.",
-    relatedCollectionSlugs: ["resort-golf"],
+      "Established suburban clubs north of the city line, through Round Rock and Georgetown.",
+    relatedCollectionSlugs: [],
+  },
+  "kyle-san-marcos": {
+    intro: "Golf south of the city, in Kyle and San Marcos.",
+    relatedCollectionSlugs: [],
+  },
+  "bastrop-lost-pines": {
+    intro: "Golf east of the city, around Bastrop and the Lost Pines.",
+    relatedCollectionSlugs: [],
+  },
+  "highland-lakes": {
+    // The genuine Hill Country destinations inherit the Hill Country Golf
+    // cross-link from the retired "West Austin & Hill Country" region: this is
+    // where that terrain actually is (Marble Falls, Kingsland, Horseshoe Bay).
+    intro:
+      "Destination golf northwest in the Highland Lakes, around Marble Falls, Kingsland and Horseshoe Bay.",
+    relatedCollectionSlugs: ["hill-country-golf"],
+  },
+  "hill-country-blanco-wimberley": {
+    // Entirely Hill Country by classification — the clearest geographic home for
+    // the Hill Country Golf collection.
+    intro: "Golf southwest into the Hill Country, around Blanco and Wimberley.",
+    relatedCollectionSlugs: ["hill-country-golf"],
   },
 }
 

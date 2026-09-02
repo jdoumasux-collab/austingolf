@@ -585,15 +585,34 @@ export function areaGroups() {
 /**
  * Gen2 §6 — a presentation abstraction over the detailed dataset geography.
  *
- * The dataset's eleven area labels are correct structured data but they are
- * database taxonomy, not a way for someone unfamiliar with Austin to understand
- * where golf is. Each consumer region therefore *expands into* its underlying
- * areas and filters through the existing Area category (OR within a category),
- * so the detailed geography is never overwritten or lost.
+ * The dataset's area labels are correct structured data but they are database
+ * taxonomy, not a way for someone unfamiliar with Austin to understand where
+ * golf is. Each consumer region therefore *expands into* its underlying dataset
+ * area labels and filters through the existing Area category (OR within a
+ * category), so the detailed geography is never overwritten or lost.
  *
- * `Resort Corridor` covers the Barton Creek campus only. Palmer Lakeside stays
- * in West Austin & Hill Country because that is where it physically is — the
- * same reason it holds its own map point rather than the campus point (§9).
+ * The eleven regions are the approved "Metro & Travel Corridors" model: they
+ * describe WHERE a course is, in the words a local would use ("out at Lake
+ * Travis", "up in Georgetown", "the Highland Lakes"). Access (public vs
+ * resort vs private) and experience (resort, Hill Country) are deliberately
+ * NOT geography — those live in Collections. So `barton-creek` is a place
+ * (the campus, west of the city), while the resort *experience* is the Resort
+ * Golf collection; the retired "Resort Corridor" name conflated the two.
+ *
+ * Two membership rules make the model honest:
+ *  - A region expands only into dataset area labels that actually exist, so it
+ *    can never over-claim (`consumerRegions` filters against real data).
+ *  - Every publicly playable course's area label maps to exactly one region,
+ *    so all 41 are geographically accounted for. The one deliberately UNMAPPED
+ *    label is "West Austin / Lake Austin" — Austin Country Club, the sole
+ *    private course. Geography could place it, but per policy a private course
+ *    is not surfaced or counted on playable discovery yet, so leaving its label
+ *    unmapped keeps it off consumer Area surfaces with zero special-casing.
+ *    Private-course informational discovery is handled separately.
+ *
+ * Palmer Lakeside stays in its own western area (Lake Travis & Bee Cave)
+ * because that is where it physically is — the same reason it holds its own map
+ * point rather than a campus point (§9).
  */
 export type ConsumerRegion = {
   id: string
@@ -604,58 +623,92 @@ export type ConsumerRegion = {
   areas: string[]
 }
 
+/*
+ * Approved "Metro & Travel Corridors" model — eleven regions, Austin-core first
+ * then outward by direction. Order here sets the hub/landing presentation order.
+ * Every blurb states direction, place names and verified inventory only — no
+ * drive-time, terrain-quality, tourism or neighbourhood claim the data lacks.
+ * Canonical slugs are long-term (no legacy names retained); superseded routes
+ * redirect at the framework layer.
+ */
 const CONSUMER_REGION_DEFS: Omit<ConsumerRegion, "areas">[] = [
   {
     id: "central-austin",
-    // "reach on a lunch break" implied both tee-time availability and a round
-    // duration we hold no data for. Proximity to downtown is computed and real.
+    // Proximity to downtown is computed and real; the munis here are a fact.
     label: "Central Austin",
-    blurb: "The closest golf to downtown.",
-  },
-  {
-    id: "north-austin",
-    label: "North Austin",
-    blurb: "Suburban daily-fee golf up the corridor.",
-  },
-  {
-    id: "west-hill-country",
-    label: "West Austin & Hill Country",
-    blurb: "Elevation, limestone and long views over the lake.",
+    blurb: "The closest golf to downtown, including the city's municipal courses.",
   },
   {
     id: "east-northeast",
-    label: "East / Northeast Austin",
-    blurb: "The metro's deepest run of open-access golf.",
+    label: "East & Northeast Austin",
+    blurb: "The metro's deepest run of open-access golf, east and northeast of the core.",
   },
   {
-    // Grey Rock sits ~11 miles south-west, so it fits neither "closest to
-    // downtown" nor the lake-view Hill Country promise. Its own orientation
-    // region states direction and nothing more — no terrain or view claim.
-    id: "south-southwest",
-    label: "South & Southwest Austin",
+    id: "north-austin-cedar-park",
+    label: "North Austin & Cedar Park",
+    blurb: "Suburban daily-fee golf north through Cedar Park and Leander.",
+  },
+  {
+    // Grey Rock alone here; the region states direction and nothing more — no
+    // terrain or view claim. Kept as a legitimate geography, not merged for size.
+    id: "southwest-austin",
+    label: "Southwest Austin",
     blurb: "Golf south and southwest of central Austin.",
   },
   {
-    // Named for the inventory that exists, not the corridor at large: the
-    // prototype has no Georgetown course, so the label must not imply one.
-    id: "round-rock",
-    label: "Round Rock",
-    blurb: "Established clubs just north of the city line.",
+    // A place (the resort campus, west of the city), not the "resort" experience
+    // — that is the Resort Golf collection. Replaces the retired "Resort Corridor".
+    // The count of regulation courses under one resort is a verified fact.
+    id: "barton-creek",
+    label: "Barton Creek",
+    blurb: "Several regulation courses on one resort campus, west of the city.",
   },
   {
-    id: "resort-corridor",
-    label: "Resort Corridor",
-    // "championship golf" is supported for individual Serious Golf courses in
-    // the dataset, but not as a blanket verdict on the whole campus. The count
-    // of regulation courses under one resort is a verified fact instead.
-    blurb: "Several regulation courses under one resort, west of the city.",
+    // The nearer western/lake geography. Replaces "West Austin & Hill Country";
+    // the true Hill Country destinations are now their own regions, so this
+    // label no longer over-claims terrain it does not universally hold.
+    id: "lake-travis-bee-cave",
+    label: "Lake Travis & Bee Cave",
+    blurb: "Golf west toward Bee Cave and out along Lake Travis.",
+  },
+  {
+    id: "round-rock-georgetown",
+    label: "Round Rock & Georgetown",
+    blurb: "Established suburban clubs north through Round Rock and Georgetown.",
+  },
+  {
+    id: "kyle-san-marcos",
+    label: "Kyle & San Marcos",
+    blurb: "Golf south of the city in Kyle and San Marcos.",
+  },
+  {
+    id: "bastrop-lost-pines",
+    label: "Bastrop & Lost Pines",
+    blurb: "Golf east of the city around Bastrop and the Lost Pines.",
+  },
+  {
+    // "Destination" is supported by the dataset market zone (Hill Country /
+    // Destination); towns are facts. No distance or quality claim.
+    id: "highland-lakes",
+    label: "Highland Lakes",
+    blurb: "Golf northwest in the Highland Lakes, around Marble Falls, Kingsland and Horseshoe Bay.",
+  },
+  {
+    id: "hill-country-blanco-wimberley",
+    label: "Hill Country — Blanco & Wimberley",
+    blurb: "Golf southwest into the Hill Country, around Blanco and Wimberley.",
   },
 ]
 
+/*
+ * Each dataset area label maps to exactly one region. All 26 labels held by the
+ * 41 publicly playable courses are covered; the only unmapped label is
+ * "West Austin / Lake Austin" (Austin Country Club, private — see the module
+ * doc comment above). `consumerRegions` further filters to labels that exist in
+ * data, so a mapped-but-absent label can never make a region over-claim.
+ */
 const REGION_AREA_MAP: Record<string, string[]> = {
   "central-austin": ["Central Austin", "Central / West-Central Austin"],
-  "north-austin": ["North / Northwest Austin", "Cedar Park / Leander"],
-  "west-hill-country": ["West Austin / Bee Cave", "Spicewood / Lake Travis"],
   "east-northeast": [
     "East Austin",
     "Southeast Austin",
@@ -664,10 +717,31 @@ const REGION_AREA_MAP: Record<string, string[]> = {
     "East / Southeast Austin",
     "Hutto / Northeast Metro",
     "Manor / East-Northeast",
+    // Blackhawk (Pflugerville) — honestly NE metro, adjacent to Hutto/Manor.
+    "Pflugerville / Northeast Austin",
   ],
-  "south-southwest": ["Southwest Austin"],
-  "round-rock": ["Round Rock"],
-  "resort-corridor": ["West Austin / Barton Creek"],
+  "north-austin-cedar-park": ["North / Northwest Austin", "Cedar Park / Leander"],
+  "southwest-austin": ["Southwest Austin"],
+  "barton-creek": ["West Austin / Barton Creek"],
+  "lake-travis-bee-cave": [
+    "West Austin / Bee Cave",
+    "Spicewood / Lake Travis",
+    "Lago Vista / North Lake Travis",
+    "Spicewood / Pedernales",
+  ],
+  "round-rock-georgetown": ["Round Rock", "Georgetown"],
+  "kyle-san-marcos": ["Kyle / San Marcos"],
+  "bastrop-lost-pines": ["Bastrop / Lost Pines"],
+  "highland-lakes": [
+    "Highland Lakes / Horseshoe Bay",
+    "Highland Lakes / Kingsland",
+    "Burnet",
+    "Marble Falls / Meadowlakes",
+  ],
+  "hill-country-blanco-wimberley": [
+    "Blanco / Central Hill Country",
+    "Driftwood / Wimberley",
+  ],
 }
 
 export const consumerRegions: ConsumerRegion[] = CONSUMER_REGION_DEFS.map((r) => ({
