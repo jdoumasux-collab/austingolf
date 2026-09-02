@@ -116,7 +116,7 @@ const DEFS: Collection[] = [
     title: "Resort Golf",
     dek: "Golf attached to a resort stay.",
     intro:
-      "Golf tied to a resort, where the round is part of a stay rather than a standalone visit. In the prototype set this is concentrated almost entirely at one resort campus.",
+      "Golf tied to a resort, where the round is part of a stay rather than a standalone visit. These span several destinations across the region — Barton Creek, Horseshoe Bay, Lost Pines, and Palmer Lakeside at Spicewood.",
     rationale:
       "Turn here when the golf is part of a trip with lodging, not an errand to a single course.",
     membership: { kind: "path", pathId: "resort-golf" },

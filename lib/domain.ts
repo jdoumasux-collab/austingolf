@@ -531,6 +531,15 @@ export const quickPathById = new Map(quickPaths.map((q) => [q.id, q]))
 
 /** Membership test for each Quick Path, derived from real fields only. */
 export function matchesQuickPath(pathId: string, c: Course): boolean {
+  // Private courses are part of the knowledge/geographic model but are suppressed
+  // from every playable-discovery surface. Quick Paths ARE that surface (they back
+  // both the path Collections and the Explorer path state), so a private course can
+  // never satisfy one. This is generic on the canonical access profile — no course
+  // is named — so e.g. Austin Country Club drops out of "Near Downtown" purely by
+  // being private, while conditional-access courses (public tee times) still count.
+  // resort-golf already tests accessProfile === "resort", so this only changes the
+  // field-derived geographic/operator paths, exactly where a private leak was possible.
+  if (c.accessProfile === "private") return false
   switch (pathId) {
     case "near-downtown":
       return c.marketZone === "Austin Core"
