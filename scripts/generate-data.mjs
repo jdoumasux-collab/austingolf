@@ -4,19 +4,24 @@
  *
  * Source of truth
  * ---------------
- * AustinGolf_COURSES_Master_Database_v1.10.xlsx is the single source of production
- * facts. v1.10 supersedes v1.9, which superseded v1.8, which in turn superseded
- * the v1.7 provenance recorded inside the older prototype workbook, which was
- * itself only ever a curated product-development projection.
+ * AustinGolf_COURSES_Master_Database_v1.11.xlsx is the single source of production
+ * facts. v1.11 supersedes v1.10, which superseded v1.9, which superseded v1.8,
+ * which in turn superseded the v1.7 provenance recorded inside the older prototype
+ * workbook, which was itself only ever a curated product-development projection.
  *
  * v1.9 differed from v1.8 by exactly one authoritative cell: Master_Properties
  * prp_0003 gained the slug `clay-kizer-golf-complex`.
  *
- * v1.10 differs from v1.9 by exactly one authoritative cell: Master_Properties
- * prp_0044 (Sun City Texas Golf Clubs) gains the slug `sun-city-texas-golf-clubs`.
+ * v1.10 differed from v1.9 by exactly one authoritative cell: Master_Properties
+ * prp_0044 (Sun City Texas Golf Clubs) gained the slug `sun-city-texas-golf-clubs`.
  * Batch 2 projects that property's three sibling courses (Legacy Hills, White Wing,
- * Cowan Creek), which makes the property browsable; a browsable property needs a
- * canonical URL. As with prp_0003, the slug is read from the master rather than
+ * Cowan Creek), which makes the property browsable.
+ *
+ * v1.11 differs from v1.10 by exactly one authoritative cell: Master_Properties
+ * prp_0028 (Horseshoe Bay Resort) gains the slug `horseshoe-bay-resort`. Batch 3
+ * projects that property's three sibling courses (Slick Rock, Ram Rock, Apple Rock),
+ * which makes the property browsable; a browsable property needs a canonical URL.
+ * As with prp_0003 and prp_0044, the slug is read from the master rather than
  * derived here — a production identifier invented by the app would be a fact the
  * source of truth never asserted.
  *
@@ -42,7 +47,7 @@ import { read, utils } from "xlsx"
 import fs from "node:fs"
 import path from "node:path"
 
-const SRC = "data/AustinGolf_COURSES_Master_Database_v1.10.xlsx"
+const SRC = "data/AustinGolf_COURSES_Master_Database_v1.11.xlsx"
 const OUT = "lib/data/dataset.generated.ts"
 
 /**
@@ -103,6 +108,21 @@ const PROJECTION = {
   crs_0055: "Batch 2; Sun City Georgetown sibling; no intent-collection classification match",
   crs_0056: "Batch 2; Sun City Georgetown sibling",
   crs_0057: "Batch 2; Sun City Georgetown sibling; one verified tee row",
+  // Batch 3 — Hill Country / Destination courses. Each verified active against its
+  // official operator source; admitted individually, not by rule. All sit in the
+  // "Hill Country / Destination" market zone and their dataset area labels are not
+  // in REGION_AREA_MAP, so they are intentionally Finder/Explorer/search-visible
+  // without an Area home (the Area model is resolved cross-cutting after the
+  // expansion batches). Resort access is preserved as Resort / Guest Access, not
+  // flattened to public: the ordinary golfer can book daily-fee, but the pathway
+  // is resort-mediated. Horseshoe Bay's members-only fourth course (Summit Rock)
+  // is deliberately NOT admitted.
+  crs_0033: "Batch 3; Horseshoe Bay resort sibling (Slick Rock); editorial-led, no tee data",
+  crs_0034: "Batch 3; Horseshoe Bay resort sibling (Ram Rock); editorial-led, no tee data",
+  crs_0035: "Batch 3; Horseshoe Bay resort sibling (Apple Rock); editorial-led, no tee data",
+  crs_0024: "Batch 3; Hill Country public (Vaaler Creek, Blanco); full verified tees/rating/slope",
+  crs_0025: "Batch 3; Hill Country public (Delaware Springs, Burnet); tees published, rating/slope suppressed",
+  crs_0064: "Batch 3; Hill Country public (Hidden Falls, Meadowlakes); verified tees/rating/slope",
 }
 
 const wb = read(fs.readFileSync(SRC), { cellDates: true })
@@ -413,6 +433,11 @@ const TEE_DISPLAY_RULES = [
   //   Sun City (Legacy Hills / White Wing / Cowan Creek): detailed ratings are
   //   provisional secondary extractions, withheld until manual first-party capture.
   { match: /suppress detailed public ratings/i, gate: "suppress_rating_slope" },
+  // Batch 3 closure-pass rule (Scorecard_QA_Closure_v1).
+  //   Delaware Springs: yardage/par are first-party, but rating/slope are not yet
+  //   confirmed, so publish the tee table and withhold rating/slope. Phrased with
+  //   "withhold" rather than "suppress", so it needs its own explicit transcription.
+  { match: /^publish yardage\/par; withhold rating\/slope\.?$/i, gate: "suppress_rating_slope" },
 ]
 
 const teeDisplayGate = (rule, courseId) => {
