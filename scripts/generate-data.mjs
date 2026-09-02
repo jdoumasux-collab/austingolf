@@ -4,15 +4,21 @@
  *
  * Source of truth
  * ---------------
- * AustinGolf_COURSES_Master_Database_v1.9.xlsx is the single source of production
- * facts. v1.9 supersedes v1.8, which in turn superseded the v1.7 provenance
- * recorded inside the older prototype workbook, which was itself only ever a
- * curated product-development projection.
+ * AustinGolf_COURSES_Master_Database_v1.10.xlsx is the single source of production
+ * facts. v1.10 supersedes v1.9, which superseded v1.8, which in turn superseded
+ * the v1.7 provenance recorded inside the older prototype workbook, which was
+ * itself only ever a curated product-development projection.
  *
- * v1.9 differs from v1.8 by exactly one authoritative cell: Master_Properties
- * prp_0003 gains the slug `clay-kizer-golf-complex`. That slug is read from the
- * master rather than derived here — a production identifier invented by the app
- * would be a fact the source of truth never asserted.
+ * v1.9 differed from v1.8 by exactly one authoritative cell: Master_Properties
+ * prp_0003 gained the slug `clay-kizer-golf-complex`.
+ *
+ * v1.10 differs from v1.9 by exactly one authoritative cell: Master_Properties
+ * prp_0044 (Sun City Texas Golf Clubs) gains the slug `sun-city-texas-golf-clubs`.
+ * Batch 2 projects that property's three sibling courses (Legacy Hills, White Wing,
+ * Cowan Creek), which makes the property browsable; a browsable property needs a
+ * canonical URL. As with prp_0003, the slug is read from the master rather than
+ * derived here — a production identifier invented by the app would be a fact the
+ * source of truth never asserted.
  *
  * This script is the ONLY place dataset values enter the app. Nothing is
  * transcribed by hand, so the prototype cannot drift from the source of truth.
@@ -36,7 +42,7 @@ import { read, utils } from "xlsx"
 import fs from "node:fs"
 import path from "node:path"
 
-const SRC = "data/AustinGolf_COURSES_Master_Database_v1.9-bb805b.xlsx"
+const SRC = "data/AustinGolf_COURSES_Master_Database_v1.10.xlsx"
 const OUT = "lib/data/dataset.generated.ts"
 
 /**

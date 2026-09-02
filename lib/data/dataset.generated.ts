@@ -1,5 +1,5 @@
 // GENERATED FILE — DO NOT EDIT BY HAND.
-// Source of truth: data/AustinGolf_COURSES_Master_Database_v1.9-bb805b.xlsx
+// Source of truth: data/AustinGolf_COURSES_Master_Database_v1.10.xlsx
 // Legacy curated features (unmigrated, see generator): data/AustinGolf_COURSES_Prototype_Dataset_v0.1-c4fe13.xlsx
 // Regenerate with: node scripts/generate-data.mjs
 
@@ -895,7 +895,7 @@ export const rawEntities = [
     "propertyId": null,
     "name": "Sun City Texas Golf Clubs",
     "shortName": "Sun City Texas",
-    "slug": null,
+    "slug": "sun-city-texas-golf-clubs",
     "status": "active",
     "holes": null,
     "courseFormat": null,
