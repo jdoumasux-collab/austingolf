@@ -84,6 +84,19 @@ const PROJECTION = {
   crs_0019: "Conditional / semi-private access regression",
   crs_0037: "Private / member-guest access regression",
   crs_0028: "Tee Level C regression — verified summary yardage only",
+  // Batch 2 — Core Greater-Austin public courses. Each verified active + Open
+  // Public against its official source; admitted individually, not by rule. None
+  // maps into the current seven-region model (their dataset area labels are not
+  // in REGION_AREA_MAP), so they are intentionally Finder/Explorer/search-visible
+  // without an Area home — the Area model is resolved cross-cutting after the
+  // expansion batches, not by inventing regions here.
+  crs_0018: "Batch 2; Greater Austin public (Kyle) — no normalized recommendations, collection/area orphan",
+  crs_0020: "Batch 2; Greater Austin public (Pflugerville)",
+  crs_0021: "Batch 2; Greater Austin public (Lago Vista); municipal operator",
+  crs_0026: "Batch 2; Greater Austin public (Bastrop); one verified tee row, slope suppressed",
+  crs_0055: "Batch 2; Sun City Georgetown sibling; no intent-collection classification match",
+  crs_0056: "Batch 2; Sun City Georgetown sibling",
+  crs_0057: "Batch 2; Sun City Georgetown sibling; one verified tee row",
 }
 
 const wb = read(fs.readFileSync(SRC), { cellDates: true })
@@ -379,6 +392,21 @@ const TEE_DISPLAY_RULES = [
   { match: /do not publish disputed rating\/slope\/precise back yardage/i, gate: "suppress_rating_slope_and_back_yardage" },
   { match: /suppress rating\/slope/i, gate: "suppress_rating_slope" },
   { match: /^publish par\/yardage summary only\.?$/i, gate: "summary_only" },
+  // Batch 2 closure-pass rules (Scorecard_QA_Closure_v1). Each is transcribed from
+  // the master's prose and mapped to the gate it describes — not relaxed to admit
+  // the course.
+  //   Plum Creek: par/tee data is source-provenanced and convergent, so the pass
+  //   clears the full table.
+  { match: /^publish par\s?71 and source-provenanced current tee data\.?$/i, gate: "full" },
+  //   ColoVista: only a course-level summary is first-party; no per-tee selector
+  //   is cleared yet.
+  { match: /^publish first-party summary; no full tee selector yet\.?$/i, gate: "summary_only" },
+  //   Lago Vista: sources conflict on rating/slope, so tees/yardage publish while
+  //   rating and slope are withheld.
+  { match: /suppress unverified rating\/slope/i, gate: "suppress_rating_slope" },
+  //   Sun City (Legacy Hills / White Wing / Cowan Creek): detailed ratings are
+  //   provisional secondary extractions, withheld until manual first-party capture.
+  { match: /suppress detailed public ratings/i, gate: "suppress_rating_slope" },
 ]
 
 const teeDisplayGate = (rule, courseId) => {
