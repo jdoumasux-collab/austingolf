@@ -25,6 +25,13 @@
  * derived here — a production identifier invented by the app would be a fact the
  * source of truth never asserted.
  *
+ * Batch 4 (Legends, Lighthouse CC, Double J Ranch, Point Venture, Pedernales
+ * Cut 'N Putt) required NO master change and stays on v1.11: all five are
+ * single-course properties, so none becomes browsable and none needs a slug.
+ * Lighthouse CC is projected with no coordinate — the master asserts no point for
+ * it, and none could be verified — so it publishes everywhere except the map,
+ * which omits any coordinate-less course rather than inventing a location.
+ *
  * This script is the ONLY place dataset values enter the app. Nothing is
  * transcribed by hand, so the prototype cannot drift from the source of truth.
  *
@@ -123,6 +130,22 @@ const PROJECTION = {
   crs_0024: "Batch 3; Hill Country public (Vaaler Creek, Blanco); full verified tees/rating/slope",
   crs_0025: "Batch 3; Hill Country public (Delaware Springs, Burnet); tees published, rating/slope suppressed",
   crs_0064: "Batch 3; Hill Country public (Hidden Falls, Meadowlakes); verified tees/rating/slope",
+  // Batch 4 — final expansion; Highland Lakes / Hill Country. Each verified active
+  // against its official operator source; admitted individually, not by rule. Their
+  // dataset area labels are not in REGION_AREA_MAP, so they are Finder/Explorer/
+  // search-visible without an Area home (Area model resolved after the batches).
+  // Course FORMAT and ACCESS are preserved verbatim, never normalised:
+  //   - Point Venture and Pedernales Cut 'N Putt are 9-hole (par 36) courses, kept
+  //     as 9-hole; Cut 'N Putt is a rugged casual 9, NOT a par-3 executive.
+  //   - Lighthouse is "Public Tee Times" (public play at a course named Country
+  //     Club); the raw access label is shown as-is, not flattened to Open Public.
+  //     The master asserts no coordinate for it, so it publishes everywhere except
+  //     the map, which now defensively omits any course lacking verified coords.
+  crs_0060: "Batch 4; Highland Lakes public (Legends, Kingsland); 18-hole regulation, online booking",
+  crs_0061: "Batch 4; Highland Lakes public-tee-times (Lighthouse CC, Kingsland); no master coordinate -> no map pin",
+  crs_0063: "Batch 4; Hill Country public (Double J Ranch, Wimberley); 18-hole, 24/7 online booking",
+  crs_0022: "Batch 4; public 9-hole (Point Venture, N Lake Travis); par 36, rating/slope not published",
+  crs_0062: "Batch 4; public casual 9-hole (Pedernales Cut 'N Putt, Spicewood); par 36, rugged nine",
 }
 
 const wb = read(fs.readFileSync(SRC), { cellDates: true })
@@ -438,6 +461,19 @@ const TEE_DISPLAY_RULES = [
   //   confirmed, so publish the tee table and withhold rating/slope. Phrased with
   //   "withhold" rather than "suppress", so it needs its own explicit transcription.
   { match: /^publish yardage\/par; withhold rating\/slope\.?$/i, gate: "suppress_rating_slope" },
+  // Batch 4 closure-pass rules (Scorecard_QA_Closure_v1). Each names specific
+  // figures, so the transcription is exact rather than pattern-generalised.
+  //   Legends: back-tee yardage and par are first-party; rating/slope stay in the
+  //   table attributed to their source. Nothing is withheld, so this is the full
+  //   table with provenance, not a suppression.
+  { match: /^publish 7159\/par72; rating\/slope remains source-provenanced\.?$/i, gate: "full" },
+  //   Lighthouse: the full four-tee par-71 table is first-party anchored and
+  //   published with provenance.
+  { match: /^publish 6558\/6034\/5552\/4922 par-71 table with provenance\.?$/i, gate: "full" },
+  //   Double J Ranch: tee configuration is still unclear, so no detailed tee
+  //   metrics publish yet — only the course-level summary. This is the same
+  //   outcome as summary_only (no tee table), reached from a different prose.
+  { match: /^do not publish detailed tee metrics yet\.?$/i, gate: "summary_only" },
 ]
 
 const teeDisplayGate = (rule, courseId) => {

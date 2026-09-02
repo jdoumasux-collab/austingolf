@@ -47,14 +47,31 @@ export function CourseMap({
   const { points, downtown, rings } = useMemo(() => {
     if (!items.length) return { points: [], downtown: null, rings: [] }
 
-    const raw = items.map((item) => ({
-      id: item.entity.id,
-      name: item.entity.name,
-      shortName: item.entity.shortName ?? item.entity.name,
-      isProperty: item.kind === "property",
-      lng: item.entity.lng,
-      lat: item.entity.lat,
-    }))
+    /*
+     * A plotted point needs a real verified coordinate. The dataset types
+     * latitude/longitude as `number | null` (some source rows have no point —
+     * e.g. Lighthouse Country Club, whose location the master does not assert),
+     * and the projection math below would turn a null/NaN into NaN bounds that
+     * break every marker. Such a course is not hidden from the product: it still
+     * has a page, search, list and collection presence. It is only absent from
+     * the map until a verified coordinate exists — an omission, never a guess.
+     */
+    const hasCoord = (v: unknown): v is number =>
+      typeof v === "number" && Number.isFinite(v)
+
+    const raw = items
+      .filter((item) => hasCoord(item.entity.lat) && hasCoord(item.entity.lng))
+      .map((item) => ({
+        id: item.entity.id,
+        name: item.entity.name,
+        shortName: item.entity.shortName ?? item.entity.name,
+        isProperty: item.kind === "property",
+        lng: item.entity.lng,
+        lat: item.entity.lat,
+      }))
+
+    // If nothing in the current result set has coordinates, there is no map.
+    if (!raw.length) return { points: [], downtown: null, rings: [] }
 
     /*
      * Downtown Austin joins the bounds calculation so it is always on-panel.
