@@ -42,8 +42,10 @@ export async function generateMetadata({
   const guide = getGuide(slug)
   if (!course || !guide) return { title: "Guide not found" }
   // Bare title: the root layout's `%s | AustinGolf` template supplies the brand.
+  // "{name}: A Course Guide" rather than "{name} Course Guide" — course names end
+  // in "Golf Course", so the plain form produces a "Course Course" stutter.
   return {
-    title: `${course.name} Course Guide`,
+    title: `${course.name}: A Course Guide`,
     description: guide.dek,
   }
 }
