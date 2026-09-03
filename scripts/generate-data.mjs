@@ -4,11 +4,29 @@
  *
  * Source of truth
  * ---------------
- * AustinGolf_COURSES_Master_Database_v1.14.xlsx is the single source of production
- * facts. v1.14 supersedes v1.13, which superseded v1.12, which superseded v1.11,
- * which superseded v1.10, which superseded v1.9, which superseded v1.8, which in
- * turn superseded the v1.7 provenance recorded inside the older prototype workbook,
- * which was itself only ever a curated product-development projection.
+ * AustinGolf_COURSES_Master_Database_v1.15.xlsx is the single source of production
+ * facts. v1.15 supersedes v1.14, which superseded v1.13, which superseded v1.12,
+ * which superseded v1.11, which superseded v1.10, which superseded v1.9, which
+ * superseded v1.8, which in turn superseded the v1.7 provenance recorded inside the
+ * older prototype workbook, which was itself only ever a curated product-development
+ * projection.
+ *
+ * v1.15 is the non-standard-format expectation-setting batch. It edits exactly ONE
+ * sheet (Master_Courses) and leaves the other 52 byte-identical: it adds a single new
+ * column, `format_expectation`, populated for the six courses whose format defies the
+ * default "regulation 18" mental model, so a visitor landing directly on the page
+ * immediately understands what kind of round it is. Every sentence is grounded in a
+ * first-party source (course/operator site) and states only format + purpose — never a
+ * playing-quality, difficulty, conditioning or value judgment (those remain firsthand).
+ *   - crs_0008 Butler Pitch & Putt — 9-hole par-3 pitch & putt (est. 1949).
+ *   - crs_0007 Hancock — nine-hole par-35 course (1899), oldest in Texas.
+ *   - crs_0009 Harvey Penick — PGA-TOUR-designed par-30 nine; home of First Tee.
+ *   - crs_0005 Joe Balander — 4-hole par-3 short course for short-game practice.
+ *   - crs_0022 Point Venture — full-length par-36 nine (NOT an executive/par-3 course).
+ *   - crs_0062 Pedernales (Willie Nelson's Cut 'N Putt) — full-length par-36 nine; the
+ *     "Cut 'N Putt" name misleads, so the expectation line corrects it explicitly.
+ * No characteristic, recommendation, classification, tee, par, yardage or gate changed.
+ * Collection and guide counts are unchanged; Serious Golf stays 25.
  *
  * v1.14 is the Serious-Golf trust-normalization + zero-characteristic batch. It edits
  * exactly three sheets and leaves the other 50 byte-identical:
@@ -103,7 +121,7 @@ import { read, utils } from "xlsx"
 import fs from "node:fs"
 import path from "node:path"
 
-const SRC = "data/AustinGolf_COURSES_Master_Database_v1.14.xlsx"
+  const SRC = "data/AustinGolf_COURSES_Master_Database_v1.15.xlsx"
 const OUT = "lib/data/dataset.generated.ts"
 
 /**
@@ -290,6 +308,10 @@ const courseEntities = projectedIds.map((id) => {
     status: clean(c.course_status),
     holes: num(c.holes),
     courseFormat: clean(c.course_format),
+    // First-party format/purpose expectation for courses whose layout defies the
+    // default "regulation 18" model. Null for standard courses; states format +
+    // purpose only, never a playing-quality/difficulty/value judgment (v1.15).
+    formatExpectation: clean(c.format_expectation),
     operatingContext: clean(c.operating_context),
     accessType: clean(c.access_type),
     pageAccessProfile: clean(c.page_access_profile),
@@ -322,6 +344,7 @@ const propertyEntities = projectedPropertyIds.map((pid) => {
     status: clean(p.property_status),
     holes: null,
     courseFormat: null,
+    formatExpectation: null,
     // Properties carry `property_type` / `access_context` rather than the
     // course-level equivalents; these are the authoritative property analogues.
     operatingContext: clean(p.property_type),

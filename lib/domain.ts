@@ -125,6 +125,14 @@ export type Course = {
   slug: string
   holes: number | null
   courseFormat: string | null
+  /**
+   * First-party format/purpose expectation for courses whose layout defies the
+   * default "regulation 18" model (e.g. par-3 pitch & putt, a par-30 nine, a
+   * short-game course, or a full-length nine misread as executive). Null for
+   * standard courses. States format + purpose only — never a playing-quality,
+   * difficulty, conditioning or value judgment. Sourced, added in Master v1.15.
+   */
+  formatExpectation: string | null
   operatingContext: string | null
   accessType: string | null
   accessProfile: AccessProfile
@@ -313,6 +321,7 @@ export const courses: Course[] = courseRows.map((e) => ({
   slug: e.slug as string,
   holes: e.holes,
   courseFormat: e.courseFormat,
+  formatExpectation: e.formatExpectation ?? null,
   operatingContext: e.operatingContext,
   accessType: e.accessType,
   accessProfile: toAccessProfile(e.pageAccessProfile, e.entityId as string),
@@ -633,7 +642,7 @@ export type ConsumerRegion = {
 }
 
 /*
- * Approved "Metro & Travel Corridors" model — eleven regions, Austin-core first
+ * Approved "Metro & Travel Corridors" model ��� eleven regions, Austin-core first
  * then outward by direction. Order here sets the hub/landing presentation order.
  * Every blurb states direction, place names and verified inventory only — no
  * drive-time, terrain-quality, tourism or neighbourhood claim the data lacks.

@@ -220,6 +220,25 @@ export default async function CoursePage({
                   `${course.operatingContext} golf in ${course.area}.`)}
             </p>
 
+            {/*
+              Format expectation (Master v1.15). Courses whose layout defies the
+              default "regulation 18" model carry a sourced sentence saying what
+              kind of round it actually is — a par-3 pitch & putt, a par-30 nine,
+              a short-game course, a full-length nine misread as executive. It is
+              arrival-independent (the format is true however you got here) and
+              states format + purpose only, never a quality/difficulty/value
+              verdict, so it sits apart from the orientation line rather than
+              replacing it.
+            */}
+            {course.formatExpectation ? (
+              <p className="mt-4 rounded-lg border border-green/25 bg-green-wash px-4 py-3 text-base leading-relaxed text-ink">
+                <span className="ag-label mb-1 block text-green-deep">
+                  What to expect
+                </span>
+                {course.formatExpectation}
+              </p>
+            ) : null}
+
             {/* Derived map-precision caveat, never the internal geo_note text. */}
             {pointNote ? (
               <p className="mt-4 rounded-lg border border-border bg-cream px-4 py-3 text-sm leading-relaxed text-ink-soft">
