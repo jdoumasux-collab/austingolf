@@ -4,11 +4,26 @@
  *
  * Source of truth
  * ---------------
- * AustinGolf_COURSES_Master_Database_v1.12.xlsx is the single source of production
- * facts. v1.12 supersedes v1.11, which superseded v1.10, which superseded v1.9,
- * which superseded v1.8, which in turn superseded the v1.7 provenance recorded
- * inside the older prototype workbook, which was itself only ever a curated
- * product-development projection.
+ * AustinGolf_COURSES_Master_Database_v1.13.xlsx is the single source of production
+ * facts. v1.13 supersedes v1.12, which superseded v1.11, which superseded v1.10,
+ * which superseded v1.9, which superseded v1.8, which in turn superseded the v1.7
+ * provenance recorded inside the older prototype workbook, which was itself only
+ * ever a curated product-development projection.
+ *
+ * v1.13 is the destination-course basic-data completion pass. It changes exactly
+ * one sheet (Master_Courses) and leaves the other 52 byte-identical, touching only
+ * 35 cells: the seven flagship destination courses (Barton Creek — Fazio Foothills,
+ * Fazio Canyons, Coore Crenshaw, Palmer Lakeside; Horseshoe Bay — Slick Rock, Ram
+ * Rock, Apple Rock) gain first-party par and max_published_yardage plus provenance
+ * (core_data_status = verified_partial, core_data_verified_at, research_notes). All
+ * seven previously had null par and null yardage. Par is published for all seven;
+ * max yardage is the longest CURRENT verified tee per course, EXCEPT Fazio Canyons,
+ * whose yardage is deliberately withheld (null) because three first-party figures
+ * conflict — current page 7433, obsolete 2017 card 7174, and the product's existing
+ * 7153-yard 2026-championship reason — so par publishes but yardage stays unknown
+ * rather than guessed. No tee tables, rating/slope, or publication gates were added
+ * or weakened in this pass — full tee capture is a later batch. Summit Rock stays
+ * members-only and unprojected.
  *
  * v1.12 is the Serious Golf normalization pass. It changes exactly two sheets and
  * leaves the other 51 byte-identical:
@@ -69,7 +84,7 @@ import { read, utils } from "xlsx"
 import fs from "node:fs"
 import path from "node:path"
 
-const SRC = "data/AustinGolf_COURSES_Master_Database_v1.12.xlsx"
+const SRC = "data/AustinGolf_COURSES_Master_Database_v1.13.xlsx"
 const OUT = "lib/data/dataset.generated.ts"
 
 /**

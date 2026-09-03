@@ -1,5 +1,5 @@
 // GENERATED FILE — DO NOT EDIT BY HAND.
-// Source of truth: data/AustinGolf_COURSES_Master_Database_v1.12.xlsx
+// Source of truth: data/AustinGolf_COURSES_Master_Database_v1.13.xlsx
 // Legacy curated features (unmigrated, see generator): data/AustinGolf_COURSES_Prototype_Dataset_v0.1-c4fe13.xlsx
 // Regenerate with: node scripts/generate-data.mjs
 
@@ -492,9 +492,9 @@ export const rawEntities = [
     "latitude": 30.291147,
     "longitude": -97.859941,
     "geoNote": "inherits shared property/campus point",
-    "par": null,
+    "par": 72,
     "architectDisplay": null,
-    "maxPublishedYardage": null,
+    "maxPublishedYardage": 7087,
     "walkingPolicy": null,
     "sourceUrl": "https://www.omnihotels.com/hotels/austin-barton-creek/golf/fazio-foothills",
     "prototypeRole": "Resort; multi-course property sibling"
@@ -518,7 +518,7 @@ export const rawEntities = [
     "latitude": 30.291147,
     "longitude": -97.859941,
     "geoNote": "inherits shared property/campus point",
-    "par": null,
+    "par": 72,
     "architectDisplay": null,
     "maxPublishedYardage": null,
     "walkingPolicy": null,
@@ -544,9 +544,9 @@ export const rawEntities = [
     "latitude": 30.291147,
     "longitude": -97.859941,
     "geoNote": "inherits shared property/campus point",
-    "par": null,
+    "par": 71,
     "architectDisplay": null,
-    "maxPublishedYardage": null,
+    "maxPublishedYardage": 6650,
     "walkingPolicy": null,
     "sourceUrl": "https://www.omnihotels.com/hotels/austin-barton-creek/golf/coore-crenshaw",
     "prototypeRole": "Resort; multi-course property sibling"
@@ -570,9 +570,9 @@ export const rawEntities = [
     "latitude": 30.458582,
     "longitude": -98.099376,
     "geoNote": "verified separate course location (verified_separate_location); do not inherit parent point",
-    "par": null,
+    "par": 72,
     "architectDisplay": null,
-    "maxPublishedYardage": null,
+    "maxPublishedYardage": 6474,
     "walkingPolicy": null,
     "sourceUrl": "https://www.omnihotels.com/hotels/austin-barton-creek/golf/palmer-lakeside",
     "prototypeRole": "Property-affiliated but geographically separate (course-level override)"
@@ -856,9 +856,9 @@ export const rawEntities = [
     "latitude": 30.537893,
     "longitude": -98.369905,
     "geoNote": "inherits shared property/campus point",
-    "par": null,
+    "par": 72,
     "architectDisplay": null,
-    "maxPublishedYardage": null,
+    "maxPublishedYardage": 6867,
     "walkingPolicy": null,
     "sourceUrl": "https://www.hsbresort.com/golf/",
     "prototypeRole": "Batch 3; Horseshoe Bay resort sibling (Slick Rock); editorial-led, no tee data"
@@ -882,9 +882,9 @@ export const rawEntities = [
     "latitude": 30.537893,
     "longitude": -98.369905,
     "geoNote": "inherits shared property/campus point",
-    "par": null,
+    "par": 72,
     "architectDisplay": null,
-    "maxPublishedYardage": null,
+    "maxPublishedYardage": 6926,
     "walkingPolicy": null,
     "sourceUrl": "https://www.hsbresort.com/golf/ram-rock/",
     "prototypeRole": "Batch 3; Horseshoe Bay resort sibling (Ram Rock); editorial-led, no tee data"
@@ -908,9 +908,9 @@ export const rawEntities = [
     "latitude": 30.537893,
     "longitude": -98.369905,
     "geoNote": "inherits shared property/campus point",
-    "par": null,
+    "par": 72,
     "architectDisplay": null,
-    "maxPublishedYardage": null,
+    "maxPublishedYardage": 6999,
     "walkingPolicy": null,
     "sourceUrl": "https://www.hsbresort.com/golf/apple-rock/",
     "prototypeRole": "Batch 3; Horseshoe Bay resort sibling (Apple Rock); editorial-led, no tee data"
