@@ -4,10 +4,25 @@
  *
  * Source of truth
  * ---------------
- * AustinGolf_COURSES_Master_Database_v1.11.xlsx is the single source of production
- * facts. v1.11 supersedes v1.10, which superseded v1.9, which superseded v1.8,
- * which in turn superseded the v1.7 provenance recorded inside the older prototype
- * workbook, which was itself only ever a curated product-development projection.
+ * AustinGolf_COURSES_Master_Database_v1.12.xlsx is the single source of production
+ * facts. v1.12 supersedes v1.11, which superseded v1.10, which superseded v1.9,
+ * which superseded v1.8, which in turn superseded the v1.7 provenance recorded
+ * inside the older prototype workbook, which was itself only ever a curated
+ * product-development projection.
+ *
+ * v1.12 is the Serious Golf normalization pass. It changes exactly two sheets and
+ * leaves the other 51 byte-identical:
+ *   - Decision_Support_Normalized_v2: +4 Serious Golf core_editorial rows (Lost
+ *     Pines strong; Plum Creek, Legends, Delaware Springs moderate); Blackhawk's
+ *     length-driven Serious Golf row removed (its Great for Groups / Practice
+ *     Destination rows kept); White Wing strong->moderate; Teravista, ShadowGlen,
+ *     Forest Creek, Avery Ranch strong->moderate under the owner-refined rule that
+ *     measured difficulty alone is not Strong; six length-only rationales rewritten
+ *     to evidence-based prose. ColoVista is deliberately NOT admitted.
+ *   - Master_Courses: architect_display gap-fills (White Wing = Billy Casper,
+ *     Forest Creek = Dick Phelps, Legends = Tom Kite; Roy Bechtol; Randy Russell,
+ *     Delaware Springs = Axland & Proctor, Lost Pines = Arthur Hills; Steve Forrest).
+ * No tee publication gate was weakened; suppressed rating/slope stays suppressed.
  *
  * v1.9 differed from v1.8 by exactly one authoritative cell: Master_Properties
  * prp_0003 gained the slug `clay-kizer-golf-complex`.
@@ -54,7 +69,7 @@ import { read, utils } from "xlsx"
 import fs from "node:fs"
 import path from "node:path"
 
-const SRC = "data/AustinGolf_COURSES_Master_Database_v1.11.xlsx"
+const SRC = "data/AustinGolf_COURSES_Master_Database_v1.12.xlsx"
 const OUT = "lib/data/dataset.generated.ts"
 
 /**
