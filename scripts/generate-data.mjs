@@ -4,11 +4,30 @@
  *
  * Source of truth
  * ---------------
- * AustinGolf_COURSES_Master_Database_v1.13.xlsx is the single source of production
- * facts. v1.13 supersedes v1.12, which superseded v1.11, which superseded v1.10,
- * which superseded v1.9, which superseded v1.8, which in turn superseded the v1.7
- * provenance recorded inside the older prototype workbook, which was itself only
- * ever a curated product-development projection.
+ * AustinGolf_COURSES_Master_Database_v1.14.xlsx is the single source of production
+ * facts. v1.14 supersedes v1.13, which superseded v1.12, which superseded v1.11,
+ * which superseded v1.10, which superseded v1.9, which superseded v1.8, which in
+ * turn superseded the v1.7 provenance recorded inside the older prototype workbook,
+ * which was itself only ever a curated product-development projection.
+ *
+ * v1.14 is the Serious-Golf trust-normalization + zero-characteristic batch. It edits
+ * exactly three sheets and leaves the other 50 byte-identical:
+ *   - Course_Characteristics_v1: +17 first-party-grounded characteristics for the six
+ *     courses that had none (Avery Ranch, Teravista, Forest Creek, Falconhead, Lost
+ *     Pines, Star Ranch), using existing controlled vocabulary only.
+ *   - Decision_Support_Normalized_v2: Star Ranch's Serious Golf rationale (edi_0023)
+ *     rewritten from length-only to design evidence (undulating greens + white-sand
+ *     bunkering + explicit scratch-player framing); membership unchanged. Plum Creek
+ *     gains Practice Destination + Great for Groups, completing Plum_Creek_Resolution_v1
+ *     (Tee Flexibility deliberately deferred — its rubric needs a verified scorecard
+ *     tee count the same resolution flags as unverified).
+ *   - Master_Courses: Riverside and ColoVista Serious-Golf reviews recorded in
+ *     research_notes (provenance only). Both EXCLUDED — no first-party championship or
+ *     difficulty claim meets the Serious Golf bar; Riverside's Perry Maxwell lineage is
+ *     Guide material, not a challenge badge. An exclusion adds no Decision_Support row.
+ * Serious Golf membership stays 25 (Star Ranch and Plum Creek were already members;
+ * Riverside and ColoVista stay out). Practice Destination and Great for Groups are not
+ * collections, so collection counts are unchanged. No par/yardage or gate was touched.
  *
  * v1.13 is the destination-course basic-data completion pass. It changes exactly
  * one sheet (Master_Courses) and leaves the other 52 byte-identical, touching only
@@ -84,7 +103,7 @@ import { read, utils } from "xlsx"
 import fs from "node:fs"
 import path from "node:path"
 
-const SRC = "data/AustinGolf_COURSES_Master_Database_v1.13.xlsx"
+const SRC = "data/AustinGolf_COURSES_Master_Database_v1.14.xlsx"
 const OUT = "lib/data/dataset.generated.ts"
 
 /**

@@ -1,5 +1,5 @@
 // GENERATED FILE — DO NOT EDIT BY HAND.
-// Source of truth: data/AustinGolf_COURSES_Master_Database_v1.13.xlsx
+// Source of truth: data/AustinGolf_COURSES_Master_Database_v1.14.xlsx
 // Legacy curated features (unmigrated, see generator): data/AustinGolf_COURSES_Prototype_Dataset_v0.1-c4fe13.xlsx
 // Regenerate with: node scripts/generate-data.mjs
 
@@ -1479,7 +1479,7 @@ export const rawRecommendations = [
     "strength": "moderate",
     "confidence": "medium",
     "displayTier": "supporting_candidate",
-    "whyItFits": "7,017-yard par-71 setup provides substantial length.",
+    "whyItFits": "Beyond raw length, the golf itself sets a shot-making test: undulating fairways and greens defended by pristine white-sand bunkering, a layout the course explicitly pitches to hold interest for the scratch player as well as the novice.",
     "classificationLayer": "core_editorial",
     "excluded": false
   },
@@ -2813,6 +2813,28 @@ export const rawRecommendations = [
     "whyItFits": "An Axland & Proctor links-style layout whose minimalist, ground-game architecture — firm contours, exposed lies and open approaches — lets a skilled player shape and run shots rather than simply overpower the course.",
     "classificationLayer": "core_editorial",
     "excluded": false
+  },
+  {
+    "courseId": "crs_0018",
+    "courseName": "Plum Creek Golf Course",
+    "classification": "Practice Destination",
+    "strength": "strong",
+    "confidence": "high",
+    "displayTier": "primary_candidate",
+    "whyItFits": "Practice depth is a genuine reason to choose Plum Creek: a Toptracer-equipped driving range, a three-acre short-game complex, and on-site instruction including a junior academy.",
+    "classificationLayer": "core_editorial",
+    "excluded": false
+  },
+  {
+    "courseId": "crs_0018",
+    "courseName": "Plum Creek Golf Course",
+    "classification": "Great for Groups",
+    "strength": "moderate",
+    "confidence": "high",
+    "displayTier": "secondary_candidate",
+    "whyItFits": "Built for organised group golf, with dedicated outing and tournament support, an on-site events venue (the Mockingbird Room), and food and beverage at Glenn's Bar & Grill.",
+    "classificationLayer": "core_editorial",
+    "excluded": false
   }
 ] as const
 
@@ -3851,6 +3873,210 @@ export const rawCourseCharacteristics = [
     "confidence": "high",
     "verifiedAt": "2026-08-17",
     "sourceUrl": "https://www.plumcreekgolf.com/contact/news/18-hole-golf-kyle"
+  },
+  {
+    "characterId": "chr_0081",
+    "courseId": "crs_0012",
+    "characteristic": "Hill Country / Rolling",
+    "strength": "strong",
+    "reason": "Layout identity is a real Hill Country experience routed over gentle rolling hills.",
+    "evidenceBasis": "Avery Ranch course page: 'a real Hill Country golf experience ... gentle rolling hills'.",
+    "evidenceType": "first_party_explicit",
+    "confidence": "high",
+    "verifiedAt": "2026-09-03",
+    "sourceUrl": "https://averyranch.com/course/"
+  },
+  {
+    "characterId": "chr_0082",
+    "courseId": "crs_0012",
+    "characteristic": "Oak-lined / Natural",
+    "strength": "strong",
+    "reason": "Fairways are framed by oak lines rather than open corridors.",
+    "evidenceBasis": "Avery Ranch course page: 'oak-lined fairways'.",
+    "evidenceType": "first_party_explicit",
+    "confidence": "high",
+    "verifiedAt": "2026-09-03",
+    "sourceUrl": "https://averyranch.com/course/"
+  },
+  {
+    "characterId": "chr_0083",
+    "courseId": "crs_0012",
+    "characteristic": "Water-featured",
+    "strength": "moderate",
+    "reason": "Water is an occasional strategic feature, headlined by the lake-side closing hole.",
+    "evidenceBasis": "Avery Ranch course page: '60-acre lake'; 18th hole 'bordering Avery Lake'.",
+    "evidenceType": "first_party_explicit",
+    "confidence": "high",
+    "verifiedAt": "2026-09-03",
+    "sourceUrl": "https://averyranch.com/course/"
+  },
+  {
+    "characterId": "chr_0084",
+    "courseId": "crs_0013",
+    "characteristic": "Hill Country Views",
+    "strength": "strong",
+    "reason": "Long-range Hill Country views are a defining part of the experience.",
+    "evidenceBasis": "Teravista site: 'captures the beauty of the Texas Hill Country with views that span for over 50 miles'.",
+    "evidenceType": "first_party_explicit",
+    "confidence": "high",
+    "verifiedAt": "2026-09-03",
+    "sourceUrl": "https://teravistagolf.com/"
+  },
+  {
+    "characterId": "chr_0085",
+    "courseId": "crs_0013",
+    "characteristic": "Rolling",
+    "strength": "strong",
+    "reason": "Rolling terrain shapes the challenge across the layout.",
+    "evidenceBasis": "Teravista site: 'The rolling terrain provides a challenging 7,200-yard layout'.",
+    "evidenceType": "first_party_explicit",
+    "confidence": "high",
+    "verifiedAt": "2026-09-03",
+    "sourceUrl": "https://teravistagolf.com/"
+  },
+  {
+    "characterId": "chr_0086",
+    "courseId": "crs_0013",
+    "characteristic": "Championship-scale",
+    "strength": "moderate",
+    "reason": "Presented as a championship-length 18-hole test with five tee sets.",
+    "evidenceBasis": "Teravista site: 'Championship 18-hole golf club ... 7,200-yard layout ... 5 different sets of tees'.",
+    "evidenceType": "first_party_explicit",
+    "confidence": "high",
+    "verifiedAt": "2026-09-03",
+    "sourceUrl": "https://teravistagolf.com/"
+  },
+  {
+    "characterId": "chr_0087",
+    "courseId": "crs_0014",
+    "characteristic": "Hill Country / Rolling",
+    "strength": "strong",
+    "reason": "Hill Country character over rolling fairways is the course's stated identity.",
+    "evidenceBasis": "Forest Creek site: 'hill country golf at its finest'; 'rolling fairways'.",
+    "evidenceType": "first_party_explicit",
+    "confidence": "high",
+    "verifiedAt": "2026-09-03",
+    "sourceUrl": "https://forestcreek.com/"
+  },
+  {
+    "characterId": "chr_0088",
+    "courseId": "crs_0014",
+    "characteristic": "Practice-rich",
+    "strength": "moderate",
+    "reason": "The practice offering is substantial enough to factor into course choice.",
+    "evidenceBasis": "Forest Creek site: 'outstanding practice range enhanced by a putting green and short-game complex'.",
+    "evidenceType": "first_party_explicit",
+    "confidence": "high",
+    "verifiedAt": "2026-09-03",
+    "sourceUrl": "https://forestcreek.com/"
+  },
+  {
+    "characterId": "chr_0089",
+    "courseId": "crs_0014",
+    "characteristic": "Championship-scale",
+    "strength": "moderate",
+    "reason": "A nationally recognised championship-length par-72 public course.",
+    "evidenceBasis": "Forest Creek site: '7,147 yard par-72 ... nationally recognized'; Golf Digest 'Best Public Golf Course in Central Texas'.",
+    "evidenceType": "first_party_explicit",
+    "confidence": "high",
+    "verifiedAt": "2026-09-03",
+    "sourceUrl": "https://forestcreek.com/"
+  },
+  {
+    "characterId": "chr_0090",
+    "courseId": "crs_0011",
+    "characteristic": "Hill Country / Rolling",
+    "strength": "strong",
+    "reason": "Sits on Hill Country land defined by rolling hills.",
+    "evidenceBasis": "Falconhead site: 'the famous Hill Country of Texas ... our rolling hills'.",
+    "evidenceType": "first_party_explicit",
+    "confidence": "high",
+    "verifiedAt": "2026-09-03",
+    "sourceUrl": "https://falconheadaustin.com/"
+  },
+  {
+    "characterId": "chr_0091",
+    "courseId": "crs_0011",
+    "characteristic": "Oak-lined / Natural",
+    "strength": "moderate",
+    "reason": "Native oaks and cedars frame the corridors.",
+    "evidenceBasis": "Falconhead site: 'From our knobby oaks and cedars'.",
+    "evidenceType": "first_party_explicit",
+    "confidence": "high",
+    "verifiedAt": "2026-09-03",
+    "sourceUrl": "https://falconheadaustin.com/"
+  },
+  {
+    "characterId": "chr_0092",
+    "courseId": "crs_0011",
+    "characteristic": "Water-influenced",
+    "strength": "moderate",
+    "reason": "Creeks and ponds bring water into play.",
+    "evidenceBasis": "Falconhead site: 'our creeks and ponds'.",
+    "evidenceType": "first_party_explicit",
+    "confidence": "high",
+    "verifiedAt": "2026-09-03",
+    "sourceUrl": "https://falconheadaustin.com/"
+  },
+  {
+    "characterId": "chr_0093",
+    "courseId": "crs_0028",
+    "characteristic": "Wooded / Framed",
+    "strength": "strong",
+    "reason": "The Lost Pines woodland defines the setting the golf plays through.",
+    "evidenceBasis": "Lost Pines golf page: 'views of the Lost Pines woodland and the spectacular Texan landscape'.",
+    "evidenceType": "first_party_explicit",
+    "confidence": "high",
+    "verifiedAt": "2026-09-03",
+    "sourceUrl": "https://www.lostpinesresortandspa.com/golf/"
+  },
+  {
+    "characterId": "chr_0094",
+    "courseId": "crs_0028",
+    "characteristic": "Championship-scale",
+    "strength": "moderate",
+    "reason": "An Arthur Hills championship-length par-72 layout.",
+    "evidenceBasis": "Lost Pines golf page: 'Designed by ... Arthur Hills, our 7,300-yard, par-72 golf course'; 'championship 18-hole golf course'.",
+    "evidenceType": "first_party_explicit",
+    "confidence": "high",
+    "verifiedAt": "2026-09-03",
+    "sourceUrl": "https://www.lostpinesresortandspa.com/golf/"
+  },
+  {
+    "characterId": "chr_0095",
+    "courseId": "crs_0028",
+    "characteristic": "Practice-rich",
+    "strength": "moderate",
+    "reason": "Practice scale is a genuine draw rather than an afterthought.",
+    "evidenceBasis": "Lost Pines golf page: '13-acre driving range with eight target greens, two short-game greens'.",
+    "evidenceType": "first_party_explicit",
+    "confidence": "high",
+    "verifiedAt": "2026-09-03",
+    "sourceUrl": "https://www.lostpinesresortandspa.com/golf/"
+  },
+  {
+    "characterId": "chr_0096",
+    "courseId": "crs_0015",
+    "characteristic": "Rolling / Undulating",
+    "strength": "strong",
+    "reason": "Undulation runs through both the fairways and the greens.",
+    "evidenceBasis": "Star Ranch course page: 'undulating fairways and greens'.",
+    "evidenceType": "first_party_explicit",
+    "confidence": "high",
+    "verifiedAt": "2026-09-03",
+    "sourceUrl": "https://www.starranchgolf.com/course/"
+  },
+  {
+    "characterId": "chr_0097",
+    "courseId": "crs_0015",
+    "characteristic": "Strategic",
+    "strength": "moderate",
+    "reason": "White-sand bunkering around the greens sets up a shot-making test pitched up to the scratch player.",
+    "evidenceBasis": "Star Ranch course page: 'greens flanked by pristine white sand bunkers ... an enjoyable experience for both the novice and scratch golfer'.",
+    "evidenceType": "first_party_explicit",
+    "confidence": "high",
+    "verifiedAt": "2026-09-03",
+    "sourceUrl": "https://www.starranchgolf.com/course/"
   }
 ] as const
 
