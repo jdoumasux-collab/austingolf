@@ -20,6 +20,7 @@ import { courseBySlug } from "@/lib/domain"
 import type { Guide } from "@/lib/guide"
 import { lionsGuide } from "@/content/guides/lions-municipal-golf-course"
 import { royKizerGuide } from "@/content/guides/roy-kizer-golf-course"
+import { riversideGuide } from "@/content/guides/riverside-golf-course"
 
 /**
  * Every published Guide.
@@ -29,7 +30,7 @@ import { royKizerGuide } from "@/content/guides/roy-kizer-golf-course"
  * whose slug changed in the master data — would otherwise produce a page with no
  * structured facts to reference and no Course Page to return to.
  */
-const published: Guide[] = [lionsGuide, royKizerGuide].filter((g) => courseBySlug.has(g.slug))
+const published: Guide[] = [lionsGuide, royKizerGuide, riversideGuide].filter((g) => courseBySlug.has(g.slug))
 
 export const guideBySlug = new Map(published.map((g) => [g.slug, g]))
 
